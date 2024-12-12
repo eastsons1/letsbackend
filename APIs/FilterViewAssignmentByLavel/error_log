@@ -1,0 +1,23 @@
+[21-Oct-2024 13:01:52 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 212
+[21-Oct-2024 13:01:55 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 212
+[21-Oct-2024 13:01:56 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 212
+[21-Oct-2024 13:13:42 UTC] PHP Parse error:  syntax error, unexpected token "echo" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 221
+[21-Oct-2024 13:13:44 UTC] PHP Parse error:  syntax error, unexpected token "echo" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 221
+[21-Oct-2024 13:40:14 UTC] PHP Parse error:  syntax error, unexpected token "if", expecting "," or ";" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 230
+[21-Oct-2024 14:44:41 UTC] PHP Parse error:  Unmatched '}' in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 343
+[21-Oct-2024 14:44:43 UTC] PHP Parse error:  Unmatched '}' in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 343
+[22-Oct-2024 08:27:19 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 487
+[22-Oct-2024 08:27:23 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 487
+[22-Oct-2024 08:27:24 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 487
+[22-Oct-2024 08:27:29 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 487
+[22-Oct-2024 08:27:32 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 487
+[22-Oct-2024 08:41:43 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 502
+[22-Oct-2024 08:41:47 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 502
+[22-Oct-2024 08:44:48 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 503
+[22-Oct-2024 08:44:51 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 503
+[22-Oct-2024 08:44:57 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 503
+[22-Oct-2024 08:45:48 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 503
+[22-Oct-2024 08:45:51 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 503
+[22-Oct-2024 08:45:55 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 503
+[22-Oct-2024 08:51:06 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 505
+[22-Oct-2024 08:53:54 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/louis/public_html/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php on line 506

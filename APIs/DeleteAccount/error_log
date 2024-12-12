@@ -1,0 +1,19 @@
+[19-Nov-2024 12:01:14 UTC] PHP Parse error:  Unmatched ')' in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 155
+[19-Nov-2024 12:10:07 UTC] PHP Warning:  Undefined variable $from_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2297
+[19-Nov-2024 12:10:07 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2209
+[19-Nov-2024 12:10:07 UTC] PHP Warning:  Undefined variable $to_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2298
+[19-Nov-2024 12:10:07 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2209
+[19-Nov-2024 12:10:07 UTC] PHP Warning:  Undefined variable $from_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2313
+[19-Nov-2024 12:10:07 UTC] PHP Warning:  Undefined variable $to_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2313
+[19-Nov-2024 12:10:07 UTC] PHP Warning:  file_get_contents(/path/to/private.key): Failed to open stream: No such file or directory in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2227
+[19-Nov-2024 12:10:07 UTC] PHP Warning:  Undefined property: PHPMailer::$DKIM_passphrase in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2228
+[19-Nov-2024 12:10:07 UTC] PHP Warning:  openssl_sign(): Supplied key param cannot be coerced into a private key in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2233
+[19-Nov-2024 12:10:26 UTC] PHP Warning:  Undefined variable $from_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2297
+[19-Nov-2024 12:10:26 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2209
+[19-Nov-2024 12:10:26 UTC] PHP Warning:  Undefined variable $to_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2298
+[19-Nov-2024 12:10:26 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2209
+[19-Nov-2024 12:10:26 UTC] PHP Warning:  Undefined variable $from_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2313
+[19-Nov-2024 12:10:26 UTC] PHP Warning:  Undefined variable $to_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2313
+[19-Nov-2024 12:10:26 UTC] PHP Warning:  file_get_contents(/path/to/private.key): Failed to open stream: No such file or directory in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2227
+[19-Nov-2024 12:10:26 UTC] PHP Warning:  Undefined property: PHPMailer::$DKIM_passphrase in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2228
+[19-Nov-2024 12:10:26 UTC] PHP Warning:  openssl_sign(): Supplied key param cannot be coerced into a private key in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2233

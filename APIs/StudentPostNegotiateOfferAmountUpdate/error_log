@@ -1,0 +1,3 @@
+[26-Nov-2024 10:47:33 UTC] PHP Parse error:  syntax error, unexpected variable "$Amount" in /home/mytutors/public_html/version3/APIs/StudentPostNegotiateOfferAmountUpdate/StudentPostNegotiateOfferAmountUpdate.php on line 284
+[26-Nov-2024 10:47:42 UTC] PHP Parse error:  syntax error, unexpected variable "$Amount" in /home/mytutors/public_html/version3/APIs/StudentPostNegotiateOfferAmountUpdate/StudentPostNegotiateOfferAmountUpdate.php on line 284
+[04-Dec-2024 11:44:40 UTC] PHP Parse error:  Unclosed '{' on line 252 does not match ')' in /home/mytutors/public_html/version3/APIs/StudentPostNegotiateOfferAmountUpdate/StudentPostNegotiateOfferAmountUpdate.php on line 481
