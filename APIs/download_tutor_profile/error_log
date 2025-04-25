@@ -1,0 +1,6 @@
+[24-Jan-2025 11:35:17 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/mytutors/public_html/version3/APIs/download_tutor_profile/generate_invoice.php on line 91
+[24-Jan-2025 11:36:40 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/mytutors/public_html/version3/APIs/download_tutor_profile/generate_invoice.php on line 91
+[27-Jan-2025 07:56:49 UTC] PHP Parse error:  syntax error, unexpected identifier "s" in /home/mytutors/public_html/version3/APIs/download_tutor_profile/generate_invoice.php on line 172
+[27-Jan-2025 07:59:06 UTC] PHP Parse error:  syntax error, unexpected identifier "s" in /home/mytutors/public_html/version3/APIs/download_tutor_profile/generate_invoice.php on line 172
+[27-Jan-2025 07:59:08 UTC] PHP Parse error:  syntax error, unexpected identifier "s" in /home/mytutors/public_html/version3/APIs/download_tutor_profile/generate_invoice.php on line 172
+[27-Jan-2025 08:08:27 UTC] PHP Parse error:  syntax error, unexpected identifier "s" in /home/mytutors/public_html/version3/APIs/download_tutor_profile/generate_invoice.php on line 172

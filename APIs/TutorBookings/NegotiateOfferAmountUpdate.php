@@ -10,7 +10,18 @@ header('content-type:application/json');
 
 
 
+
 	//// Notification start
+	
+	
+		$student_data = mysqli_fetch_array($conn->query("SELECT first_name,last_name FROM user_info WHERE user_id = '".$_POST['student_id']."' "));
+
+
+		 $first_char = strtoupper(substr($student_data['first_name'], 0, 1));
+
+		$last_char = strtoupper(substr($student_data['last_name'], 0, 1));
+
+							
 	
 			
 		function base64UrlEncode($data) {
@@ -37,8 +48,8 @@ header('content-type:application/json');
 		// Function to get the access token from Google OAuth 2.0 server
 		function getAccessToken() {
 			// Service account details
-			$serviceAccountEmail = 'firebase-adminsdk-owdis@tutorapp-7522f.iam.gserviceaccount.com'; // Replace with your service account email
-			$privateKey = "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCf8zAuesHZz7+h\n/Rz0DLbo6ScR4InXnhuz3R2pflzROAH2SNukxShYj+T6rLdL5TBPzOsTa0Gyfu3c\natsx9fbs/ZBEEBvq0FT4cAPJkA1HTYKRn2NhDaxslj4y+/6LWG7WnrODPZpnesqi\nyfaNM7BYp4xVLz1bjykMPZIa26DbuhzO2hb/BMqiYSkqTxX8ZJvPKXZUQkjGPNnu\nnAQwRnhBtNT2cozz+QA0TKR4E4kXHuFYX+vBTjrqIXRdRtmYgF8HSewTqBF1gzbo\n0yPa2OJq4azspQggEhFTVjkxd6rwDe/MPSTm6A4rJqSwa+m6V256BCK/+rGEr2wf\n1g7853nlAgMBAAECggEACLrkQVUv6Wx+YCAJiYR8I0A+gqpHu74Ecw+5g7vC4yR0\nbvXRDzA3oIXSEKCGrJzIw0JC/l9XSZ/F6cbnSdXL8Wlxi1V5wJo4WQr8Ge9D2kVv\nv/T8Hpr5cz/MC0pXvVFJU2t8Dsi4+bbpAnOVgmV01ZHnheq7JZktu15M8CxWnkd3\nA8eMUuKjS0G/cLN4/jZ3TDgiY5yaWeuQ07aPwbgXUK3XPpn2Tt8W7Ycf6j69n/Ol\n3EdByZXu1h9YqvmCUmHjiaaCB7/xLmo3kKvIaNcy87KW92ck0dVnl48DzcqK8PBA\n3ci3hi2ew5q9lDlPeYfT2700aT1qcd1Y8vr26OJyDQKBgQC3tlvFGeVkk1m7GHR9\nC8JoCkFDoQtDCv/sVDAf1p96NBkuuaGyOsAaLtmtXFGZ38c49Ci2DXEmfiVTq0rY\nsBp/eKDhr0P3wbUkauRXhOOYlxsaQGjqHW1+/nlA07vCnUxi1XFJnnfBkApk8xRe\ns22XCAqmXiGMJxQADRUAm2Np1wKBgQDe4zTP0wTDLTpWNJIe3evhj0V6yZ3MFNj3\nGhJTjB5wAaUaEzhG8mB9fL/w7VWW2e0bHu3Y9hWWrBjXdTXPP0RQPSQEk6DLmIJI\nZBJcpP9k9YRlcS7cdJBJjJJMZroQ3jqWMZVxTDix2+pH+PdgdIjWsGCtO0kHpQwV\nhg6SlBbaowKBgCiveC90hrr5bxviVJoE6q8D5mRF3Cqi2v7Jvkauz27O7uzMK6U/\nIaAq1AZytZewWXyhhgqbe32c3kNjYhYPGi801dxlZlYOTkGccql3QrhebqAnt5Rx\no/hF/zB+M8zr7SjOQGKfd8IkVkj5FH/MmO6j10f0/NT/KozAWPBjeWbNAoGAH5aD\nvZBidGbMhbsdmlJJQ8ZSSnyYaHvr49lGD6EkDyusgm2G5EcldaNgcHyyTJbGC7nu\na3k0xg3N13s9DQoiXFzN5fgmKbSLgkbsc0TPDTfec6H+yi+a41GQylMku49DLlYI\nn+31ev93zIt0Q69AVWzZxrNIPlUdyU8ecZebRZECgYAn6PuHDKUVkDiXGtX5EFTO\n98SK+ly3p0kIHZEJX0iE1JrSTcbAV7OYDoWsEAVOQy4SIhOCZWmdp/PbxfXPZSer\nnrOoXCMPGdjBIHcwxE55K3fH5zDABmEa3EIvJh/Hiq3Vygk/jSS5WryPZxXPbX+E\n18f40jBc5OqI3EkG3VbwPw==\n-----END PRIVATE KEY-----\n";
+			$serviceAccountEmail = 'firebase-adminsdk-fbsvc@tutorapp-7522f.iam.gserviceaccount.com'; // Replace with your service account email
+			$privateKey = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCwZcOIvh9XPQD6\nqwqnA89sHaase9+3s18TR3C4CFwqN6cqTv1tsAWqEMEg0aYFm2i3/KMFAma6LgN1\n8hDt4ZNqeVSj/XzL60iWDIDHKAE2F65upKUNMxeLc5qaYk4i9nJP7FbL/0EEhak2\nrJcHx63LNb/974vb26zy7jfXiGEJrDgLZkOrZMpO25g+MHH5h97L1s+hYF77Eygh\nuourI/ls6rn50mWlPgDqe1YgpK3H7xDvavtilktttZalbgv1bABHwlzE9Uas1H5y\neXqfAPaJu2hN+8CxaG6KUUmLqRaWTFFf0EnB5MDI1yJnVlKE2mtSfNdKZZs0zxlu\nDFc26zc5AgMBAAECggEAK+YbeB2mk5GfO4LTCxb36SZk6yKF3cPyOoxKKUaNV0VT\n4QPY7pICit0SDx6VlGolcLpbAJ1lHtriKhlkrKq5guMwlQI5607B2PPCHa4fRQy2\nMJthZwxKxP3vYRHrc6iE8M52mFyNG/i+kJh5mqpPHlYhUmsp0XyVSTzPIWCzk5IB\nWB6Q0fFrRfuFOX3pwoFWkjbqs0nRNxNy9/oAxcZUnwQw8m6Iv48NLFajgE4tNx9+\n0Vz8hNJ5LPeAVTiBU6+XQ9dmvQQKIIAzrzR7ujLP8syBq39+1DpCTr2ZVnITmIpX\nhy1bNmK/8K/tnO5R0BdVu84wiYnDK20zFRzRFSTJzQKBgQD124cM+sioke7+Rg6n\nARWz/zzvuDcRfT8lQM+Dl9SVW/PP3DH/+KmhkbRa89r39PnfpAkJtq7uSRB0+xis\nCw4W62iDOTgZ37clamOe2kvh8iidHbG0LUSZOK34V4TV+SkttLqWeFW3Gdaa751k\nqjbIK9fZnPFbMC/cZdqooH8/bQKBgQC3rK1eGkzK03yaNFscdlDNyXtNyM+zhqGR\nLU3Dn8jzgv71mHP4aXJJ4E74lgISINi2fXnX3rxeRTEu8tso79GQu8zruinsZTuD\nSXsOccW0SmdyBdMfO/a+3pg5BOfLTpM+dBVaU2GVpaIv0JhOB5MtweNnt5DISfY0\n5ICtdEPbfQKBgQDwMlWzHKBF8K1pxtAx4SFvBYJnQbarY435u2QB0Khkc72z6hD/\nX9V6gHuQEIZxkek90WjzEIO/Uaq+X0Mvcm2FfuBQs+pXfPXVnCdP3z4btRZwyb3/\npepLN9Dfu8GPuym7+cIBl/dGN/wuysMewh1bW1o6xNYYnO9liC0kagln0QKBgBq3\nnnxKvRLf0ocnyH0KZNSaUzpMVJIbqlLQ0Tf8fSGW03lsFKp0xDAk1bfpMiHq7zsU\nY23YM3RPAkl/AAwjXkt8VeGQMdr2GsMNJD5EpGqGTCfU2xH3CfxXqrLYmNME+fwi\nrJx39oDrF/12jUEEbw8/3dFPbVsFDzBAcMtKVziNAoGAAYYoBfrGhZBoEBzXBM+V\nxaa2Aly0VvkF4AZQTMGdMzlAosh8BE9VnE+pna4I9qhyYrOjJgX285GXz8r5EXbZ\nbLWZmte9CC9ENrT3RcKZWmW3Bxv5VvpITWQcNrB3j9D2uc+cfscCvVvCBxkV/LmQ\nzI4R2gJYm7sNq5AlmKNSprA=\n-----END PRIVATE KEY-----\n";
 
 			// JWT Header
 			$header = array(
@@ -92,7 +103,7 @@ header('content-type:application/json');
 		}
 
 
-
+	
 							
 
 
@@ -141,6 +152,7 @@ header('content-type:application/json');
 									)
 					)
 				);
+				
 
 			// Convert payload to JSON
 			$payloadJson = json_encode($notificationPayload);
@@ -187,7 +199,7 @@ header('content-type:application/json');
 			
 
 
-
+		$create_date = date("d-m-Y h:i:s");
 
 	
 		$user_id_to_send_notification = $_POST['user_id_to_send_notification'];
@@ -222,7 +234,7 @@ header('content-type:application/json');
 
 					/// Record updated
 					
-					 $sql = $conn->query($aa="UPDATE tutor_booking_process SET amount_negotiate_by_student = '".$_POST['amount_negotiate_by_student']."', negotiate_by_student_amount_type = '".$_POST['negotiate_by_student_amount_type']."', negotiateby = '".$_POST['negotiateby']."'  WHERE student_id = '".$_POST['student_id']."' and tutor_tution_offer_amount_type = '".$_POST['tutor_tution_offer_amount_type']."' and tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."'  ");
+					 $sql = $conn->query("UPDATE tutor_booking_process SET amount_negotiate_by_student = '".$_POST['amount_negotiate_by_student']."', negotiate_by_student_amount_type = '".$_POST['negotiate_by_student_amount_type']."', negotiateby = '".$_POST['negotiateby']."', update_date_time = '".$create_date."'  WHERE student_id = '".$_POST['student_id']."' and tutor_tution_offer_amount_type = '".$_POST['tutor_tution_offer_amount_type']."' and tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."'  ");
 					
 					//echo $aa;
 					
@@ -243,8 +255,8 @@ header('content-type:application/json');
 							$tutor_data = mysqli_fetch_array($conn->query("SELECT profile_image,qualification,tutor_code,flag FROM user_tutor_info WHERE user_id = '".$tutor_idVSql['tutor_id']."' "));
 								
 							///Student data
-							$student_data = mysqli_fetch_array($conn->query("SELECT first_name,last_name FROM user_info WHERE user_id = '".$tutor_idVSql['student_id']."' "));
-									
+							
+	
 							
 							$amount_negotiate_by_tutor = '';
 							$ProfilePic = '';
@@ -253,31 +265,31 @@ header('content-type:application/json');
 							$flag = '';
 							$amount_negotiate_by_student =  '';
 							$tutor_tution_offer_amount = '';
-							$tutor_booking_process_id = '';
 							$tutor_tution_offer_amount_type = '';
-							$tutor_id = '';
 							$student_id = '';
 							$negotiate_by_tutor_amount_type = '';
-							
-							
 							$student_offer_date = $tutor_idVSql['student_offer_date'];
 							$tutor_accept_date_time_status = $tutor_idVSql['tutor_accept_date_time_status'];
 							$student_date_time_offer_confirmation = $tutor_idVSql['student_date_time_offer_confirmation'];
 							$offer_status = $tutor_idVSql['offer_status']; 
 							$tutor_offer_date = $tutor_idVSql['tutor_offer_date']; 
 							$tutor_offer_time = $tutor_idVSql['tutor_offer_time'];
-							$student_first_name = $student_data['first_name'];
-							$student_last_name = $student_data['last_name'];
+							
 							
 							
 						}
 						else{
-							$screen = 'MyBookingTutor';
+							$screen = 'TutorAcceptNegotiate';    /////$screen = 'MyBookingTutor';   changed by prince
 						}
 						
+						
+						$tutor_booking_process_id = $_POST['tutor_booking_process_id'];
+						$student_first_name = $student_data['first_name'];
+						$student_last_name = $student_data['last_name'];
+						
 					
-						$title = 'Payment offer';
-						$body = 'Client has made you a fee offer';
+						 $title = $first_char.$last_char.' has made you a Fee Offer';
+						$body = 'View Details in My Bookings/In Progress';
 					
 						$SelectedTab = "InProgress";
 					
@@ -295,15 +307,39 @@ header('content-type:application/json');
 					
 					//print_r(sendPushNotification($accessToken, $to, $title, $screen, $body));
 					
+					  $tutor_idw = $_POST['tutor_id'];
+					
+					
 							if(sendPushNotification(
 								$accessToken, $to, $title, $screen, $SelectedTab, $amount_negotiate_by_tutor, $ProfilePic, 
 								$qualification, $TutorCode, $flag, $amount_negotiate_by_student, $tutor_tution_offer_amount, 
-								$tutor_booking_process_id, $tutor_tution_offer_amount_type, $tutor_id, $student_id, 
+								$tutor_booking_process_id, $tutor_tution_offer_amount_type, $tutor_idw, $student_id, 
 								$negotiate_by_tutor_amount_type, $body, $student_offer_date, $tutor_accept_date_time_status, 
 								$student_date_time_offer_confirmation, $offer_status, $tutor_offer_date, $tutor_offer_time, 
 								$student_first_name, $student_last_name) )   // Output the result of sending the notification
 							{
+								
+								
 								$notify = 'Notification sent successfully.';
+								
+								
+								/// Add Notification
+								$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$user_id_to_send_notification."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - NegotiateOfferAmountUpdate' ");
+								if(mysqli_num_rows($chk_noti)>0)
+								{
+									$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$user_id_to_send_notification."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - NegotiateOfferAmountUpdate' ");
+								
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$user_id_to_send_notification."', title = '".$title."', message = '".$body."', source = 'FROM API - NegotiateOfferAmountUpdate', created_date = '".$create_date."' ");
+								}
+								else{
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$user_id_to_send_notification."', title = '".$title."', message = '".$body."', source = 'FROM API - NegotiateOfferAmountUpdate', created_date = '".$create_date."' ");
+								
+								}
+								
+								
+								
+								
+								
 							}
 							else{
 								
@@ -334,6 +370,22 @@ header('content-type:application/json');
 								$student_first_name, $student_last_name) )   // Output the result of sending the notification
 							{
 								$notify = 'Notification sent successfully.';
+								
+								/// Add Notification
+								$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$user_id_to_send_notification."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - NegotiateOfferAmountUpdate' ");
+								if(mysqli_num_rows($chk_noti)>0)
+								{
+									$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$user_id_to_send_notification."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - NegotiateOfferAmountUpdate' ");
+								
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$user_id_to_send_notification."', title = '".$title."', message = '".$body."', source = 'FROM API - NegotiateOfferAmountUpdate', created_date = '".$create_date."' ");
+								}
+								else{
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$user_id_to_send_notification."', title = '".$title."', message = '".$body."', source = 'FROM API - NegotiateOfferAmountUpdate', created_date = '".$create_date."' ");
+								
+								}
+								
+								
+								
 							}
 							else
 							{
@@ -412,7 +464,7 @@ header('content-type:application/json');
 
 					/// Record updated
 					
-					 $sql = $conn->query("UPDATE tutor_booking_process SET amount_negotiate_by_tutor = '".$_POST['amount_negotiate_by_tutor']."', negotiate_by_tutor_amount_type = '".$_POST['negotiate_by_tutor_amount_type']."' , negotiateby = '".$_POST['negotiateby']."' WHERE tutor_id = '".$_POST['tutor_id']."' and tutor_tution_offer_amount_type = '".$_POST['tutor_tution_offer_amount_type']."' and tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."'  ");
+					 $sql = $conn->query("UPDATE tutor_booking_process SET amount_negotiate_by_tutor = '".$_POST['amount_negotiate_by_tutor']."', negotiate_by_tutor_amount_type = '".$_POST['negotiate_by_tutor_amount_type']."' , negotiateby = '".$_POST['negotiateby']."', update_date_time = '".$create_date."' WHERE tutor_id = '".$_POST['tutor_id']."' and tutor_tution_offer_amount_type = '".$_POST['tutor_tution_offer_amount_type']."' and tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."'  ");
 					
 					
 					if($sql)
@@ -437,15 +489,17 @@ header('content-type:application/json');
 						//$title = 'Payment offer';
 						//$body = 'Tutor has made you a fee offer';
 						///Tutor data
+						$title_N = 'Tutor '.$tutor_data['tutor_code'].' has Offered you a Fee '.$_POST['amount_negotiate_by_tutor'];
 								
-						$title = $tutor_data['tutor_code'].' has Offered you a Fee';
+						$title = 'Tutor '.$tutor_data['tutor_code'].' has Offered you a Fee';
 						$body = 'View Details in My Bookings/In Progress.';
 						
 						$screen = 'AcceptNegotiate';
 						$SelectedTab = "InProgress";
 						
 						
-							$amount_negotiate_by_tutor = $tutor_idVSql['amount_negotiate_by_tutor'];
+						
+							$amount_negotiate_by_tutor = $_POST['amount_negotiate_by_tutor'];
 							$ProfilePic = $tutor_data['profile_image'];
 							$qualification = $tutor_data['qualification'];
 							$TutorCode = $tutor_data['tutor_code'];
@@ -491,6 +545,20 @@ header('content-type:application/json');
 								$student_first_name, $student_last_name) )   // Output the result of sending the notification
 							{
 								$notify = 'Notification sent successfully.';
+								
+								/// Add Notification
+								$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$user_id_to_send_notification."' and title = '".$title_N."' and message = '".$body."' and source = 'FROM API - NegotiateOfferAmountUpdate' ");
+								if(mysqli_num_rows($chk_noti)>0)
+								{
+									$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$user_id_to_send_notification."' and title = '".$title_N."' and message = '".$body."' and source = 'FROM API - NegotiateOfferAmountUpdate' ");
+								
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$user_id_to_send_notification."', title = '".$title_N."', message = '".$body."', source = 'FROM API - NegotiateOfferAmountUpdate', created_date = '".$create_date."' ");
+								}
+								else{
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$user_id_to_send_notification."', title = '".$title_N."', message = '".$body."', source = 'FROM API - NegotiateOfferAmountUpdate', created_date = '".$create_date."' ");
+								
+								}
+								
 							}
 							else{
 								
@@ -524,6 +592,20 @@ header('content-type:application/json');
 								$student_first_name, $student_last_name) )   // Output the result of sending the notification
 							{
 								$notify = 'Notification sent successfully.';
+								
+								/// Add Notification
+								$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$user_id_to_send_notification."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - NegotiateOfferAmountUpdate' ");
+								if(mysqli_num_rows($chk_noti)>0)
+								{
+									$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$user_id_to_send_notification."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - NegotiateOfferAmountUpdate' ");
+								
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$user_id_to_send_notification."', title = '".$title."', message = '".$body."', source = 'FROM API - NegotiateOfferAmountUpdate', created_date = '".$create_date."' ");
+								}
+								else{
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$user_id_to_send_notification."', title = '".$title."', message = '".$body."', source = 'FROM API - NegotiateOfferAmountUpdate', created_date = '".$create_date."' ");
+								
+								}
+								
 							}
 							else{
 								
@@ -542,7 +624,7 @@ header('content-type:application/json');
 						}	
 						
 						
-						$resultData = array('status' => true, 'message' => 'Record Updated Successfully.', 'amount_negotiate_by_tutor' => $_POST['amount_negotiate_by_tutor'], 'notify' => $notify );
+						$resultData = array('status' => true, 'message' => 'Record Updated Successfully.', 'amount_negotiate_by_tutor' => $_POST['amount_negotiate_by_tutor'], 'notify' => $notify  );
 					}
 					else			
 					{
@@ -584,10 +666,6 @@ header('content-type:application/json');
 		
 		
 		
-		
-			
-					
-			
 							
 				echo json_encode($resultData);
 				

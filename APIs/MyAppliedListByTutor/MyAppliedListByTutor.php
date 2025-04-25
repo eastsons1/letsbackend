@@ -154,8 +154,10 @@ header('content-type:application/json');
 					
 					
 					
+					
                   $student_name_sql = mysqli_fetch_array($conn->query("SELECT first_name,last_name FROM user_info WHERE user_id = '".$tutor_result['logged_in_user_id']."' "));
 					
+				
 					
 					///student_post_requirement_amount_negotiate
 					

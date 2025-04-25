@@ -10,9 +10,9 @@ header('content-type:application/json');
 
 
 $servername = "localhost";
-$username = "eastsons_studylab";
-$password = "studyLab@321";
-$dbname = "eastsons_studylab";
+$username = "mytutors_tutorapp_ver3";
+$password = "^%&^*&TYY6567*(&uyur$7";
+$dbname = "mytutors_tutorapp_ver3";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -98,7 +98,7 @@ function mime2ext($mime){
 			
 			
 			
-			
+			/**
 			 ///Generate 4 digit otp number start function 
 				function generateKey($keyLength) {
 				// Set a blank variable to store the key in
@@ -113,7 +113,10 @@ function mime2ext($mime){
 			
 			
 				$tutor_code = 'TUAC'.generateKey(4); //rand(10,10000);
+			**/
 			
+			
+				
 			
 			
 			
@@ -164,6 +167,76 @@ function mime2ext($mime){
 					
 					$arrayV2[] = "('".$img_name."')";
 				}
+				
+				
+				
+					
+				/////////
+				if($value["user_id"] !="" )
+				{
+					$user_idVal =  $value["user_id"];
+				}
+					
+					
+					
+					// Fetch user creation date and gender
+					$ssqql = $conn->query("
+									SELECT info.created_date, tinfo.gender 
+									FROM user_info AS info 
+									INNER JOIN user_tutor_info AS tinfo ON info.user_id = tinfo.user_id 
+									WHERE info.user_id = '$user_idVal' ");
+					
+					if(mysqli_num_rows($ssqql)>0)
+					{
+						$TC = mysqli_fetch_array($ssqql);
+					}
+					else{
+						$TC = mysqli_fetch_array($conn->query("
+						SELECT created_date FROM user_info WHERE user_id = '".$user_idVal."' "));
+					}
+					
+					
+
+					// Count tutors for the same month and year, excluding the current user
+					$tutor_count_of_month = mysqli_fetch_array($conn->query("
+						SELECT COUNT(info.user_id) AS user_count
+						FROM user_info AS info 
+						INNER JOIN user_tutor_info AS tinfo ON info.user_id = tinfo.user_id
+						WHERE info.user_type = 'I am an Educator' 
+						AND DATE_FORMAT(STR_TO_DATE(info.created_date, '%d-%m-%Y'), '%Y-%m') = 
+							DATE_FORMAT(STR_TO_DATE('".$TC['created_date']."', '%d-%m-%Y'), '%Y-%m') 
+						AND info.user_id <> '$user_idVal'
+					"));
+					
+					 $created_dateV = $TC['created_date'];
+					
+					if($TC['gender']=="")
+					{
+						$genderV = $value["gender"];
+						
+					}
+					else{
+						$genderV = $TC['gender'];
+						
+					}
+					
+					
+					
+
+					// Extract year, month, and gender details
+					$date_p = explode("-", $created_dateV);
+					$year = substr($date_p[2], -2); // Last two digits of the year
+					$month = $date_p[1];           // Month
+					$genderFC = substr($genderV, 0, 1); // First character of gender
+
+					// Increment count and generate tutor code
+					$tutor_count = $tutor_count_of_month['user_count'] + 1;
+					$tutor_code = $year . $genderFC . $month . $tutor_count;
+
+					// Output the tutor code
+					//echo "Tutor Code: " . $tutor_code;
+				////
+				
 				
 				
 				if($value["user_id"] !="" && $value["age"] !="")
@@ -267,9 +340,16 @@ function mime2ext($mime){
 				}
 			
 			
+			
+			
+			
+			
+			
 			/// check user_tutor_info record
 			
 			$chk_rec = $conn->query("select * from user_tutor_info where user_id = '".$user_id."' ");
+			
+			
 			
 			if(mysqli_num_rows($chk_rec)>0)
 			{

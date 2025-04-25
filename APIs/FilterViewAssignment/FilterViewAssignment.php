@@ -5,12 +5,14 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST");
 
 require_once("config.php");
-//require_once("dbcontroller.php");
 header('content-type:application/json');
 
 
+// Read the JSON payload
+$data = file_get_contents("php://input");
+$array = json_decode($data, true);
 
-// Calculate the distance between two lat-long points in kilometers (K)
+// Function to calculate distance between two lat-long points
 function tutor_distance($lat1, $lon1, $lat2, $lon2, $unit = "K") {
     $theta = $lon1 - $lon2;
     $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +
@@ -22,111 +24,119 @@ function tutor_distance($lat1, $lon1, $lat2, $lon2, $unit = "K") {
     return $unit == "K" ? $miles * 1.609344 : $miles;
 }
 
-// Read the JSON payload
-$data = file_get_contents("php://input");
-$array = json_decode($data, true);
-
-// Initialize arrays for filters
-$qualifications = [];
-$levels = [];
-$subjects = [];
-
-// Extract tutor location and distance
-$tutor_lat = $array['tutor_lat'];
-$tutor_long = $array['tutor_long'];
-$tutor_distance = $array['tutor_distance'];
+// Initialize arrays
+$student_qualification = [];
+$student_level = [];
+$student_subjects = [];
 
 // Process each filter category
 foreach ($array as $key => $value) {
-    if ($key === 'student_qualification') {
+    if ($key === 'student_qualification' && is_array($value)) {
         foreach ($value as $qual) {
-            $qualifications[] = "'" . $qual . "'";
+            $student_qualification[] = "'" . addslashes($qual) . "'";
         }
-    } elseif ($key === 'student_level') {
+    } elseif ($key === 'student_level' && is_array($value)) {
         foreach ($value as $level) {
-            $levels[] = "'" . $level . "'";
+            $student_level[] = "'" . addslashes($level) . "'";
         }
-    } elseif ($key === 'student_subjects') {   
+    } elseif ($key === 'student_subjects' && is_array($value)) {   
         foreach ($value as $subject) {
-            $subjects[] = "'" . $subject . "'";
+            $student_subjects[] = "'" . addslashes($subject) . "'";
         }
     }
 }
 
+// Extract tutor location and distance
+$tutor_lat = isset($array['tutor_lat']) ? floatval($array['tutor_lat']) : null;
+$tutor_long = isset($array['tutor_long']) ? floatval($array['tutor_long']) : null;
+$tutor_distance = isset($array['tutor_distance']) ? floatval($array['tutor_distance']) : null;
 
-//print_r($subjects);
+// If tutor location and distance are set, fetch student location from database
+if ($tutor_distance && $tutor_lat && $tutor_long) {
+    $query = "SELECT student_lat, student_long, student_post_requirements_id FROM student_post_requirements ORDER By update_date_time DESC"; // Adjust query as needed
+    $result = mysqli_query($conn, $query);
+    
+	$student_post_requirements_id_arr = array();
+	
+    while($row = mysqli_fetch_assoc($result)) 
+	{
+        $student_lat = floatval($row['student_lat']);
+        $student_long = floatval($row['student_long']);
+		$student_post_requirements_id  = $row['student_post_requirements_id'];
 
-// Construct WHERE conditions based on filters
-$conds = [];
-if (!empty($qualifications)) {
-    $conds[] = "post_requirements_TutorQualification.Tutor_Qualification IN (" . implode(', ', $qualifications) . ")";
-}
-if (!empty($levels)) {
-    $conds[] = "tbl_Student_Level_Grade_Subjects_Post_Requirement.Level IN (" . implode(', ', $levels) . ")";
-}
-if (!empty($subjects)) {
-    //$conds[] = "tbl_Student_Level_Grade_Subjects_Post_Requirement.ALL_Subjects IN (" . implode(', ', $subjects) . ")";
-}
-$whereClause = !empty($conds) ? 'WHERE ' . implode(' AND ', $conds) : '';
-
-
-
-// Define mappings for subjects to related terms
-$subjectMappings = [
-    'Science' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
-    'Computer' => ['Computer', 'Science', 'Computer Science SL', 'Computer Engineering', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
-    'Physics' => ['Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics'],
-    'Chemistry' => ['Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Science Chemistry', 'Pure Chemistry'],
-    'Math' => ['Math', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics'],
-    // Add additional mappings if needed
-];
+        // Calculate distance
+         $distance = tutor_distance($tutor_lat, $tutor_long, $student_lat, $student_long, "K");
 
 
-
-$subjectConditions = [];
-if (!empty($subjects)) { 
-    foreach ($subjects as $subject) {
-        $subject = trim($subject, "'");
-        // Check for a mapped list for each subject and use it if available
-        if (isset($subjectMappings[$subject])) {
-            foreach ($subjectMappings[$subject] as $mappedSubject) {
-                $subjectConditions[] = "tbl_Student_Level_Grade_Subjects_Post_Requirement.ALL_Subjects LIKE '%" . $mappedSubject . "%'";
-            }
-        } else {
-            // If no mapping, just use the subject as is
-            $subjectConditions[] = "tbl_Student_Level_Grade_Subjects_Post_Requirement.ALL_Subjects LIKE '%" . $subject . "%'";
+			//echo $tutor_distance;
+		// echo $student_lat.'==';
+		 //echo $distance.'==';
+		 if (round($distance) > $tutor_distance) {
+            continue; // Skip students outside the distance
+			
+			
         }
+		
+		
+		//echo $student_post_requirements_id.'==';
+		$student_post_requirements_id_arr[] = $student_post_requirements_id;
+		
+		
     }
 }
 
 
 
-$subjectsClause = !empty($subjectConditions) ? " AND (" . implode(" OR ", $subjectConditions) . ")" : "";
+
+// Initialize WHERE conditions
+$whereConditions = [];
 
 
 
- $sql = "SELECT *
-        FROM student_post_requirements
-        INNER JOIN tbl_Student_Level_Grade_Subjects_Post_Requirement 
-            ON student_post_requirements.student_post_requirements_id = tbl_Student_Level_Grade_Subjects_Post_Requirement.student_post_requirements_id
-        INNER JOIN post_requirements_TutorQualification 
-            ON student_post_requirements.student_post_requirements_id = post_requirements_TutorQualification.student_post_requirements_id
-        INNER JOIN tbl_Tutor_Schedules_Slot_Time_post_requirement 
-            ON student_post_requirements.student_post_requirements_id = tbl_Tutor_Schedules_Slot_Time_post_requirement.student_post_requirements_id
-        $whereClause $subjectsClause
-        GROUP BY student_post_requirements.student_post_requirements_id
-        ORDER BY student_post_requirements.student_post_requirements_id DESC";
+if (!empty($tutor_distance) && !empty($tutor_lat) && !empty($tutor_long)) {
+	
+	$ids = implode(',', $student_post_requirements_id_arr); // Convert array to comma-separated values
+	
+	$whereConditions[] = "student_post_requirements.student_post_requirements_id IN ($ids)";
+}
+
+// Check if student_level is provided
+if (!empty($student_level)) {
+    $whereConditions[] = "tbl_Student_Level_Grade_Subjects_Post_Requirement.Level IN (" . implode(", ", $student_level) . ")";
+}
+
+// Check if student_qualification is provided
+if (!empty($student_qualification)) {
+    $whereConditions[] = "post_requirements_TutorQualification.Tutor_Qualification IN (" . implode(", ", $student_qualification) . ")";
+}
+
+/**
+// Check if student_subjects is provided
+if (!empty($student_subjects)) {
+    $whereConditions[] = "tbl_Student_Level_Grade_Subjects_Post_Requirement.ALL_Subjects IN (" . implode(", ", $student_subjects) . ")";
+}
+
+**/
 
 
+
+// Check if student_subjects is provided
+if (!empty($student_subjects)) {
+    $subjectConditions = [];
+    foreach ($student_subjects as $subject) {
+        // Trim and remove extra quotes manually
+        $cleanedSubject = trim($subject, "'");  // Removes surrounding single quotes if any
+        $cleanedSubject = mysqli_real_escape_string($conn, $cleanedSubject); // Escape for SQL safety
+        $subjectConditions[] = "tbl_Student_Level_Grade_Subjects_Post_Requirement.ALL_Subjects LIKE '%" . $cleanedSubject . "%'";
+    }
+    $whereConditions[] = "(" . implode(" OR ", $subjectConditions) . ")";
+}
 
 
 
 
 /**
-$whereClause $subjectsClause
-
-
-// Execute SQL query with filters
+// Build the final query
 $sql = "SELECT *
         FROM student_post_requirements
         INNER JOIN tbl_Student_Level_Grade_Subjects_Post_Requirement 
@@ -134,29 +144,176 @@ $sql = "SELECT *
         INNER JOIN post_requirements_TutorQualification 
             ON student_post_requirements.student_post_requirements_id = post_requirements_TutorQualification.student_post_requirements_id
         INNER JOIN tbl_Tutor_Schedules_Slot_Time_post_requirement 
-            ON student_post_requirements.student_post_requirements_id = tbl_Tutor_Schedules_Slot_Time_post_requirement.student_post_requirements_id
-        $whereClause
-        GROUP BY student_post_requirements.student_post_requirements_id
-        ORDER BY student_post_requirements.student_post_requirements_id DESC";
+            ON student_post_requirements.student_post_requirements_id = tbl_Tutor_Schedules_Slot_Time_post_requirement.student_post_requirements_id";
+
+**/
+
+
+
+
+////////////
+$Query = "";
+if (!empty($student_level)) {
+    //$Level_filter = implode("','", $student_level);
+    $Query .= " AND tbl_Student_Level_Grade_Subjects_Post_Requirement.Level IN (" . implode(", ", $student_level) . ")";
+}
+
+if (!empty($student_qualification)) {
+    //$Level_filter = implode("','", $student_level);
+    $Query .= " AND post_requirements_TutorQualification.Tutor_Qualification IN (" . implode(", ", $student_qualification) . ")";
+}
+if (!empty($student_subjects)) {
+    //$Level_filter = implode("','", $student_level);
+    $Query .= " AND ".$whereConditions;
+}
+
+
+/**
+$sql = "SELECT student_post_requirements.*, 
+               tbl_Student_Level_Grade_Subjects_Post_Requirement.Level, 
+               tbl_Student_Level_Grade_Subjects_Post_Requirement.Grade, 
+               GROUP_CONCAT(tbl_Student_Level_Grade_Subjects_Post_Requirement.ALL_Subjects SEPARATOR ', ') AS subjects_list 
+        FROM student_post_requirements 
+        LEFT JOIN tbl_Student_Level_Grade_Subjects_Post_Requirement 
+            ON student_post_requirements.student_post_requirements_id = tbl_Student_Level_Grade_Subjects_Post_Requirement.student_post_requirements_id 
+        LEFT JOIN post_requirements_TutorQualification 
+            ON student_post_requirements.student_post_requirements_id = post_requirements_TutorQualification.student_post_requirements_id 
+        LEFT JOIN tbl_Tutor_Schedules_Slot_Time_post_requirement 
+            ON student_post_requirements.student_post_requirements_id = tbl_Tutor_Schedules_Slot_Time_post_requirement.student_post_requirements_id 
+        WHERE student_post_requirements.student_post_requirements_id IN ($ids) 
+        GROUP BY student_post_requirements.student_post_requirements_id"; // Ensure GROUP BY for GROUP_CONCAT
+
+**///
+
+
+if(empty($student_level) && empty($student_subjects) && !empty($student_qualification) && empty($tutor_lat) && empty($tutor_lat) && empty($tutor_long) && empty($tutor_distance) ) {
+
+$sql = "SELECT student_post_requirements.*
+        FROM student_post_requirements 
+        LEFT JOIN tbl_Student_Level_Grade_Subjects_Post_Requirement 
+            ON student_post_requirements.student_post_requirements_id = tbl_Student_Level_Grade_Subjects_Post_Requirement.student_post_requirements_id 
+        LEFT JOIN post_requirements_TutorQualification 
+            ON student_post_requirements.student_post_requirements_id = post_requirements_TutorQualification.student_post_requirements_id 
+        LEFT JOIN tbl_Tutor_Schedules_Slot_Time_post_requirement 
+            ON student_post_requirements.student_post_requirements_id = tbl_Tutor_Schedules_Slot_Time_post_requirement.student_post_requirements_id 
+			 ";
+}
+else{
+	
+	/**
+	$sql = "SELECT student_post_requirements.*, 
+               tbl_Student_Level_Grade_Subjects_Post_Requirement.Level, 
+               tbl_Student_Level_Grade_Subjects_Post_Requirement.Grade, 
+               GROUP_CONCAT(tbl_Student_Level_Grade_Subjects_Post_Requirement.ALL_Subjects SEPARATOR ', ') AS subjects_list 
+        FROM student_post_requirements 
+        LEFT JOIN tbl_Student_Level_Grade_Subjects_Post_Requirement 
+            ON student_post_requirements.student_post_requirements_id = tbl_Student_Level_Grade_Subjects_Post_Requirement.student_post_requirements_id 
+        LEFT JOIN post_requirements_TutorQualification 
+            ON student_post_requirements.student_post_requirements_id = post_requirements_TutorQualification.student_post_requirements_id 
+        LEFT JOIN tbl_Tutor_Schedules_Slot_Time_post_requirement 
+            ON student_post_requirements.student_post_requirements_id = tbl_Tutor_Schedules_Slot_Time_post_requirement.student_post_requirements_id 
+       
+        ";
 		
-		**/
+	**/
 
-$sql2 = $conn->query($sql);
+$sql = "SELECT student_post_requirements.*
+        FROM student_post_requirements 
+        LEFT JOIN tbl_Student_Level_Grade_Subjects_Post_Requirement 
+            ON student_post_requirements.student_post_requirements_id = tbl_Student_Level_Grade_Subjects_Post_Requirement.student_post_requirements_id 
+        LEFT JOIN post_requirements_TutorQualification 
+            ON student_post_requirements.student_post_requirements_id = post_requirements_TutorQualification.student_post_requirements_id 
+        LEFT JOIN tbl_Tutor_Schedules_Slot_Time_post_requirement 
+            ON student_post_requirements.student_post_requirements_id = tbl_Tutor_Schedules_Slot_Time_post_requirement.student_post_requirements_id 
+       
+        ";
+		
+}	
+		
+////////////////////
 
-// Fetch results and filter by distance
-$student_List_array = [];
-while ($student_Search_Data = mysqli_fetch_assoc($sql2)) {
-    // Check tutor distance
-    $student_lat = $student_Search_Data['student_lat'];
-    $student_long = $student_Search_Data['student_long'];
-    if ($student_lat && $student_long) {
-        $distance = tutor_distance($tutor_lat, $tutor_long, $student_lat, $student_long, "K");
-        if ($distance > $tutor_distance) {
-            continue; // Skip students outside the distance
-        }
-    }
 
-    // Collect additional information for each student requirement
+
+
+
+
+
+
+
+
+// Append WHERE conditions if present
+if (!empty($whereConditions)) {
+    $sql .= " WHERE " . implode(' AND ', $whereConditions);
+}
+
+
+
+
+/**
+if(empty($student_level) && empty($student_subjects) && !empty($student_qualification) && empty($tutor_lat) && empty($tutor_lat) && empty($tutor_long) && empty($tutor_distance) ) {
+$sql .= " GROUP BY student_post_requirements.student_post_requirements_id
+          ORDER BY student_post_requirements.student_post_requirements_id DESC";
+}
+
+if (empty($student_level) && empty($student_subjects) && empty($student_qualification) && empty($tutor_lat) && empty($tutor_lat) && empty($tutor_long) && empty($tutor_distance) ) {
+// Group and order results
+$sql .= " GROUP BY student_post_requirements.student_post_requirements_id
+          ORDER BY student_post_requirements.student_post_requirements_id DESC";
+}
+
+if (!empty($student_level) && !empty($student_subjects) && !empty($student_qualification) && !empty($tutor_lat) && !empty($tutor_lat) && !empty($tutor_long) && !empty($tutor_distance) ) {
+// Group and order results
+$sql .= " GROUP BY student_post_requirements.student_post_requirements_id
+          ORDER BY student_post_requirements.student_post_requirements_id DESC";
+}		  
+		  
+
+if (!empty($student_subjects) && empty($student_level) && empty($student_qualification)) {
+	
+// **Group by Level and Grade**
+//$sql .= " GROUP BY tbl_Student_Level_Grade_Subjects_Post_Requirement.Level, 
+  ///                 tbl_Student_Level_Grade_Subjects_Post_Requirement.Grade
+     //     ORDER BY student_post_requirements.student_post_requirements_id DESC";
+	 
+	 $sql .= " GROUP BY student_post_requirements.student_post_requirements_id
+          ORDER BY student_post_requirements.student_post_requirements_id DESC";
+
+}
+
+**/
+
+
+$sql .= " GROUP BY student_post_requirements.student_post_requirements_id
+          ORDER BY student_post_requirements.student_post_requirements_id DESC";
+
+
+
+
+//echo $sql;
+
+// Execute the query
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    echo json_encode(["error" => "Database query failed.", "details" => mysqli_error($conn)]);
+    exit;
+}
+
+// Fetch and return results
+$records = [];
+while ($student_Search_Data = mysqli_fetch_assoc($result)) {
+    //$records[] = $row;
+	
+	
+	
+	
+	
+	
+	///////////////////////
+	
+	
+	
+	
     // Example: Student Levels, Grades, Subjects, Tutor Qualifications, etc.
     $post_requirements_student_subjects = [];
     $ss_query = $conn->query("SELECT * FROM tbl_Student_Level_Grade_Subjects_Post_Requirement WHERE student_post_requirements_id = '" . $student_Search_Data['student_post_requirements_id'] . "'");
@@ -326,6 +483,8 @@ while ($student_Search_Data = mysqli_fetch_assoc($sql2)) {
         'student_post_requirements_id' => $student_Search_Data['student_post_requirements_id'],
 										'student_id' => $student_Search_Data['logged_in_user_id'],
 										'No_of_Students' => $student_Search_Data['No_of_Students'],
+										'student_lat' => $student_Search_Data['student_lat'],
+										'student_long' => $student_Search_Data['student_long'],
 										'tutor_login_id' => $tutor_id,
                           				'student_first_name' => $student_name_sql['first_name'],
 										'student_last_name' => $student_name_sql['last_name'],
@@ -363,8 +522,21 @@ while ($student_Search_Data = mysqli_fetch_assoc($sql2)) {
 										'student_level_grade_subjects' => $post_requirements_student_subjects,
 										'tutor_qualification' => $Tutor_Qualification,
 										'tutor_schedule_and_slot_times' => $Tutor_Schedule
-    ];
+					];
+	
+	
+	
+	
+	////////////////
+	
+	
+	
+	
+	
+	
+	
 }
+
 
 
 
@@ -376,4 +548,8 @@ $resultData = !empty($student_List_array) ?
     ['Status' => false, 'message' => 'No Result found.'];
 
 echo json_encode($resultData);
+
+
+// Return JSON response
+//echo json_encode(["message" => "Success", "data" => $records]);
 ?>

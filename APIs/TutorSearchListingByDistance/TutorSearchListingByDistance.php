@@ -5,377 +5,948 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST");
 
 require_once("config.php");
-//require_once("dbcontroller.php");
+
 header('content-type:application/json');
 
-		
-		
-			function distance($lat1, $lon1, $lat2, $lon2, $unit) 
-			{
+// Function to calculate distance
+function distance($lat1, $lon1, $lat2, $lon2, $unit) 
+{
+    $theta = $lon1 - $lon2;
+    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+    $dist = acos($dist);
+    $dist = rad2deg($dist);
+    $miles = $dist * 60 * 1.1515;
+    $unit = strtoupper($unit);
 
-				$theta = $lon1 - $lon2;
-				$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-				$dist = acos($dist);
-				$dist = rad2deg($dist);
-				$miles = $dist * 60 * 1.1515;
-				$unit = strtoupper($unit);
+    if ($unit == "K") {
+        return ($miles * 1.609344);
+    } else if ($unit == "N") {
+        return ($miles * 0.8684);
+    } else {
+        return $miles;
+    }
+}
 
-				if ($unit == "K") {
-					return ($miles * 1.609344);
-				} else if ($unit == "N") {
-					return ($miles * 0.8684);
-				} else {
-					return $miles;
-				}
-			}
+// Read input data
+$data = file_get_contents("php://input");
+$array = json_decode($data, true);
 
-		
+
+// Initialize variables
+$student_lat = $array['student_lat'];
+$student_long = $array['student_long'];    
+$logged_in_student_id = $array['logged_in_student_id'];
+
+
+
+
+// Handle distance filter
+if (!empty($array['student_lat']) && !empty($array['student_long'])) 
+{
 	
-			// Read the JSON file in PHP
-			$data = file_get_contents("php://input");
+	
+	
+	
+	
+	
+
+// Map for specific subjects (like "Science") to related terms
+$subjectMappings = [
+    'Science' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Computer' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Physics' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Chemistry' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Physics H1' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Physics H2' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Physics H3' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Physics Engineering' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Physics SL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Physics HL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Pure Physics' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Science Chemistry' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Pure Chemistry' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Chemistry H1' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Chemistry H2' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Chemistry H3' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Chemistry Engineering' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Chemistry SL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Chemistry HL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Biology' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Biology H1' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Biology H2' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Biology H3' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Biology SL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Biology HL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Science Biology' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Pure Biology' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Mechanics' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Science Foundation' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Java' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'JavaScript' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Python' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+     'C' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+     'C++' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+     'C#' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+     'HTML' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+     'CSS' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'SQL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'PERL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'PHP' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'App Development' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Website Development' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Computer Science SL' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Computer Engineering' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Computer Science H1' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Computer Science H2' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    'Electronics' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
+    
+    'English' => ['English', 'Literature', 'Theory of Knowledge TOK', 'IELTS', 'TOEFL', 'Project Work PW', 'General Paper GP'],
+    'IELTS' => ['English', 'Literature', 'Theory of Knowledge TOK', 'IELTS', 'TOEFL', 'Project Work PW', 'General Paper GP'],
+	'Theory of Knowledge TOK' => ['English', 'Literature', 'Theory of Knowledge TOK', 'IELTS', 'TOEFL', 'Project Work PW', 'General Paper GP'],
+    'TOEFL' => ['English', 'Literature', 'Theory of Knowledge TOK', 'IELTS', 'TOEFL', 'Project Work PW', 'General Paper GP'],
+    'Project Work PW' => ['English', 'Literature', 'Theory of Knowledge TOK', 'IELTS', 'TOEFL', 'Project Work PW', 'General Paper GP'],
+    'General Paper GP' => ['English', 'Literature', 'Theory of Knowledge TOK', 'IELTS', 'TOEFL', 'Project Work PW', 'General Paper GP'],
+    'Literature' => ['English', 'Literature', 'Theory of Knowledge TOK', 'IELTS', 'TOEFL', 'Project Work PW', 'General Paper GP'],
+    
+    'Math' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Mathematics' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Mathematics H1' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Mathematics H2' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Mathematics HL' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Mathematics SL' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Statistics' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Mathematics H3' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Further Mathematics' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Additional Math' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    'Math Foundation' => ['Math', 'Math Foundation', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics', 'Additional Math'],
+    
+    
+    'Chinese' => ['Chinese', 'Chinese H1', 'Chinese H2', 'Mandarin', 'Higher Chinese'],
+	'Chinese H1' => ['Chinese', 'Chinese H1', 'Chinese H2', 'Mandarin', 'Higher Chinese'],
+	'Chinese H2' => ['Chinese', 'Chinese H1', 'Chinese H2', 'Mandarin', 'Higher Chinese'],
+	'Mandarin' => ['Chinese', 'Chinese H1', 'Chinese H2', 'Mandarin', 'Higher Chinese'],
+	'Higher Chinese' => ['Chinese', 'Chinese H1', 'Chinese H2', 'Mandarin', 'Higher Chinese'],
+    
+    'Economics' => ['Economics', 'Economics H1', 'Economics H2', 'Mandarin'],
+	'Economics H1' => ['Economics', 'Economics H1', 'Economics H2', 'Mandarin'],
+	'Economics H2' => ['Economics', 'Economics H1', 'Economics H2', 'Mandarin'],
+	'Mandarin' => ['Economics', 'Economics H1', 'Economics H2', 'Mandarin']
+];
+
+
+
+
+
+
+// Start building the SQL conditions array
+$conditions = [];
+
+$existsConditions = [];
+
+// Initialize the HAVING clause
+$havingConditions = [];
+	
+	
+	
+	
+	
+	
+    $sql_Q = $conn->query("SELECT tuition_type, user_id, lettitude, longitude, travel_distance FROM user_tutor_info");
+    $tutor_ids = [];
+    while ($get_Data = mysqli_fetch_assoc($sql_Q)) {
+        if (!empty($get_Data['lettitude']) && !empty($get_Data['longitude'])) {
+            $distance_value = distance($student_lat, $student_long, $get_Data['lettitude'], $get_Data['longitude'], "K");
+            
+			//echo $distance_value.'==';
+			$rounded_value = round((int)$distance_value);
 			
-			// Convert the JSON String into PHP Array
-			$array = json_decode($data, true);
+			//echo  $rounded_value.'==';
 			
-			$nation_array = array();
-			
-			
-			$student_lat = $array['student_lat'];
-			$student_long = $array['student_long'];	
-			$logged_in_student_id = $array['logged_in_student_id'];
-			
-			
-			
-		
-		if($array['postal_code']!="" && $array['student_lat'] != "" && $array['student_long'] != "" )
+			if ( $rounded_value <= (int)$get_Data['travel_distance']) {
+                $tutor_ids[] = $get_Data['user_id'];
+            }
+        }
+    }
+    if (!empty($tutor_ids)) {
+        $conditions[] = "user_tutor_info.user_id IN ('" . implode("','", $tutor_ids) . "')";
+    }
+
+/**
+// Handle gender filter
+if (!empty($array['gender'])) {
+    $gender_values = implode("','", $array['gender']);
+    $conditions[] = "user_tutor_info.gender IN ('{$gender_values}')";
+}
+**/
+
+$existsConditions_gender = [];
+
+		if (!empty($array['gender'])) {
+			foreach ($array['gender'] as $gender) {
+				$safe_gender = $conn->real_escape_string($gender); // Prevent SQL Injection
+				$existsConditions_gender[] = "
+					EXISTS (
+						SELECT 1 
+						FROM user_tutor_info gn 
+						WHERE gn.user_id = user_tutor_info.user_id 
+						AND gn.gender = '{$safe_gender}'
+					)
+				";
+			}
+		}
+
+		// Merge EXISTS conditions using AND to ensure all gender are present
+		if (!empty($existsConditions_gender)) {
+			$conditions[] = "(" . implode(" AND ", $existsConditions_gender) . ")";
+		}
+
+
+
+
+/**
+// Handle nationality filter
+if (!empty($array['nationality'])) {
+    $nationality_values = implode("','", $array['nationality']);
+    $conditions[] = "user_tutor_info.nationality IN ('{$nationality_values}')";
+}
+**/
+
+
+
+$existsConditions_nationality = [];
+
+		if (!empty($array['nationality'])) {
+			foreach ($array['nationality'] as $nationality) {
+				$safe_nationality = $conn->real_escape_string($nationality); // Prevent SQL Injection
+				$existsConditions_nationality[] = "
+					EXISTS (
+						SELECT 1 
+						FROM user_tutor_info nl 
+						WHERE nl.user_id = user_tutor_info.user_id 
+						AND nl.nationality = '{$safe_nationality}'
+					)
+				";
+			}
+		}
+
+		// Merge EXISTS conditions using AND to ensure all nationality are present
+		if (!empty($existsConditions_nationality)) {
+			$conditions[] = "(" . implode(" AND ", $existsConditions_nationality) . ")";
+		}
+
+
+
+
+ //// For condition 1 Start
+
+
+if (!empty($array['subjects']) && !empty($array['TutoringLevel']) && !empty($array['AdmissionLevel']) && !empty($array['grade'])) {
+    $existsConditions = []; // Initialize conditions array
+
+    // Convert TutoringLevel and AdmissionLevel into safe SQL strings
+    $safeTutoringLevels = is_array($array['TutoringLevel']) 
+        ? "'" . implode("','", array_map([$conn, 'real_escape_string'], $array['TutoringLevel'])) . "'" 
+        : "'" . $conn->real_escape_string($array['TutoringLevel']) . "'";
+
+    $safeAdmissionLevels = is_array($array['AdmissionLevel']) 
+        ? "'" . implode("','", array_map([$conn, 'real_escape_string'], $array['AdmissionLevel'])) . "'" 
+        : "'" . $conn->real_escape_string($array['AdmissionLevel']) . "'";
+
+    // Prepare FIND_IN_SET conditions for Tutoring_Grade
+    $gradeConditions = [];
+    if (is_array($array['grade'])) {
+        foreach ($array['grade'] as $grade) {
+            $safeGrade = $conn->real_escape_string($grade);
+            $gradeConditions[] = "FIND_IN_SET('{$safeGrade}', s.Tutoring_Grade)";
+        }
+    } else {
+        $safeGrade = $conn->real_escape_string($array['grade']);
+        $gradeConditions[] = "FIND_IN_SET('{$safeGrade}', s.Tutoring_Grade)";
+    }
+
+    // Merge Tutoring_Grade conditions using OR
+    $tutoringGradeFilter = implode(" AND ", $gradeConditions);
+
+    foreach ($array['subjects'] as $subject) {
+        if (isset($subjectMappings[$subject])) { // Check if subject is mapped
+            $mappedConditions = [];
+            foreach ($subjectMappings[$subject] as $mappedSubject) {
+                $safe_mapped_subject = $conn->real_escape_string($mappedSubject);
+                $mappedConditions[] = "FIND_IN_SET('{$safe_mapped_subject}', s.Tutoring_ALL_Subjects)";
+            }
+
+            if (!empty($mappedConditions)) {
+                $existsConditions[] = "
+                    EXISTS (
+                        SELECT 1 
+                        FROM complete_user_profile_tutoring_detail s
+                        WHERE s.user_id = user_tutor_info.user_id 
+                        AND (" . implode(" OR ", $mappedConditions) . ")
+                        AND s.TutoringLevel IN ({$safeTutoringLevels})
+                        AND s.AdmissionLevel IN ({$safeAdmissionLevels})
+                        AND ({$tutoringGradeFilter})
+                    )
+                ";
+            }
+        } else { // Handle unmapped subjects
+            $safe_subject = $conn->real_escape_string($subject);
+            $existsConditions[] = "
+                EXISTS (
+                    SELECT 1 
+                    FROM complete_user_profile_tutoring_detail s
+                    WHERE s.user_id = user_tutor_info.user_id 
+                    AND FIND_IN_SET('{$safe_subject}', s.Tutoring_ALL_Subjects)
+                    AND s.TutoringLevel IN ({$safeTutoringLevels})
+                    AND s.AdmissionLevel IN ({$safeAdmissionLevels})
+                    AND ({$tutoringGradeFilter})
+                )
+            ";
+        }
+    }
+
+    // Merge EXISTS conditions using AND to ensure all filters are applied
+    if (!empty($existsConditions)) {
+        $conditions[] = "(" . implode(" AND ", $existsConditions) . ")";
+    }
+}
+
+  ///// end 
+
+
+
+
+
+
+   //// For condition 2 Start
+
+	if (!empty($array['subjects']) && !empty($array['TutoringLevel']) && !empty($array['AdmissionLevel']) && !empty($array['stream']) ) {
+    $existsConditions = []; // Initialize conditions array
+
+    // Convert TutoringLevel into safe SQL strings
+    $safeTutoringLevels = is_array($array['TutoringLevel']) 
+        ? "'" . implode("','", array_map([$conn, 'real_escape_string'], $array['TutoringLevel'])) . "'" 
+        : "'" . $conn->real_escape_string($array['TutoringLevel']) . "'";
+
+    // Prepare FIND_IN_SET conditions for AdmissionLevel
+    $admissionLevelConditions = [];
+    if (is_array($array['AdmissionLevel'])) {
+        foreach ($array['AdmissionLevel'] as $admissionLevel) {
+            $safeAdmissionLevel = $conn->real_escape_string($admissionLevel);
+            $admissionLevelConditions[] = "FIND_IN_SET('{$safeAdmissionLevel}', s.AdmissionLevel)";
+        }
+    } else {
+        $safeAdmissionLevel = $conn->real_escape_string($array['AdmissionLevel']);
+        $admissionLevelConditions[] = "FIND_IN_SET('{$safeAdmissionLevel}', s.AdmissionLevel)";
+    }
+
+    // Merge AdmissionLevel conditions using AND
+    $admissionLevelFilter = implode(" AND ", $admissionLevelConditions);
+
+    // Prepare FIND_IN_SET conditions for Stream
+    $streamConditions = [];
+    if (is_array($array['stream'])) {
+        foreach ($array['stream'] as $stream) {
+            $safeStream = $conn->real_escape_string($stream);
+            $streamConditions[] = "FIND_IN_SET('{$safeStream}', s.Stream)";
+        }
+    } else {
+        $safeStream = $conn->real_escape_string($array['stream']);
+        $streamConditions[] = "FIND_IN_SET('{$safeStream}', s.Stream)";
+    }
+
+    // Merge Stream conditions using AND
+    $streamFilter = implode(" AND ", $streamConditions);
+
+    foreach ($array['subjects'] as $subject) {
+        if (isset($subjectMappings[$subject])) { // Check if subject is mapped
+            $mappedConditions = [];
+            foreach ($subjectMappings[$subject] as $mappedSubject) {
+                $safe_mapped_subject = $conn->real_escape_string($mappedSubject);
+                $mappedConditions[] = "FIND_IN_SET('{$safe_mapped_subject}', s.Tutoring_ALL_Subjects)";
+            }
+
+            if (!empty($mappedConditions)) {
+                $existsConditions[] = "
+                    EXISTS (
+                        SELECT 1 
+                        FROM complete_user_profile_tutoring_detail s
+                        WHERE s.user_id = user_tutor_info.user_id 
+                        AND (" . implode(" OR ", $mappedConditions) . ")
+                        AND s.TutoringLevel IN ({$safeTutoringLevels})
+                        AND ({$admissionLevelFilter})
+                        AND ({$streamFilter})
+                    )
+                ";
+            }
+        } else { // Handle unmapped subjects
+            $safe_subject = $conn->real_escape_string($subject);
+            $existsConditions[] = "
+                EXISTS (
+                    SELECT 1 
+                    FROM complete_user_profile_tutoring_detail s
+                    WHERE s.user_id = user_tutor_info.user_id 
+                    AND FIND_IN_SET('{$safe_subject}', s.Tutoring_ALL_Subjects)
+                    AND s.TutoringLevel IN ({$safeTutoringLevels})
+                    AND ({$admissionLevelFilter})
+                    AND ({$streamFilter})
+                )
+            ";
+        }
+    }
+
+    // Merge EXISTS conditions using AND to ensure all filters are applied
+    if (!empty($existsConditions)) {
+        $conditions[] = "(" . implode(" AND ", $existsConditions) . ")";
+    }
+}
+
+
+
+	//// end 
+	
+	
+	
+
+
+
+
+//print_r($conditions);
+
+
+
+
+/**
+// Handle qualification filter
+if (!empty($array['qualification'])) {
+    $qualification_values = implode("','", $array['qualification']);
+    $conditions[] = "user_tutor_info.qualification IN ('{$qualification_values}')";
+}
+**/
+
+
+$existsConditions_qualification = [];
+
+		if (!empty($array['qualification'])) {
+			foreach ($array['qualification'] as $qualification) {
+				$safe_qualification = $conn->real_escape_string($qualification); // Prevent SQL Injection
+				$existsConditions_qualification[] = "
+					EXISTS (
+						SELECT 1 
+						FROM user_tutor_info ql 
+						WHERE ql.user_id = user_tutor_info.user_id 
+						AND ql.qualification = '{$safe_qualification}'
+					)
+				";
+			}
+		}
+
+		// Merge EXISTS conditions using AND to ensure all qualification are present
+		if (!empty($existsConditions_qualification)) {
+			$conditions[] = "(" . implode(" AND ", $existsConditions_qualification) . ")";
+		}
+
+
+
+
+	 //// For condition 3 Start
+	
+	$existsConditions_TutoringLevel = [];
+
+		if (!empty($array['TutoringLevel']) && empty($array['subjects']) && empty($array['AdmissionLevel']) && empty($array['grade'])) 
+		{
+			foreach ($array['TutoringLevel'] as $TutoringLevel) {
+				$safe_TutoringLevel = $conn->real_escape_string($TutoringLevel); // Prevent SQL Injection
+				$existsConditions_TutoringLevel[] = "
+					EXISTS (
+						SELECT 1 
+						FROM complete_user_profile_tutoring_detail tl 
+						WHERE tl.user_id = user_tutor_info.user_id 
+						AND tl.TutoringLevel = '{$safe_TutoringLevel}'
+					)
+				";
+			}
+		}
+
+		// Merge EXISTS conditions using AND to ensure all TutoringLevel are present
+		if (!empty($existsConditions_TutoringLevel)) {
+			$conditions[] = "(" . implode(" AND ", $existsConditions_TutoringLevel) . ")";
+		}
+
+	////// end	
+
+
+	
+	 //// For condition 4 Start
+	
+		if ( !empty($array['TutoringLevel']) && !empty($array['grade']) && !empty($array['subjects']) && empty($array['AdmissionLevel']) && empty($array['stream']) ) 
 		{
 			
-			//// get between distance start
-			
-			$sql_Q = $conn->query("select tuition_type,user_id,lettitude,longitude,travel_distance from user_tutor_info  ");
-			
-			$i=0;
-			$a = array();
-			
-				while($get_Data = mysqli_fetch_assoc($sql_Q))
-				{
-				    
-				    if($get_Data['tuition_type'] != "")
-					{
-				    
-    					if($get_Data['lettitude'] !="" && $get_Data['longitude'] !="")
-    					{
-    						$lat = $get_Data['lettitude'];
-    						$long = $get_Data['longitude'];
-    					}
-    					
-    					//echo $distance_value = distance($student_lat, $student_long, $lat, $long, "K") . " Kilometers<br>";
-    					 $distance_value = distance($student_lat, $student_long, $lat, $long, "K");
-						
-						  $travel_distance = $get_Data['travel_distance'];
-						
-						 $distance_valueT = (int)$distance_value;
-						 
-						// echo $distance_valueT.'==';
-						 
-						// echo (int)$distance_valueT.'++';
-    					//echo $travel_distance.'++';
-    					
-    					if($distance_valueT <= $travel_distance)  /// till 50 km
-    					{
-    						 $distance_value_status = 1;
-    						 $a[]=$get_Data['user_id'];
-    						 //$i++;
-    						//echo $distance_value.'=';
-    						//echo $get_Data['user_id'].'=';
-    						
-    					}
-    					else{
-    						//$distance_value_status = 0;
-    					}
-    					
-					
-					}
-					
+		$existsConditions4 = []; // Initialize conditions array
+
+		// Convert TutoringLevel into safe SQL strings
+		$safeTutoringLevels = is_array($array['TutoringLevel']) 
+			? "'" . implode("','", array_map([$conn, 'real_escape_string'], $array['TutoringLevel'])) . "'" 
+			: "'" . $conn->real_escape_string($array['TutoringLevel']) . "'";
+
+		// Prepare FIND_IN_SET conditions for grade
+		$gradeConditions = [];
+		if (is_array($array['grade'])) {
+			foreach ($array['grade'] as $grade) {
+				$safegrade = $conn->real_escape_string($grade);
+				$gradeConditions[] = "FIND_IN_SET('{$safegrade}', s.Tutoring_Grade)";
+			}
+		} else {
+			$safegrade = $conn->real_escape_string($array['grade']);
+			$gradeConditions[] = "FIND_IN_SET('{$safegrade}', s.Tutoring_Grade)";
+		}
+
+		// Merge grade conditions using AND
+		$gradeFilter = implode(" AND ", $gradeConditions);
+
+	   
+
+	   
+
+		foreach ($array['subjects'] as $subject) {
+			if (isset($subjectMappings[$subject])) { // Check if subject is mapped
+				$mappedConditions = [];
+				foreach ($subjectMappings[$subject] as $mappedSubject) {
+					$safe_mapped_subject = $conn->real_escape_string($mappedSubject);
+					$mappedConditions[] = "FIND_IN_SET('{$safe_mapped_subject}', s.Tutoring_ALL_Subjects)";
+				}
+
+				if (!empty($mappedConditions)) {
+					$existsConditions4[] = "
+						EXISTS (
+							SELECT 1 
+							FROM complete_user_profile_tutoring_detail s
+							WHERE s.user_id = user_tutor_info.user_id 
+							AND (" . implode(" OR ", $mappedConditions) . ")
+							AND s.TutoringLevel IN ({$safeTutoringLevels})
+							AND ({$gradeFilter})
+							
+						)
+					";
+				}
+			} else { // Handle unmapped subjects
+				$safe_subject = $conn->real_escape_string($subject);
+				$existsConditions4[] = "
+					EXISTS (
+						SELECT 1 
+						FROM complete_user_profile_tutoring_detail s
+						WHERE s.user_id = user_tutor_info.user_id 
+						AND FIND_IN_SET('{$safe_subject}', s.Tutoring_ALL_Subjects)
+						AND s.TutoringLevel IN ({$safeTutoringLevels})
+						AND ({$gradeFilter})
+					   
+					)
+				";
+			}
+		}
+
+			// Merge EXISTS conditions using AND to ensure all filters are applied
+			if (!empty($existsConditions4)) {
+				$conditions[] = "(" . implode(" AND ", $existsConditions4) . ")";
+			}
+		}
 	
-				}
-			//// end
 			
 			
-			//echo $distance_value_status;
 			
-			
-			if($distance_value_status == 1)
-			{
-				$stV = array();
-				foreach ($a as $val) {
-					// Since $a is indexed by user IDs, you probably want to use $val directly
-					$stV[] = $val;
-				}
 
-				// Now, implode the array elements to form a comma-separated list for SQL
-				 $user_rec_by_distance = "user_tutor_info.user_id IN ('" . implode("','", $stV) . "')";
-				
-				//$postal_lat_long = " user_tutor_info.postal_code = '".$array['postal_code']."' and user_tutor_info.lettitude = '".$array['student_lat']."' and user_tutor_info.longitude = '".$array['student_long']."' ";
-				
-				//$postal_lat_long = " and user_tutor_info.postal_code = '".$array['postal_code']."' or user_tutor_info.lettitude = '".$array['student_lat']."' and user_tutor_info.longitude = '".$array['student_long']."' ";
-			}
-			else{
-				//$postal_lat_long = "";
-			}
-			
-			if(!empty($array['sorting']))
-			{
-				
-				foreach($array['sorting'] as $sort)
-				{
-					//echo $sort;
-					
-					if($sort=="Newest")
-					{
-						$sorting = "  ORDER BY user_tutor_info.create_date ASC ";
-					}
-					if($sort=="Oldest")
-					{
-						$sorting = "  ORDER BY user_tutor_info.create_date DESC ";
-					}
-					if($sort=="HigherR")
-					{
-						$sorting = "  ORDER BY tbl_rating.rating_no DESC ";
-					}
-					if($sort=="LowestR")
-					{
-						$sorting = "  ORDER BY tbl_rating.rating_no ASC ";
-					}
-					
-				}
-				
-				
-				
-			}
-			else{
-				$sorting = "";
-			}
-			
-			if(!empty($array['gender']))
-			{
-				$gender_arr = "'" . implode("','", $array['gender']) . "'";
-				
-				$gender = " and user_tutor_info.gender IN($gender_arr) ";
-			}
-			else{
-				$gender = "";
-			}
-			if(!empty($array['tutor_status']))
-			{
-				$tutor_status_arr = "'" . implode("','", $array['tutor_status']) . "'";
-				
-				$tutor_status = " and user_tutor_info.tutor_status IN($tutor_status_arr) ";
-			}
-			else{
-				$tutor_status = "";
-			}
-			
-			
-			
-			//For Grade
-			if(!empty($array['grade']))
-			{
-				
-				$gradestring = "'" . implode("','", $array['grade']) . "'";
+	////// end	
+	
 
-				$grade =  " and complete_user_profile_tutoring_grade_detail.Tutoring_Grade IN($gradestring)";
-			}
-			else
-			{
-			
-				$grade = "";
-			}	
-			
-			/**
-			//For Subjects
-			if(!empty($array['subjects']))
-			{
-				
-				$subjectsstring = "'" . implode("','", $array['subjects']) . "'";
+	
+	
 
-				$subjects =  " and complete_user_profile_tutoring_tutoring_subjects_detail.Tutoring_ALL_Subjects IN($subjectsstring)";
-			}
-			else
-			{
-			
-				$subjects = "";
-			}	
-			
-			
-			
-			
-			
-			
-			
-			// For Subjects
-			if (!empty($array['subjects'])) {
-				// Initialize an array to store LIKE conditions
-				$subjectConditions = [];
+	 //// For condition 5 Start
+	 $hasValidTutoringLevel = in_array('Computer', $array['TutoringLevel']) || in_array('Entrance Exams', $array['TutoringLevel']);
 
-				// Loop through each subject and create a LIKE condition
-				foreach ($array['subjects'] as $subject) {
-					// Use '%' wildcards for partial matching
-					$subjectConditions[] = "complete_user_profile_tutoring_tutoring_subjects_detail.Tutoring_ALL_Subjects LIKE '%" . $subject . "%'";
+	 
+		if($hasValidTutoringLevel && !empty($array['TutoringLevel']) && !empty($array['subjects']) && empty($array['AdmissionLevel']) && empty($array['grade']) && empty($array['stream'])) 
+		{
+			// Ensure TutoringLevel is an array
+			$array['TutoringLevel'] = (array) $array['TutoringLevel'];
+
+			// Check if "Computer" or "Entrance Exams" is present
+			$hasValidTutoringLevel = in_array('Computer', $array['TutoringLevel']) || in_array('Entrance Exams', $array['TutoringLevel']);
+
+			// If not "Computer" or "Entrance Exams", exit script
+			   if (!$hasValidTutoringLevel) {
+				$conditions = []; // Set conditions to an empty array
+				exit; // Stop execution
 				}
 
-				// Join the conditions with OR to match any subject
-				$subjects = " AND (" . implode(" OR ", $subjectConditions) . ")";
-			} else {
-				$subjects = "";
-			}
-			
-			**/
-			
-			
-			
-			
-			// Map for specific subjects (like "Science") to related terms
-				$subjectMappings = [
-					'Science' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
-					'Computer' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
-					'Physics' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
-					'Chemistry' => ['Computer', 'Science', 'Physics', 'Physics H1', 'Physics H2', 'Physics H3', 'Physics Engineering', 'Physics SL', 'Physics HL', 'Pure Physics', 'Science Chemistry', 'Pure Chemistry', 'Chemistry', 'Chemistry H1', 'Chemistry H2', 'Chemistry H3', 'Chemistry Engineering', 'Chemistry SL', 'Chemistry HL', 'Biology', 'Biology H1', 'Biology H2', 'Biology H3', 'Biology SL', 'Biology HL', 'Science Biology', 'Pure Biology', 'Mechanics', 'Science Foundation', 'Java', 'JavaScript', 'Python', 'C', 'C++', 'C#', 'HTML', 'CSS', 'SQL', 'PERL', 'PHP', 'App Development', 'Website Development', 'Computer Science SL', 'Computer Engineering', 'Computer Science H1', 'Computer Science H2', 'Electronics'],
-					'English' => ['English', 'Theory of Knowledge TOK', 'IELTS', 'TOEFL', 'Project Work PW', 'General Paper GP'],
-					'Math' => ['Math', 'Mathematics', 'Mathematics H1', 'Mathematics H2', 'Mathematics HL', 'Mathematics SL', 'Statistics', 'Mathematics H3', 'Further Mathematics'],
-					'Chinese' => ['Chinese', 'Chinese H1', 'Chinese H2', 'Mandarin', 'Higher Chinese'],
-					'Economics' => ['Economics', 'Economics H1', 'Economics H2', 'Mandarin'],
-					// Add other mappings if needed
-				];
 
-				// For Subjects
-				if (!empty($array['subjects'])) {
-					// Initialize an array to store LIKE conditions
-					$subjectConditions = [];
+			$existsConditions5 = []; // Initialize conditions array
 
-					// Loop through each subject and create LIKE conditions based on mappings
-					foreach ($array['subjects'] as $subject) {
-						if (array_key_exists($subject, $subjectMappings)) {
-							// If subject has a mapping, create LIKE conditions for each related term
-							foreach ($subjectMappings[$subject] as $mappedSubject) {
-								$subjectConditions[] = "complete_user_profile_tutoring_tutoring_subjects_detail.Tutoring_ALL_Subjects = '" . $mappedSubject . "'";
-							}
-						} else {
-							// If no mapping, use the subject itself
-							$subjectConditions[] = "complete_user_profile_tutoring_tutoring_subjects_detail.Tutoring_ALL_Subjects = '" . $subject . "'";
-						}
+			// Convert array to safe SQL string
+			$safeTutoringLevels = implode("','", array_filter(array_map([$conn, 'real_escape_string'], $array['TutoringLevel'])));
+
+			foreach ($array['subjects'] as $subject) {
+				if (isset($subjectMappings[$subject])) { // Check if subject is mapped
+					$mappedSubjects = array_map([$conn, 'real_escape_string'], $subjectMappings[$subject]);
+					$mappedConditions = implode(" OR ", array_map(fn($sub) => "FIND_IN_SET('{$sub}', s.Tutoring_ALL_Subjects)", $mappedSubjects));
+
+					if (!empty($mappedConditions)) {
+						$existsConditions5[] = "
+							EXISTS (
+								SELECT 1 
+								FROM complete_user_profile_tutoring_detail s
+								WHERE s.user_id = user_tutor_info.user_id 
+								AND ({$mappedConditions})
+								AND s.TutoringLevel IN ('{$safeTutoringLevels}')
+							)
+						";
 					}
-
-					// Join the conditions with OR to match any related subject
-					$subjects = " AND (" . implode(" OR ", $subjectConditions) . ")";
-				} else {
-					$subjects = "";
+				} else { // Handle unmapped subjects
+					$safe_subject = $conn->real_escape_string($subject);
+					$existsConditions5[] = "
+						EXISTS (
+							SELECT 1 
+							FROM complete_user_profile_tutoring_detail s
+							WHERE s.user_id = user_tutor_info.user_id 
+							AND FIND_IN_SET('{$safe_subject}', s.Tutoring_ALL_Subjects)
+							AND s.TutoringLevel IN ('{$safeTutoringLevels}')
+						)
+					";
 				}
-			
-			
-			
-			
-			
-			
-			//For Multiple Nationality 
-			
-			if(!empty($array['nationality']))
-			{
-				$nationalitiesString = "'" . implode("','", $array['nationality']) . "'";
-
-				$nationality =  " and user_tutor_info.nationality IN($nationalitiesString)";
 			}
-			else
-			{
-				$nationality = "";
-			}	
 
-
-			
-
-			//For Multiple qualification 
-			
-			if(!empty($array['qualification']))
-			{
-				$qualificationString = "'" . implode("','", $array['qualification']) . "'";
-
-				$qualification =  " and user_tutor_info.qualification IN($qualificationString)";
+			// Ensure $conditions is initialized before appending
+			if (!empty($existsConditions5)) {
+				$conditions = $conditions ?? []; // Initialize if not set
+				$conditions[] = "(" . implode(" AND ", $existsConditions5) . ")";
 			}
-			else
-			{
-				$qualification = "";
-			}	
+		}
 
-			
-			//For Multiple Level 
-			
-			if(!empty($array['TutoringLevel']))
-			{
-				$TutoringLevelString = "'" . implode("','", $array['TutoringLevel']) . "'";
 
-				$TutoringLevel =  " and complete_user_profile_tutoring_detail.TutoringLevel IN($TutoringLevelString)";
+
+	 
+	 
+	 ////// end	
+	 
+	 
+
+
+
+
+/**
+
+$AdmissionLevel_val = $array['AdmissionLevel'];
+
+
+// Handle admission level filter
+if (!empty($array['AdmissionLevel'])) {
+    $admission_level_values = implode("','", $array['AdmissionLevel']);
+	
+	if($AdmissionLevel_val[0] == "Primary" || $AdmissionLevel_val[0] == "Secondary")
+	{
+		$conditions[] = "complete_user_profile_tutoring_detail.AdmissionLevel IN ('{$admission_level_values}')";
+	}
+	else{
+	
+		//$conditions[] = "complete_user_profile_tutoring_admission_level.AdmissionLevel IN ('{$admission_level_values}')";
+		
+		
+		$existsConditions_AdmissionLevel = [];
+
+		if (!empty($array['AdmissionLevel'])) {
+			foreach ($array['AdmissionLevel'] as $AdmissionLevel) {
+				$safe_AdmissionLevel = $conn->real_escape_string($AdmissionLevel); // Prevent SQL Injection
+				$existsConditions_AdmissionLevel[] = "
+					EXISTS (
+						SELECT 1 
+						FROM complete_user_profile_tutoring_admission_level al 
+						WHERE al.user_id = user_tutor_info.user_id 
+						AND al.AdmissionLevel = '{$safe_AdmissionLevel}'
+					)
+				";
 			}
-			else
-			{
-				$TutoringLevel = "";
-			}	
+		}
 
+		// Merge EXISTS conditions using AND to ensure all stream are present
+		if (!empty($existsConditions_AdmissionLevel)) {
+			$conditions[] = "(" . implode(" AND ", $existsConditions_AdmissionLevel) . ")";
+		}
 
-			//For Multiple Stream 
-			
-			if(!empty($array['stream']))
-			{
-				$streamString = "'" . implode("','", $array['stream']) . "'";
-				
-				$stream_V =  " and complete_user_profile_tutoring_admission_stream.Stream IN($streamString)";
-			}
-			else
-			{
-				$stream_V = "";
-			}	
-			
-			 
-			 
-			 if($user_rec_by_distance =="" && $stream_V == "" && $TutoringLevel == "" && $qualification == "" && $nationality == "" && $subjects == "" && $grade == "" && $tutor_status == "" && $gender == "" && $sorting == "")
-			 {
-				 $All = 1;
-			 }
-			 else{
-				 $All = "";
-			 }
-			
-			
-			
-			  //echo $check = "SELECT DISTINCT user_tutor_info.profile_image,user_tutor_info.age,user_tutor_info.tutor_code, user_tutor_info.personal_statement, user_tutor_info.tutor_tutoring_experience_months, user_tutor_info.tutor_tutoring_experience_years, user_tutor_info.postal_code, user_tutor_info.gra_year, user_tutor_info.OtherCourse_Exam, user_tutor_info.Course_Exam, user_tutor_info.name_of_school, user_tutor_info.flag, user_tutor_info.date_of_year, user_tutor_info.age, user_tutor_info.qualification, user_tutor_info.user_id, user_tutor_info.gender, user_tutor_info.nationality, user_tutor_info.tutor_status, user_tutor_info.tuition_type, user_tutor_info.postal_code, user_tutor_info.travel_distance, user_tutor_info.lettitude, user_tutor_info.longitude, user_tutor_info.stream FROM user_tutor_info LEFT JOIN complete_user_profile_tutoring_detail ON user_tutor_info.user_id =  complete_user_profile_tutoring_detail.user_id LEFT JOIN complete_user_profile_tutoring_grade_detail ON complete_user_profile_tutoring_detail.user_id = complete_user_profile_tutoring_grade_detail.user_id LEFT JOIN complete_user_profile_tutoring_tutoring_subjects_detail ON complete_user_profile_tutoring_grade_detail.user_id = complete_user_profile_tutoring_tutoring_subjects_detail.user_id LEFT JOIN complete_user_profile_tutoring_admission_stream ON complete_user_profile_tutoring_tutoring_subjects_detail.user_id = complete_user_profile_tutoring_admission_stream.user_id LEFT JOIN tbl_rating ON user_tutor_info.user_id = tbl_rating.tutor_id WHERE ".$user_rec_by_distance.$gender.$tutor_status.$nationality.$subjects.$TutoringLevel.$grade.$qualification.$stream_V.$sorting.$All;        //; 
+		
+		
+		
+	}
+}
 
-
-
-
-
-
-			//echo "SELECT DISTINCT user_tutor_info.user_id, complete_user_profile_tutoring_tutoring_subjects_detail.Tutoring_ALL_Subjects, user_tutor_info.profile_image,user_tutor_info.age,user_tutor_info.tutor_code, user_tutor_info.personal_statement, user_tutor_info.tutor_tutoring_experience_months, user_tutor_info.tutor_tutoring_experience_years, user_tutor_info.postal_code, user_tutor_info.gra_year, user_tutor_info.OtherCourse_Exam, user_tutor_info.Course_Exam, user_tutor_info.name_of_school, user_tutor_info.flag, user_tutor_info.date_of_year, user_tutor_info.age, user_tutor_info.qualification, user_tutor_info.user_id, user_tutor_info.gender, user_tutor_info.nationality, user_tutor_info.tutor_status, user_tutor_info.tuition_type, user_tutor_info.postal_code, user_tutor_info.travel_distance, user_tutor_info.lettitude, user_tutor_info.longitude, user_tutor_info.stream FROM user_tutor_info LEFT JOIN complete_user_profile_tutoring_detail ON user_tutor_info.user_id =  complete_user_profile_tutoring_detail.user_id LEFT JOIN complete_user_profile_tutoring_grade_detail ON complete_user_profile_tutoring_detail.user_id = complete_user_profile_tutoring_grade_detail.user_id LEFT JOIN complete_user_profile_tutoring_tutoring_subjects_detail ON complete_user_profile_tutoring_grade_detail.user_id = complete_user_profile_tutoring_tutoring_subjects_detail.user_id LEFT JOIN complete_user_profile_tutoring_admission_stream ON complete_user_profile_tutoring_tutoring_subjects_detail.user_id = complete_user_profile_tutoring_admission_stream.user_id LEFT JOIN tbl_rating ON user_tutor_info.user_id = tbl_rating.tutor_id WHERE ".$user_rec_by_distance.$gender.$tutor_status.$nationality.$subjects.$TutoringLevel.$grade.$qualification.$stream_V.$sorting.$All." GROUP BY user_tutor_info.user_id"; 
-
-
-
-		  $check = "SELECT DISTINCT user_tutor_info.user_id, complete_user_profile_tutoring_tutoring_subjects_detail.Tutoring_ALL_Subjects, user_tutor_info.profile_image,user_tutor_info.age,user_tutor_info.tutor_code, user_tutor_info.personal_statement, user_tutor_info.tutor_tutoring_experience_months, user_tutor_info.tutor_tutoring_experience_years, user_tutor_info.postal_code, user_tutor_info.gra_year, user_tutor_info.OtherCourse_Exam, user_tutor_info.Course_Exam, user_tutor_info.name_of_school, user_tutor_info.flag, user_tutor_info.date_of_year, user_tutor_info.age, user_tutor_info.qualification, user_tutor_info.user_id, user_tutor_info.gender, user_tutor_info.nationality, user_tutor_info.tutor_status, user_tutor_info.tuition_type, user_tutor_info.postal_code, user_tutor_info.travel_distance, user_tutor_info.lettitude, user_tutor_info.longitude, user_tutor_info.stream FROM user_tutor_info LEFT JOIN complete_user_profile_tutoring_detail ON user_tutor_info.user_id =  complete_user_profile_tutoring_detail.user_id LEFT JOIN complete_user_profile_tutoring_grade_detail ON complete_user_profile_tutoring_detail.user_id = complete_user_profile_tutoring_grade_detail.user_id LEFT JOIN complete_user_profile_tutoring_tutoring_subjects_detail ON complete_user_profile_tutoring_grade_detail.user_id = complete_user_profile_tutoring_tutoring_subjects_detail.user_id LEFT JOIN complete_user_profile_tutoring_admission_stream ON complete_user_profile_tutoring_tutoring_subjects_detail.user_id = complete_user_profile_tutoring_admission_stream.user_id LEFT JOIN tbl_rating ON user_tutor_info.user_id = tbl_rating.tutor_id WHERE ".$All.$user_rec_by_distance.$gender.$tutor_status.$nationality.$subjects.$TutoringLevel.$grade.$qualification.$stream_V." GROUP BY user_tutor_info.user_id ".$sorting;        //;  
-
-
-			
-
-			
-			/**
-			$check = "SELECT DISTINCT user_tutor_info.profile_image, user_tutor_info.age, user_tutor_info.tutor_code, user_tutor_info.personal_statement, user_tutor_info.tutor_tutoring_experience_months, user_tutor_info.tutor_tutoring_experience_years, user_tutor_info.postal_code, user_tutor_info.gra_year, user_tutor_info.OtherCourse_Exam, user_tutor_info.Course_Exam, user_tutor_info.name_of_school, user_tutor_info.flag, user_tutor_info.date_of_year, user_tutor_info.age, user_tutor_info.qualification, user_tutor_info.user_id, user_tutor_info.gender, user_tutor_info.nationality, user_tutor_info.tutor_status, user_tutor_info.tuition_type, user_tutor_info.postal_code, user_tutor_info.travel_distance, user_tutor_info.lettitude, user_tutor_info.longitude, user_tutor_info.stream 
-FROM user_tutor_info 
-LEFT JOIN complete_user_profile_tutoring_detail ON user_tutor_info.user_id = complete_user_profile_tutoring_detail.user_id 
-LEFT JOIN complete_user_profile_tutoring_grade_detail ON complete_user_profile_tutoring_detail.user_id = complete_user_profile_tutoring_grade_detail.user_id 
-LEFT JOIN complete_user_profile_tutoring_tutoring_subjects_detail ON complete_user_profile_tutoring_grade_detail.user_id = complete_user_profile_tutoring_tutoring_subjects_detail.user_id 
-LEFT JOIN complete_user_profile_tutoring_admission_stream ON complete_user_profile_tutoring_tutoring_subjects_detail.user_id = complete_user_profile_tutoring_admission_stream.user_id 
-LEFT JOIN tbl_rating ON user_tutor_info.user_id = tbl_rating.tutor_id 
-WHERE 1=1 " .$user_rec_by_distance.$gender.$tutor_status.$nationality.$subjects.$TutoringLevel.$grade.$qualification.$stream_V.$sorting.$All;
 **/
+
+
+
+
+
+/**
+// Handle grade filter
+if (!empty($array['grade'])) {
+    $grade_values = implode("','", $array['grade']);
+    $conditions[] = "complete_user_profile_tutoring_grade_detail.Tutoring_Grade IN ('{$grade_values}')";
+}
+**/
+
+
+
+
+/**
+$existsConditions_grade = [];
+
+if (!empty($array['grade'])) {
+    foreach ($array['grade'] as $grade) {
+        $safe_grade = $conn->real_escape_string($grade); // Prevent SQL Injection
+        $existsConditions_grade[] = "
+            EXISTS (
+                SELECT 1 
+                FROM complete_user_profile_tutoring_grade_detail g 
+                WHERE g.user_id = user_tutor_info.user_id 
+                AND g.Tutoring_Grade = '{$safe_grade}'
+            )
+        ";
+    }
+}
+
+// Merge EXISTS conditions using AND to ensure all grade are present
+if (!empty($existsConditions_grade)) {
+    $conditions[] = "(" . implode(" AND ", $existsConditions_grade) . ")";
+}
+
+**/
+
+
+
+
+
+
+/**
+//For Multiple Stream 
 			
-			
-			$check_res = $conn->query($check);
+if(!empty($array['stream']))
+{
+	$streamString = implode("','", $array['stream']);
+	
+	$conditions[] =  "complete_user_profile_tutoring_admission_stream.Stream IN ('{$streamString}')";
+}
+**/
+
+
+/**
+$existsConditions_stream = [];
+
+if (!empty($array['stream'])) {
+    foreach ($array['stream'] as $stream) {
+        $safe_stream = $conn->real_escape_string($stream); // Prevent SQL Injection
+        $existsConditions_stream[] = "
+            EXISTS (
+                SELECT 1 
+                FROM complete_user_profile_tutoring_admission_stream st 
+                WHERE st.user_id = user_tutor_info.user_id 
+                AND st.Stream = '{$safe_stream}'
+            )
+        ";
+    }
+}
+
+// Merge EXISTS conditions using AND to ensure all stream are present
+if (!empty($existsConditions_stream)) {
+    $conditions[] = "(" . implode(" AND ", $existsConditions_stream) . ")";
+}
+**/
+
+
+
+
+
+
+
+
+/**
+if(!empty($array['tutor_status']))
+{
+	$tutor_status_arr = implode("','", $array['tutor_status']);
+
+	$conditions[] =  "user_tutor_info.tutor_status IN ('{$tutor_status_arr}')";
+}
+**/
+
+
+$existsConditions_tutor_status = [];
+
+		if (!empty($array['tutor_status'])) {
+			foreach ($array['tutor_status'] as $tutor_status) {
+				$safe_tutor_status = $conn->real_escape_string($tutor_status); // Prevent SQL Injection
+				$existsConditions_tutor_status[] = "
+					EXISTS (
+						SELECT 1 
+						FROM user_tutor_info ts 
+						WHERE ts.user_id = user_tutor_info.user_id 
+						AND ts.tutor_status = '{$safe_tutor_status}'
+					)
+				";
+			}
+		}
+
+		// Merge EXISTS conditions using AND to ensure all tutor_status are present
+		if (!empty($existsConditions_tutor_status)) {
+			$conditions[] = "(" . implode(" AND ", $existsConditions_tutor_status) . ")";
+		}
+
+
+
+
+// Build the WHERE clause dynamically
+$whereClause = !empty($conditions) ? "WHERE " . implode(" AND ", $conditions) : "";
+
+
+
+
+
+
+// Handle sorting
+$sorting = "";
+if (!empty($array['sorting'])) {
+    foreach ($array['sorting'] as $sort) {
+        switch ($sort) {
+            case "Newest":
+                $sorting = "ORDER BY user_tutor_info.create_date DESC";
+                break;
+            case "Oldest":
+                $sorting = "ORDER BY user_tutor_info.create_date ASC";
+                break;
+            case "HigherR":
+                $sorting = "ORDER BY tbl_rating.rating_no DESC";
+                break;
+            case "LowestR":
+                $sorting = "ORDER BY tbl_rating.rating_no ASC";
+                break;
+        }
+    }
+}
+
+
+
+
+
+// Apply the condition for TutoringLevel only if the array is not empty
+if (!empty($array['TutoringLevel'])) {
+    $havingConditions[] = "COUNT(DISTINCT complete_user_profile_tutoring_detail.TutoringLevel) = " . count($array['TutoringLevel']);
+}
+
+// Apply the condition for AdmissionLevel only if the array is not empty
+if (!empty($array['AdmissionLevel'])) {
+	
+	if($AdmissionLevel_val[0]=="Primary" || $AdmissionLevel_val[0]=="Secondary")
+	{
+		$havingConditions[] = "COUNT(DISTINCT complete_user_profile_tutoring_detail.AdmissionLevel) = " . count($array['AdmissionLevel']);
+	}
+	else{
+		
+		$havingConditions[] = "COUNT(DISTINCT complete_user_profile_tutoring_admission_level.AdmissionLevel) = " . count($array['AdmissionLevel']);
+	}
+
+}
+
+// Apply the condition for Tutoring_Grade only if the array is not empty
+if (!empty($array['grade'])) {
+    $havingConditions[] = "COUNT(DISTINCT complete_user_profile_tutoring_grade_detail.Tutoring_Grade) = " . count($array['grade']);
+}
+
+// Apply the condition for qualification only if the array is not empty
+if (!empty($array['qualification'])) {
+    $havingConditions[] = "COUNT(DISTINCT user_tutor_info.qualification) = " . count($array['qualification']);
+}
+
+// Apply the condition for Stream only if the array is not empty
+if (!empty($array['stream'])) {
+    $havingConditions[] = "COUNT(DISTINCT complete_user_profile_tutoring_admission_stream.Stream) = " . count($array['stream']);
+}
+
+// Apply the condition for gender only if the array is not empty
+if (!empty($array['gender'])) {
+    $havingConditions[] = "COUNT(DISTINCT user_tutor_info.gender) = " . count($array['gender']);
+}
+
+// Apply the condition for nationality only if the array is not empty
+if (!empty($array['nationality'])) {
+    $havingConditions[] = "COUNT(DISTINCT user_tutor_info.nationality) = " . count($array['nationality']);
+}
+
+// Apply the condition for tutor status only if the array is not empty
+if (!empty($array['tutor_status'])) {
+    $havingConditions[] = "COUNT(DISTINCT user_tutor_info.tutor_status) = " . count($array['tutor_status']);
+}
+
+// Apply the condition for subjects only if the array is not empty
+if (!empty($array['subjects'])) {
+    //$havingConditions[] = "COUNT(DISTINCT complete_user_profile_tutoring_tutoring_subjects_detail.Tutoring_ALL_Subjects) = " . count($array['subjects']);
+}
+
+
+
+
+
+// Now, combine all the conditions in HAVING clause
+$havingClause = '';
+if (!empty($havingConditions)) {
+    $havingClause = "HAVING " . implode(" AND ", $havingConditions);
+}
+
+
+
+// Final SQL query
+  $check = "
+    SELECT DISTINCT 
+        user_tutor_info.user_id, 
+        user_tutor_info.profile_image, 
+        user_tutor_info.age, 
+        user_tutor_info.tutor_code, 
+        user_tutor_info.personal_statement, 
+        user_tutor_info.tutor_tutoring_experience_months, 
+        user_tutor_info.tutor_tutoring_experience_years, 
+        user_tutor_info.postal_code, 
+        user_tutor_info.gra_year, 
+        user_tutor_info.OtherCourse_Exam, 
+        user_tutor_info.Course_Exam, 
+        user_tutor_info.name_of_school, 
+        user_tutor_info.flag, 
+        user_tutor_info.date_of_year, 
+        user_tutor_info.qualification, 
+        user_tutor_info.gender, 
+        user_tutor_info.nationality, 
+        user_tutor_info.tutor_status, 
+        user_tutor_info.tuition_type, 
+        user_tutor_info.travel_distance, 
+        user_tutor_info.lettitude, 
+        user_tutor_info.longitude, 
+        user_tutor_info.stream
+    FROM user_tutor_info 
+    LEFT JOIN complete_user_profile_tutoring_tutoring_subjects_detail 
+        ON user_tutor_info.user_id = complete_user_profile_tutoring_tutoring_subjects_detail.user_id
+	LEFT JOIN complete_user_profile_tutoring_detail 
+        ON user_tutor_info.user_id = complete_user_profile_tutoring_detail.user_id
+    LEFT JOIN complete_user_profile_tutoring_grade_detail 
+        ON user_tutor_info.user_id = complete_user_profile_tutoring_grade_detail.user_id
+	LEFT JOIN complete_user_profile_tutoring_admission_stream 
+        ON user_tutor_info.user_id = complete_user_profile_tutoring_admission_stream.user_id
+    LEFT JOIN complete_user_profile_tutoring_admission_level 
+        ON user_tutor_info.user_id = complete_user_profile_tutoring_admission_level.user_id
+    LEFT JOIN tbl_rating 
+        ON user_tutor_info.user_id = tbl_rating.tutor_id	
+    {$whereClause}
+    GROUP BY user_tutor_info.user_id
+    ORDER BY user_tutor_info.user_id ASC;
+";
+
+
+
+
+
+$check_res = $conn->query($check);
 			
 			 $check_res_num = mysqli_num_rows($check_res);
 			 
@@ -660,14 +1231,14 @@ WHERE 1=1 " .$user_rec_by_distance.$gender.$tutor_status.$nationality.$subjects.
 					
 					
 					
-					if($distance_value <= $Filter_Data['travel_distance'])  /// till 50 km
-					{		
+					//if($distance_value <= $Filter_Data['travel_distance'])  /// till 50 km
+					//{		
                       
                       
 					  if($logged_in_student_id !="")
 					  {
-						 
 						  $tutor_favrourite_val = mysqli_fetch_array($conn->query("SELECT * FROM favourite_tutor_by_student WHERE tutor_id = '".$Filter_Data['user_id']."' and logged_in_student_id = '".$logged_in_student_id."' "));
+						  
 						  $favourite_val = $tutor_favrourite_val['favourite'];
 					  }
 					  else{
@@ -724,43 +1295,67 @@ WHERE 1=1 " .$user_rec_by_distance.$gender.$tutor_status.$nationality.$subjects.
 					 
 					  
 					  
-						
-						$Response[] = array(
-											'user_id' => $Filter_Data['user_id'],
-											'first_name' => $user_main_data['first_name'],
-											'last_name' => $user_main_data['last_name'],
-                          					'favourite' => $favourite_val,
-											'rating_val' => $rating_val_f,
-											'Average_rating' => $avg_rating,
-											'email' => $user_main_data['email'],
-											'mobile' => $user_main_data['mobile'],
-											'address1' => $user_main_data['address1'],
-											'age' => $Filter_Data['age'],
-											'profile_image' => $Filter_Data['profile_image'],
-											'flag' => $Filter_Data['flag'],
-											'personal_statement' => $Filter_Data['personal_statement'],
-											'tutor_code' => $Filter_Data['tutor_code'],
-											'gender' => $Filter_Data['gender'],
-											'nationality' => $Filter_Data['nationality'],
-											'qualification' => $Filter_Data['qualification'],
-											'tutor_status' => $Filter_Data['tutor_status'],
-											'tuition_type' => $Filter_Data['tuition_type'],
-											'postal_code' => $Filter_Data['postal_code'],
-											'travel_distance' => $Filter_Data['travel_distance'],
-											'lettitude' => $Filter_Data['lettitude'],
-											'longitude' => $Filter_Data['longitude'],
-											'stream' => $Filter_Data['stream'],
-											'between_distance' => $distance_value.' KM',
-											'profile_history_academy_data_array' => $profile_history_academy_data_array,
-											'profile_history_academy_result_data_array' => $profile_history_academy_result_data_array,
-											'profile_tutoring_detail_result_data_array' => $profile_tutoring_detail_result_data_array,
-											'complete_user_profile_tutoring_grade_detail_array' => $complete_user_profile_tutoring_grade_detail_array,
-											'tutoring_subjects_detail_result_data_array' => $tutoring_subjects_detail_result_data_array
-											);
-					}
-					else{
-						$resultData = array('status' => false, 'message' => 'No record found.' );
-					}	
+					  $chk_account_not_suspended = $conn->query("SELECT user_id FROM tbl_user_suspended WHERE user_id = '".$Filter_Data['user_id']."' and account_suspended = 'suspended' ");
+					  
+							  if(mysqli_num_rows($chk_account_not_suspended)==0)
+							  {
+								  
+								  
+								 
+								if($Filter_Data['user_id'] != $logged_in_student_id)
+								{
+							  
+								
+									$Response[] = array(
+														'user_id' => $Filter_Data['user_id'],
+														'first_name' => $user_main_data['first_name'],
+														'last_name' => $user_main_data['last_name'],
+														'favourite' => $favourite_val,
+														'rating_val' => $rating_val_f,
+														'Average_rating' => $avg_rating,
+														'email' => $user_main_data['email'],
+														'mobile' => $user_main_data['mobile'],
+														'address1' => $user_main_data['address1'],
+														'age' => $Filter_Data['age'],
+														'profile_image' => $Filter_Data['profile_image'],
+														'flag' => $Filter_Data['flag'],
+														'personal_statement' => $Filter_Data['personal_statement'],
+														'tutor_code' => $Filter_Data['tutor_code'],
+														'gender' => $Filter_Data['gender'],
+														'nationality' => $Filter_Data['nationality'],
+														'qualification' => $Filter_Data['qualification'],
+														'tutor_status' => $Filter_Data['tutor_status'],
+														'tuition_type' => $Filter_Data['tuition_type'],
+														'postal_code' => $Filter_Data['postal_code'],
+														'travel_distance' => $Filter_Data['travel_distance'],
+														'lettitude' => $Filter_Data['lettitude'],
+														'longitude' => $Filter_Data['longitude'],
+														'stream' => $Filter_Data['stream'],
+														'between_distance' => $distance_value.' KM',
+														'profile_history_academy_data_array' => $profile_history_academy_data_array,
+														'profile_history_academy_result_data_array' => $profile_history_academy_result_data_array,
+														'profile_tutoring_detail_result_data_array' => $profile_tutoring_detail_result_data_array,
+														'complete_user_profile_tutoring_grade_detail_array' => $complete_user_profile_tutoring_grade_detail_array,
+														'tutoring_subjects_detail_result_data_array' => $tutoring_subjects_detail_result_data_array
+														
+														
+														);
+													
+													
+								}				
+											
+											
+							}
+						else{
+							$resultData = array('status' => false, 'message' => 'No record found.' );
+						}	
+
+					
+											
+					//}
+					//else{
+					//	$resultData = array('status' => false, 'message' => 'No record found.' );
+					//}	
 						
 					
 					

@@ -16,7 +16,7 @@ header('content-type:application/json');
 		{
 	
 			/// for tutor_details sql
-			$query = "SELECT * FROM student_post_requirements where student_post_requirements_id = '".$_GET['student_post_requirements_id']."'  ";
+			 $query = "SELECT * FROM student_post_requirements where student_post_requirements_id = '".$_GET['student_post_requirements_id']."'  ";
 					
 				
 			$result = $conn->query($query) or die ("table not found");
@@ -26,7 +26,9 @@ header('content-type:application/json');
 			if($numrows > 0)
 			{
 				
-				$sql_tDL = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.student_post_requirements_id  = '".$_GET['student_post_requirements_id']."' and appT.booking_status <> 'booked' and appT.apply_tag = 'true'  ");
+				$sql_tDL = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.student_post_requirements_id  = '".$_GET['student_post_requirements_id']."' and appT.booking_status <> 'booked'   ");
+				
+				//$sql_tDL = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.student_post_requirements_id  = '".$_GET['student_post_requirements_id']."' and appT.booking_status <> 'booked' and appT.apply_tag = 'true'  ");
 				
 				/**
 				$sql_tDL = $conn->query($aa="SELECT appT.*, tutor.*, info.*, nego.* 
@@ -186,7 +188,7 @@ ORDER BY nego.add_negotiate_tag DESC");
 					$Total_no_of_Tutor_Applied_status=1;
 				}
 				
-				
+				//echo $Total_no_of_Tutor_Applied_status;
 					
 					
 					
@@ -237,8 +239,9 @@ ORDER BY nego.add_negotiate_tag DESC");
 				/// Rest of interested tutor
 					//$RestOfInterested_Tutor = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor as apply INNER JOIN tutor_booking_process as booking ON apply.tutor_login_id <> booking.tutor_id  ");
 				
-					$RestOfInterested_Tutor = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor WHERE student_post_requirements_id = '".$_GET['student_post_requirements_id']."' and apply_tag = 'true' and booking_status <> 'booked'  ");
+					//$RestOfInterested_Tutor = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor WHERE student_post_requirements_id = '".$_GET['student_post_requirements_id']."' and apply_tag = 'true' and booking_status <> 'booked'  ");
 				
+				$RestOfInterested_Tutor = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor WHERE student_post_requirements_id = '".$_GET['student_post_requirements_id']."' and booking_status <> 'booked'  ");
 				
 					$RestOfInterested_Tutor_No = mysqli_num_rows($RestOfInterested_Tutor);
 					
@@ -573,15 +576,43 @@ ORDER BY nego.add_negotiate_tag DESC");
 										WHERE student_post_requirement_id = '".$tutor_result['student_post_requirements_id']."' 
 										 ORDER BY add_negotiate_tag ASC");
 					**/
-
+					
+					
+					
+					
+					
 					
 										 
-										 $rec = $conn->query("SELECT * 
+							 $rec_chk = $conn->query("SELECT * 
 														FROM student_post_requirement_amount_negotiate
 														WHERE student_post_requirement_id = '".$tutor_result['student_post_requirements_id']."' 
 														ORDER BY 
 															CASE WHEN IPT = 'New' THEN 1 ELSE 2 END;
 														");
+														
+													
+														
+							if($RestOfInterested_Tutor_No > 0 && mysqli_num_rows($rec_chk) > 0)
+							{
+								$rec = $conn->query("SELECT * 
+														FROM student_post_requirement_amount_negotiate
+														WHERE student_post_requirement_id = '".$tutor_result['student_post_requirements_id']."' 
+														ORDER BY 
+															CASE WHEN IPT = 'New' THEN 1 ELSE 2 END;
+														");
+							}
+							if($RestOfInterested_Tutor_No > 0 && mysqli_num_rows($rec_chk) == 0)
+							{
+								
+								$rec = $conn->query("SELECT * 
+														FROM student_post_requirements as spr INNER JOIN student_post_requirements_Applied_by_tutor as spabt ON spr.student_post_requirements_id = spabt.student_post_requirements_id
+														WHERE spr.student_post_requirements_id = '".$tutor_result['student_post_requirements_id']."' 
+														
+														");
+							}
+
+										
+														
 
 
 										
@@ -591,29 +622,104 @@ ORDER BY nego.add_negotiate_tag DESC");
 								{
 									//echo $Interested_Tutor_detail_DataD['add_negotiate_tag'];	
 									
-									$applyed = mysqli_fetch_array($conn->query("SELECT * 
+									
+									//echo $Interested_Tutor_detail_DataD['tutor_login_id'].'=='.$applyed['tutor_login_id'];
+									
+									if($Interested_Tutor_detail_DataD['student_post_requirement_id'] != "")
+									{
+										$student_post_requirement_idV = $Interested_Tutor_detail_DataD['student_post_requirement_id'];
+										
+										$applyed = mysqli_fetch_array($conn->query("SELECT * 
 										FROM student_post_requirements_Applied_by_tutor
-										WHERE student_post_requirements_id = '".$Interested_Tutor_detail_DataD['student_post_requirement_id']."' and tutor_login_id = '".$Interested_Tutor_detail_DataD['tutor_login_id']."' "));
+										WHERE student_post_requirements_id = '".$Interested_Tutor_detail_DataD['student_post_requirement_id']."' and tutor_login_id = '".$Interested_Tutor_detail_DataD['tutor_login_id']."' and booking_status <> 'booked' "));
+									
+									}
+									if($Interested_Tutor_detail_DataD['student_post_requirements_id'] != "")
+									{
+										$student_post_requirement_idV = $Interested_Tutor_detail_DataD['student_post_requirements_id'];
+										
+										$applyed = mysqli_fetch_array($conn->query("SELECT * 
+										FROM student_post_requirements_Applied_by_tutor
+										WHERE student_post_requirements_id = '".$student_post_requirement_idV."' and tutor_login_id = '".$Interested_Tutor_detail_DataD['tutor_login_id']."' "));
+									
+										
+									}
+									
+									
+									if($applyed['tutor_login_id'] != "")
+									{
+										$tutor_login_idV = $applyed['tutor_login_id'];
+									}
+									if($Interested_Tutor_detail_DataD['tutor_login_id'] != "")
+									{
+										$tutor_login_idV = $Interested_Tutor_detail_DataD['tutor_login_id'];
+									}
+									
+									
+									
+									
+									
+									if($applyed['apply_tag'] == 'false')
+									{
+										$Post_Type = 'Withdraw';
+									}
+									if($applyed['apply_tag'] == 'true')
+									{
+										$Post_Type = '';
+									}
+									
+									
+									
 									
 									$tutor_details = mysqli_fetch_array($conn->query("SELECT * 
 										FROM user_tutor_info as tinfo INNER JOIN user_info as info ON tinfo.user_id = info.user_id
-										WHERE info.user_id = '".$Interested_Tutor_detail_DataD['tutor_login_id']."'  "));
+										WHERE info.user_id = '".$tutor_login_idV."'  "));
 										
 									$tutor_image = mysqli_fetch_array($conn->query("SELECT profile_image 
-										FROM user_tutor_info WHERE user_id = '".$Interested_Tutor_detail_DataD['tutor_login_id']."'  "));	
+										FROM user_tutor_info WHERE user_id = '".$tutor_login_idV."'  "));	
 									//echo $aa;
 									
 									$student_post_requirements = mysqli_fetch_array($conn->query("SELECT * 
 										FROM student_post_requirements
 										WHERE student_post_requirements_id = '".$Interested_Tutor_detail_DataD['student_post_requirement_id']."'  "));
 									
+									if($student_post_requirements['tutor_tution_offer_amount'] != "")
+									{
+										$tutor_tution_offer_amountV = $student_post_requirements['tutor_tution_offer_amount'];
+									}
+									if($Interested_Tutor_detail_DataD['tutor_tution_offer_amount'] != "")
+									{
+										$tutor_tution_offer_amountV = $Interested_Tutor_detail_DataD['tutor_tution_offer_amount'];
+									}
+									
+									if($student_post_requirements['tutor_tution_fees'] != "")
+									{
+										$tutor_tution_feesV = $student_post_requirements['tutor_tution_fees'];
+									}
+									if($Interested_Tutor_detail_DataD['tutor_tution_fees'] != "")
+									{
+										$tutor_tution_feesV = $Interested_Tutor_detail_DataD['tutor_tution_fees'];
+									}
+									
+									if($student_post_requirements['tutor_tution_offer_amount_type'] != "")
+									{
+										$tutor_tution_offer_amount_typeV = $student_post_requirements['tutor_tution_offer_amount_type'];
+									}
+									if($Interested_Tutor_detail_DataD['tutor_tution_offer_amount_type'] != "")
+									{
+										$tutor_tution_offer_amount_typeV = $Interested_Tutor_detail_DataD['tutor_tution_offer_amount_type'];
+									}
+									
+									
+									
+									
 									///////
-								  $favourite = mysqli_fetch_array($conn->query("SELECT favAssign.favourite FROM student_post_requirements_Applied_by_tutor as applyT INNER JOIN student_post_requirements_Favourite_Assigned as favAssign ON applyT.tutor_login_id = favAssign.tutor_login_id WHERE favAssign.student_post_requirements_id = '".$Interested_Tutor_detail_DataD['student_post_requirement_id']."' "));
+								  $favourite = mysqli_fetch_array($conn->query("SELECT favAssign.favourite FROM student_post_requirements_Applied_by_tutor as applyT INNER JOIN student_post_requirements_Favourite_Assigned as favAssign ON applyT.tutor_login_id = favAssign.tutor_login_id WHERE favAssign.student_post_requirements_id = '".$student_post_requirement_idV."' and favAssign.tutor_login_id = '".$tutor_login_idV."' and favAssign.student_login_id = '".$student_loggedIn_idVal['logged_in_user_id']."' "));
 								  
 								  ///////
 									
 									
-									
+																																																																											
 								
 
 
@@ -621,7 +727,7 @@ ORDER BY nego.add_negotiate_tag DESC");
 								
 				//$tutor_profile = mysqli_fetch_assoc($conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id  WHERE appT.student_post_requirements_id  = '".$tutor_result['student_post_requirements_id']."' "));	
 				
-				$tutor_data = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.student_post_requirements_id  = '".$Interested_Tutor_detail_DataD['student_post_requirement_id']."' ");
+				$tutor_data = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.student_post_requirements_id  = '".$student_post_requirement_idV."' ");
 				
 				 $Total_no_of_Tutor_Applied = mysqli_num_rows($tutor_data);
 				
@@ -729,14 +835,7 @@ ORDER BY nego.add_negotiate_tag DESC");
 										//echo $Interested_Tutor_detail_DataD['student_post_requirement_id'];	
 									
 									
-									if($applyed['apply_tag'] == 'false')
-									{
-										$Post_Type = 'Withdraw';
-									}
-									if($applyed['apply_tag'] == 'true')
-									{
-										$Post_Type = '';
-									}
+									
 									
 									
 									
@@ -767,19 +866,23 @@ ORDER BY nego.add_negotiate_tag DESC");
 									
 									
 									
+									if($applyed['post_apply_id'] != null && $applyed['post_apply_id'] != "")
+									{	
+								
+									
 									$tutor_arr[] = array(
 										
 													'post_apply_id' => $applyed['post_apply_id'],
 													
 													
-													'student_post_requirements_id' => $Interested_Tutor_detail_DataD['student_post_requirement_id'],
+													'student_post_requirements_id' => $student_post_requirement_idV,
 													'add_negotiate_tag' => $Interested_Tutor_detail_DataD['add_negotiate_tag'],
 													'IPT' => $Interested_Tutor_detail_DataD['IPT'],
 													'Tutor_New_Offer' => $Tutor_New_Offer,
 													
 													'Post_Type' => $Post_Type,
 													'apply_tag' => $applyed['apply_tag'],
-													'tutor_login_id' => $applyed['tutor_login_id'],
+													'tutor_login_id' => $tutor_login_idV,
 													
 													'flag' => $tutor_details['flag'],
 													'Average_rating' => $avg_rating_val,
@@ -823,9 +926,9 @@ ORDER BY nego.add_negotiate_tag DESC");
 													'stream' => $tutor_details['stream'],
 													'tutor_code' => $tutor_details['tutor_code'],
 													'student_loggedIn_id' => $tutor_tution_offer_amount_type['logged_in_user_id'],
-													'tutor_tution_offer_amount_type' => $student_post_requirements['tutor_tution_offer_amount_type'],
-													'tutor_tution_offer_amount' => $student_post_requirements['tutor_tution_offer_amount'],
-													'tutor_tution_fees' => $student_post_requirements['tutor_tution_fees'],
+													'tutor_tution_offer_amount_type' => $tutor_tution_offer_amount_typeV,
+													'tutor_tution_offer_amount' => $tutor_tution_offer_amountV,
+													'tutor_tution_fees' => $tutor_tution_feesV,
 													'favourite' => $favourite['favourite'],
 													'history_academy_arr' => $HA,
 																								//'history_academy_result' => $HAR,
@@ -833,7 +936,9 @@ ORDER BY nego.add_negotiate_tag DESC");
 													
 													
 												
-														);
+												);
+												
+									}		
 														
 														
 														

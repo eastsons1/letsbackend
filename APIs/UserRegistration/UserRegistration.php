@@ -109,10 +109,11 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
 		$last_name	=	$_POST['last_name'];
 		$email	=	$_POST['email'];
 		$password	=	$_POST['password'];
+		$countryflag	=	strtolower($_POST['countryflag']);
 		$mobile	=	$_POST['mobile'];
 		$country_phone_code	=	$_POST['country_phone_code'];
 		
-		$full_name = $first_name." ".$last_name;
+		$full_name = ucfirst($first_name)." ".ucfirst($last_name);
 		
 		$device_token	=	$_POST['device_token'];
 		$device_type	=	$_POST['device_type'];
@@ -228,9 +229,14 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
 						}
 						
 						
-						$check_mobile = "SELECT * FROM user_info WHERE mobile ='".$mobile."' ";    /// Check mobile or email exists
+						//echo $country_phone_code.'==';
+						
+						$check_mobile = "SELECT * FROM user_info WHERE country_phone_code ='".$country_phone_code."' and mobile ='".$mobile."' ";    /// Check mobile or email exists
 						$check_mobile_result = $conn->query($check_mobile);
 						$mobile_already_exits = mysqli_num_rows($check_mobile_result);
+						
+						
+						
 						if($mobile_already_exits>0)
 						{
 							$resultData = array('status' => false, 'message' => 'This Mobile No. already exists. Please use another Mobile No.');
@@ -298,10 +304,16 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
 							
 							
 						
-							$currentTimestamp = time();
+							//date_default_timezone_set('Asia/Kolkata'); // Set timezone
+							
+							$currentTimestamp = date('Y-m-d H:i:s');
+							
+							
+							
+							
 							//echo "insert into user_info_temp set first_name ='".$first_name."', last_name ='".$last_name."', adminusername ='".$email."', email = '".$email."', password ='".md5($password)."', mobile ='".$mobile."', user_roll	= '0', OTP = '".$randomNumber_otp."', otp_timestamp = '".$currentTimestamp."', OTP_mobile = '".$randomNumber_otp_mobile."', device_token = '".$device_token."', device_type = '".$device_type."'  ";
 						
-						 $sql = $conn->query("insert into user_info_temp set first_name ='".$first_name."', last_name ='".$last_name."', adminusername ='".$email."', email = '".$email."', password ='".md5($password)."', mobile ='".$mobile."', user_roll	= '0', OTP = '".$randomNumber_otp."', otp_timestamp = '".$currentTimestamp."', OTP_mobile = '".$randomNumber_otp_mobile."', device_token = '".$device_token."', device_type = '".$device_type."',address1='' ,profile_image='".$img_name."',user_type=''  ");
+						 $sql = $conn->query("insert into user_info_temp set first_name ='".$first_name."', last_name ='".$last_name."', adminusername ='".$email."', email = '".$email."', password ='".md5($password)."', countryflag = '".$countryflag."',  country_phone_code ='".$country_phone_code."', mobile ='".$mobile."', user_roll	= '0', OTP = '".$randomNumber_otp."', otp_timestamp = '".$currentTimestamp."', OTP_mobile = '".$randomNumber_otp_mobile."', device_token = '".$device_token."', device_type = '".$device_type."',address1='' ,profile_image='".$img_name."',user_type=''  ");
 						
 						
 						
@@ -309,6 +321,17 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
 						
 						if($sql)
 						{
+							
+							
+							///  save password
+							
+							$save_pass = $conn->query("insert into user_password set email = '".$email."', password ='".md5($password)."' ");
+							
+							
+							
+							
+							
+							
 							/**
 							echo 'mail';
 							
@@ -327,7 +350,7 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
 							<tr><td></td><td><strong></strong></td></tr>
 							<tr><td></td><td><strong></strong></td></tr>
 							<tr><td><strong>Thanks & regards,</strong></td><td></td></tr>
-							<tr><td>Tutorapp Admin</td><td></td></tr>
+							<tr><td>MyTutors Admin</td><td></td></tr>
 
 							</table>';
 
@@ -362,86 +385,96 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
                                    
 
 							
+								$mail = new PHPMailer(true); // New instance, with exceptions enabled
+								
+								
+								try {
+									 $body = '
+									<table border="0" style="font-size: 15px; font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+										<tr>
+											<td colspan="2" >Hi ' . $full_name . ',</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0;">
+												Here is the OTP you have been waiting for:
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0; text-align: center; font-size: 24px; font-weight: bold; color: #2f5497;">
+												' . implode(' ', str_split($randomNumber_otp)) . '
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0; font-size: 12px; color:#777777;">
+												This OTP is only valid for 90 seconds. Use it promptly.
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0;">
+												If you face any issue, you can contact us via Help & Support.
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0; font-size: 14px; color: #666;">
+												Thanks & Regards,<br>
+												<strong>MyTutors </strong>
+											</td>
+										</tr>
+									</table>';
 
-								   $mail = new PHPMailer(true); //New instance, with exceptions enabled
+									// Configure PHPMailer to use SMTP
+									$mail->IsSMTP();
+									$mail->SMTPAuth = true;
+									$mail->SMTPSecure = 'ssl';
+									$mail->Port = 465;  // SMTP server port
+									$mail->Host = 'eastsons.mytutors.moe';  // SMTP server
+									$mail->Username = 'info@mytutors.moe';  // SMTP username
+									$mail->Password = 'PVzn08KRAzDhV';      // SMTP password
 
-                                   // $body             = file_get_contents('../../phpmailer-master/contents.html');
-                                    //$body             = preg_replace('/\\\\/','', $body); //Strip backslashes
+									// From address and name
+									$mail->From = 'noreply@mytutors.moe';
+									$mail->FromName = 'MyTutors.Moe';
 
-                                    $body = '<table border="0" >
+									// Recipient address
+									 $to	=	$email;	
+									$mail->AddAddress($to);
 
-                                                <tr><td></td><td><strong>OTP For Registration</strong></td></tr>
-                                                <tr><td></td><td><strong></strong></td></tr>
-                                                <tr><td><strong>Hi '.$full_name.',</strong></td><td></td></tr>
-                                                <tr><td></td><td><strong></strong></td></tr>
-                                                <tr><td>Please find below the OTP for user registration.</td><td></td></tr>
-                                                <tr><td></td><td><strong></strong></td></tr>
-                                                <tr><td><strong>OTP: '.$randomNumber_otp.'</strong></td><td></td></tr>
-                                                <tr><td></td><td><strong></strong></td></tr>
-                                                <tr><td></td><td><strong></strong></td></tr>
-                                                <tr><td></td><td><strong></strong></td></tr>
-                                                <tr><td><strong>Thanks & regards,</strong></td><td></td></tr>
-                                                <tr><td>Tutorapp Admin</td><td></td></tr>
+									// Email subject
+									$mail->Subject = 'OTP verification code';
 
-                                                </table>';
-
-
-                                    $mail->IsSMTP();                           // tell the class to use SMTP
-                                    $mail->SMTPAuth   = true;                  // enable SMTP authentication
-                                    $mail->SMTPSecure = 'ssl'; 
-									$mail->Port       = 465;                    // set the SMTP server port
-                                    $mail->Host       = "cloud-9af00c.managed-vps.net"; // SMTP server
-                                    $mail->Username   = "info@mytutors.moe";     // SMTP server username
-                                    $mail->Password   = "PVzn08KRAzDhV";            // SMTP server password
-
-                                    $mail->IsSendmail();  // tell the class to use Sendmail
-
-                                    $mail->AddReplyTo("info@mytutors.moe","First Last");
-
-                                    $mail->From       = "info@mytutors.moe";
-                                    $mail->FromName   = "MyTutors Registration Service";
-
-                                    
-                                    $to	=	$email;	
-
-                                    $mail->AddAddress($to);
-
-                                    $mail->Subject  = "OTP For User Registration";
-
-                                    $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-                                    $mail->WordWrap   = 80; // set word wrap
-
-                                    $mail->MsgHTML($body);
-
-                                 
-
-                                    $mail->IsHTML(true); // send as HTML
-
-                                    $mail->Send();
+									// Optional: Plain text version for non-HTML email clients
+									$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
 									
-								
-									
-									
-                                   // echo 'Message has been sent.';
-								
-								
-								//// SMTP mail end
-								
+									// Word wrap setting
+									$mail->WordWrap = 80;
 
-								//$msg1 = '<span style="color:red;">Message sent successfully.</span>';
-								
-								//Send_OTP_Mobile($country_phone_code,$mobile,$randomNumber_otp_mobile);
-								
+									// HTML body content
+									$mail->MsgHTML($body);
+
+									// Set the mail format to HTML
+									$mail->IsHTML(true);
+
+									// Send email
+									$mail->Send();
+									
+									//echo 'Success';
+									
 								$_SESSION['OTP'] = $randomNumber_otp;
 								
-								//header('location:registration.php?step=1');
 								$resultData = array('status' => true, 'message' => 'OTP sent in your email. Please go for next step.', 'Email_OTP' => $randomNumber_otp);	
 								 echo json_encode($resultData);	
-							
-							
-							//}
-				
-						
+									
+									
+
+								} catch (Exception $e) {
+									echo 'Mailer Error: ' . $mail->ErrorInfo; // Provide error message in case of failure
+								}
+								
+								
+								  
+								  
+								  
+
 
 				
 				
@@ -450,7 +483,9 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
 							{
 								//$msg1 = "Error while trying to inserting the record.";
 								$resultData = array('status' => false, 'message' => 'Error while trying to inserting the record.');
-										
+								
+								 //echo json_encode($resultData);			
+									
 							}
 							
 							
@@ -460,7 +495,9 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
 						 else{
 							 //$msg1 = "This Email id already exists. Please use another email id.";
 							 $resultData = array('status' => false, 'message' => 'This Email id already exists. Please use another email id.');
-											
+								
+								 echo json_encode($resultData);		
+								
 						 }
 							
 							

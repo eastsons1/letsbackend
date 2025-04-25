@@ -147,6 +147,7 @@ function mime2ext($mime){
 			$TutoringDetail_Array = $array['TutoringDetail'];
 			
 			
+			/**
 			 ///Generate 4 digit otp number start function 
 				function generateKey($keyLength) {
 				// Set a blank variable to store the key in
@@ -161,6 +162,8 @@ function mime2ext($mime){
 			
 			
 				$tutor_code = 'TUAC'.generateKey(4); //rand(10,10000);
+			**/
+			
 			
 			
 			
@@ -169,7 +172,7 @@ function mime2ext($mime){
 			
 				
 				
-				
+				/**
 				
 				if($array["profile_image"] !="" )
 				{
@@ -213,6 +216,10 @@ function mime2ext($mime){
 					
 					$arrayV2[] = "('".$img_name."')";
 				}
+				**/
+				
+				
+				
                 
 				 date_default_timezone_set("Asia/Kolkata");
 				$create_date = date("d-m-Y h:i:s");
@@ -221,6 +228,126 @@ function mime2ext($mime){
 				 $location_str = str_replace("'", '', $array["location"]);
 				 $personal_statement_str = str_replace("'", '', $array["personal_statement"]);
 				
+				
+				
+				
+				/////////###############////////////
+				
+				
+			
+function fetchUserDetails($conn, $user_id) {
+    /**
+	$query = "
+        SELECT info.created_date, tinfo.gender 
+        FROM user_info AS info 
+        INNER JOIN user_tutor_info AS tinfo ON info.user_id = tinfo.user_id 
+        WHERE info.user_id = '$user_id'";
+		**/
+	$query = "
+        SELECT info.created_date, tinfo.gender 
+        FROM user_info AS info 
+        INNER JOIN user_tutor_info AS tinfo ON info.user_id = tinfo.user_id 
+        WHERE info.user_id = '$user_id'";	
+		
+    
+    $result = $conn->query($query);
+    return $result->num_rows > 0 ? $result->fetch_array() : null;
+}
+
+function fetchTutorCount($conn, $created_date, $exclude_user_id) {
+   	
+	$query = "
+		SELECT COUNT(info.user_id) AS user_count
+		FROM user_info AS info 
+		INNER JOIN user_tutor_info AS tinfo ON info.user_id = tinfo.user_id
+		WHERE info.user_type = 'I am an Educator' 
+		AND DATE_FORMAT(STR_TO_DATE(info.created_date, '%d-%m-%Y'), '%Y-%m') = 
+			DATE_FORMAT(STR_TO_DATE('$created_date', '%d-%m-%Y'), '%Y-%m') 
+		AND info.user_id <> '$exclude_user_id' ";
+		
+		
+    
+    $result = $conn->query($query);
+    return $result->fetch_array()['user_count'] ?? 0;
+}
+
+if (is_array($array['user_id'])) {
+    // Loop through the array of user IDs
+    foreach ($array['user_id'] as $user_id) {
+        if (!empty(trim($user_id))) {
+			
+			//echo $user_id;
+			
+			////
+			//$del_profile = $conn->query("DELETE FROM user_tutor_info WHERE user_id = '$user_id' ");
+			
+			
+			
+			
+			
+			/// created date
+			$get_create_date = mysqli_fetch_array($conn->query("SELECT created_date FROM user_info WHERE user_id = '$user_id' "));
+			
+			
+			
+			$genderv = mysqli_fetch_array($conn->query("SELECT gender FROM user_tutor_info WHERE user_id = '$user_id' "));
+			
+			
+			
+            //$userDetails = fetchUserDetails($conn, $user_id);
+            $created_date = $get_create_date['created_date'];
+            $gender = $array['gender']; //!empty($genderv['gender']) ? $genderv['gender'] : $value['gender'];
+
+            $tutor_count = fetchTutorCount($conn, $created_date, $user_id);
+            $date_parts = explode('-', $created_date);
+            $year = substr($date_parts[2], -2);
+            $month = $date_parts[1];
+            $genderFC = substr($gender, 0, 1);
+
+            $tutor_code = $year . $genderFC . $month . str_pad($tutor_count + 1, 1, '0', STR_PAD_LEFT);
+
+            //echo $tutor_code . '==';
+			
+			
+			
+			
+				 // Process profile image if exists
+				// Process profile image if exists
+				if (!empty($array["profile_image"])) {
+					// Define the Base64 value you need to save as an image
+					$b64 = $array["profile_image"];
+					$bin = base64_decode($b64);
+
+					// Gather information about the image using the GD library
+					$size = getImageSizeFromString($bin);
+
+					// Check if the binary data is an image
+					if (empty($size['mime']) || strpos($size['mime'], 'image/') !== 0) {
+						die('Base64 value is not a valid image');
+					}
+
+					// Ensure the image has a valid extension
+					$ext = substr($size['mime'], 6);
+					if (!in_array($ext, ['png', 'gif', 'jpeg'])) {
+						die('Unsupported image type');
+					}
+
+					// Specify the location where you want to save the image
+					$unique_id = uniqid('', true);  // Generate a unique ID
+					$img_file = "../../UPLOAD_file/profile_image_{$unique_id}.{$ext}";  // Append the unique ID
+					file_put_contents($img_file, $bin);
+					$img_name = "profile_image_{$unique_id}.{$ext}";  // Use unique ID in image name
+				}
+			
+			
+			
+			
+			
+			
+			////#####//////
+			
+			
+			
 				
 				if($array["user_id"] !="" && $array["age"] !="")
 				{
@@ -337,12 +464,17 @@ function mime2ext($mime){
 			{
 				//$del_tinfo = $conn->query("delete from user_tutor_info where user_id = '".$user_id."' ");
 				
-				 $query = "UPDATE user_tutor_info SET profile_image = '".$img_name."', age = '".$age."', date_of_year = '".$date_of_year."', gender = '".$gender."',nationality = '".$nationality."',flag = '".$flag."',qualification = '".$qualification."',name_of_school = '".$name_of_school."',Course_Exam = '".$Course_Exam."',gra_year = '".$gra_year."',tutor_status = '".$tutor_status."',tuition_type = '".$tuition_type."',location = '".$location_str."',postal_code = '".$postal_code."',travel_distance = '".$travel_distance."',personal_statement = '".$personal_statement_str."',lettitude = '".$lettitude."',longitude = '".$longitude."' where user_id = '".$user_id."' ";  
+				 $query = "UPDATE user_tutor_info SET profile_image = '".$img_name."', age = '".$age."', date_of_year = '".$date_of_year."', gender = '".$gender."',nationality = '".$nationality."',flag = '".$flag."',qualification = '".$qualification."',name_of_school = '".$name_of_school."',Course_Exam = '".$Course_Exam."',gra_year = '".$gra_year."',tutor_status = '".$tutor_status."',tuition_type = '".$tuition_type."',location = '".$location_str."',postal_code = '".$postal_code."' ,travel_distance = '".$travel_distance."',personal_statement = '".$personal_statement_str."',lettitude = '".$lettitude."',longitude = '".$longitude."' where user_id = '".$user_id."' ";  
+			
+				$imgup = 1;
 			
 			}
 			else			
 			{	
 				 $query = "INSERT INTO `user_tutor_info` (user_id,profile_image,age,date_of_year,gender,nationality,flag,qualification,name_of_school,Course_Exam,gra_year,tutor_status,tuition_type,location,postal_code,travel_distance,personal_statement,lettitude,longitude,tutor_code,OtherCourse_Exam,stream,create_date) VALUES " . implode(', ', $arrayV);  
+			
+				$imgup = 0;
+				
 			}
 			
 			
@@ -350,9 +482,20 @@ function mime2ext($mime){
 
 			if($conn->query($query))
 			{
+				if($imgup==0 || $imgup==1)
+				{
+					$update_user_info = $conn->query("UPDATE user_info SET profile_image = '".$img_name."' where user_id = '".$user_id."' ");  
 				
+				}
+				
+				
+				// Delay for 5 seconds
+				sleep(5);
+				// Introduce a delay (e.g., 5 seconds)
+				//$conn->query("DO SLEEP(5)");
 				
 				///+++++++++++++++++
+				
 				
 				
 				
@@ -514,6 +657,9 @@ function mime2ext($mime){
 					if($entry2['TutoringLevel'] == "Secondary" )
 					{
 						
+						$AdmissionStreamResult_del34 = $conn->query("delete from complete_user_profile_tutoring_admission_stream where user_id = 0 ");
+						$AdmissionStreamResult_del = $conn->query("delete from complete_user_profile_tutoring_admission_stream where user_id = '".$user_id."' ");
+				
 						
 					
 						$TutoringLevel = $entry2['TutoringLevel'];
@@ -534,17 +680,29 @@ function mime2ext($mime){
 						//////////
 						//print_r($entry2['AdmissionStreamResult']);
 						
+						$all_streams = [];
+						$all_AdmissionLevels = [];
+						
 						foreach($entry2['AdmissionStreamResult'] as $entry3) 
 						{
 							//print_r($entry3);
 							 $AdmissionLevel = $entry3['AdmissionLevel'];
 							 $AdmissionStreamResultID = $entry3['AdmissionStreamResultID'];
+							 
+							 
+
+							$all_AdmissionLevels[] = $entry3['AdmissionLevel'];
+							$all_streams = array_merge($all_streams, $entry3['Stream']);
+							
+							 
 							
 							$AdmissionStreamResultquery2 = $conn->query("INSERT INTO complete_user_profile_tutoring_admission_level (AdmissionStreamResultID, AdmissionLevel, user_id) VALUES ('$AdmissionStreamResultID', '$AdmissionLevel', '$user_id')");
 							
 							foreach($entry3['Stream'] as $entry4) 
 							{
 								 $streamDatavval = $entry4;
+								 
+								 
 								
 									//echo $streamDatavval;
 									
@@ -565,14 +723,67 @@ function mime2ext($mime){
 							}
 						}
 						
+						// Remove duplicate values
+						$unique_streams = array_unique($all_streams);
+
+						// Convert to a comma-separated string
+						$stream_values = implode(",", $unique_streams);
+
+						$Update_streamD = $conn->query("UPDATE complete_user_profile_tutoring_detail SET Stream = '".$stream_values."' WHERE user_id = '".$user_id."' "); 	
+
+						/////////
 						
 						
+						// Remove duplicate values (if needed)
+						$unique_admission_levels = array_unique($all_AdmissionLevels);
+
+						// Convert to a comma-separated string
+						$admission_level_values = implode(",", $unique_admission_levels);
+
+						$Update_AdmissionLevel_1 = $conn->query("UPDATE complete_user_profile_tutoring_detail SET AdmissionLevel = '".$admission_level_values."' WHERE user_id = '".$user_id."' "); 	
+
+
 						/////////
 							
 					
 					
+					
+					
+					
+					
 						
 					}  
+					
+					
+					/**
+					if($entry2['TutoringLevel'] == "AEIS" )
+					{
+						
+						
+					
+						$TutoringLevel = $entry2['TutoringLevel'];
+						
+						
+						$Tutoring_ALL_Subjects = implode(',', $entry2['Tutoring_ALL_Subjects']);
+						$Tutoring_Year = $entry2['Tutoring_Year'];
+						$Tutoring_Month = $entry2['Tutoring_Month'];
+						
+						
+						foreach($entry2['AdmissionStreamResult'] as $entry3) 
+						{
+							//print_r($entry3);
+							 $AdmissionLevel = $entry3['AdmissionLevel'];
+							 $AdmissionStreamResultID = $entry3['AdmissionStreamResultID'];
+							
+							$AdmissionStreamResultqueryarr = $conn->query("INSERT INTO complete_user_profile_tutoring_admission_level (AdmissionStreamResultID, AdmissionLevel, user_id) VALUES ('$AdmissionStreamResultID', '$AdmissionLevel', '$user_id')");
+							
+							
+						}
+						
+						
+					} 
+					
+					**/
 					
 					
 					if($entry2['TutoringLevel'] != "Secondary")
@@ -652,14 +863,72 @@ function mime2ext($mime){
 				
 
 					/// Get Registration data
-								$RData = mysqli_fetch_array($conn->query("SELECT user.user_type, user.user_id,user.accessToken,user.device_token, info.postal_code,info.profile_image FROM user_tutor_info as info INNER JOIN user_info as user ON info.user_id = user.user_id WHERE info.user_id = '".$user_id."' "));
+					
+							//// Average Rating of student_date_time_offer_confirmation
+					
+					
+							$avg_rating_sql = $conn->query("SELECT * FROM tbl_rating WHERE tutor_id = '".$user_id."' ");
+							
+							
+							
+							$nn = 0;
+							$sn = 0;
+							while($avg_rating = mysqli_fetch_array($avg_rating_sql))
+							{
+								$sn = $sn+1;
+								$nn = $nn+$avg_rating['rating_no'];
+							}
+							
+							
+							if($nn !=0 && $sn !=0)
+							{
+								
+								 $avg_rating = round($nn/$sn); 
+							}
+							else
+							{
+								 $avg_rating = 'No rating.';
+							}
+					
+					
+					
+							 ///check suspended accound
+		
+							$check_sus = $conn->query("SELECT * FROM tbl_user_suspended WHERE user_id = '".$user_id."' and account_suspended = 'suspended' ");
+						
+							if(mysqli_num_rows($check_sus) > 0)
+							{
+								$AccountType = 'suspended';
+							}
+							else{
+								$AccountType = 'active';
+							}
+					
+					
+					
+								$pprofile_data = $conn->query("SELECT user.mobile,user.first_name,user.last_name,user.user_type, user.user_id,user.accessToken,user.device_token, info.postal_code,info.profile_image FROM user_tutor_info as info INNER JOIN user_info as user ON info.user_id = user.user_id WHERE info.user_id = '".$user_id."' ");
+								
+								if(mysqli_num_rows($pprofile_data)>0)
+								{
+									$RData = mysqli_fetch_array($pprofile_data);
+									$complete_profile = 'Yes';
+									$first_name = $RData['first_name'];
+									$last_name = $RData['last_name'];
+									$mobileNo = $RData['mobile'];
+									
+								}
+								else{
+									$complete_profile = 'No';
+								}
+								
+									
+									
+								
 								
 								if($RData['user_type'] !="")
 								{
-									//$output = array('message' => 'Tutor Profile Data Inserted Successfully.', 'user_type'=>$RData['user_type'], 'user_id'=>$RData['user_id'], 'accessToken'=>$RData['accessToken'], 'device_token'=>$RData['device_token'], 'postal_code'=>$RData['postal_code'], 'profile_image' => $RData['profile_image']);
 									
-									$resultData = array('status' => true, 'message' => 'Tutor Profile Data Inserted Successfully.', 'user_type'=>$RData['user_type'], 'user_id'=>$RData['user_id'], 'accessToken'=>$RData['accessToken'], 'device_token'=>$RData['device_token'], 'postal_code'=>$RData['postal_code'], 'profile_image' => $RData['profile_image']);
-									//$resultData2 = array('status' => true, 'message' => 'Tutor Profile Data Inserted Successfully.');
+									$resultData = array('status' => true, 'message' => 'Tutor Profile Data Inserted Successfully.', 'user_type'=>$RData['user_type'], 'user_id'=>$RData['user_id'], 'accessToken'=>$RData['accessToken'], 'device_token'=>$RData['device_token'], 'postal_code'=>$RData['postal_code'], 'profile_image' => $RData['profile_image'], 'first_name' => $first_name, 'last_name' => $last_name, 'complete_profile' => $complete_profile, 'Mobile' => $mobileNo, 'Average_rating' => $avg_rating, 'AccountType' => $AccountType);
 								
 									$chk = 1;
 									//echo json_encode($resultData2);
@@ -677,13 +946,685 @@ function mime2ext($mime){
 			{
 				$resultData = array('status' => false, 'message' => 'Error Found.');
 			}
+			
+			
+			/////#####/////
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+        }
+    }
+} else {
+    // Handle a single user ID
+    $user_id = $array['user_id'];
+    if(!empty(trim($user_id))) {
+		
+		////
+			//$del_profile = $conn->query("DELETE FROM user_tutor_info WHERE user_id = '$user_id' ");
+			
+		
+		//echo $user_id;
+		/// created date
+			$get_create_date = mysqli_fetch_array($conn->query("SELECT created_date FROM user_info WHERE user_id = '$user_id' "));
+			$genderv = mysqli_fetch_array($conn->query("SELECT gender FROM user_tutor_info WHERE user_id = '$user_id' "));
+			
+		
+		
+        //$userDetails = fetchUserDetails($conn, $user_id);
+        $created_date = $get_create_date['created_date'];
+        $gender = $array['gender']; //!empty($genderv['gender']) ? $genderv['gender'] : $value['gender'];
+
+        $tutor_count = fetchTutorCount($conn, $created_date, $user_id);
+        $date_parts = explode('-', $created_date);
+        $year = substr($date_parts[2], -2);
+        $month = $date_parts[1];
+        $genderFC = substr($gender, 0, 1);
+
+        $tutor_code = $year . $genderFC . $month . str_pad($tutor_count + 1, 1, '0', STR_PAD_LEFT);
+
+       // echo $tutor_code . '==';
+	   
+	   
+	   
+	   
+				// Process profile image if exists
+				// Process profile image if exists
+				if (!empty($array["profile_image"])) {
+					// Define the Base64 value you need to save as an image
+					$b64 = $array["profile_image"];
+					$bin = base64_decode($b64);
+
+					// Gather information about the image using the GD library
+					$size = getImageSizeFromString($bin);
+
+					// Check if the binary data is an image
+					if (empty($size['mime']) || strpos($size['mime'], 'image/') !== 0) {
+						die('Base64 value is not a valid image');
+					}
+
+					// Ensure the image has a valid extension
+					$ext = substr($size['mime'], 6);
+					if (!in_array($ext, ['png', 'gif', 'jpeg'])) {
+						die('Unsupported image type');
+					}
+
+					// Specify the location where you want to save the image
+					$unique_id = uniqid('', true);  // Generate a unique ID
+					$img_file = "../../UPLOAD_file/profile_image_{$unique_id}.{$ext}";  // Append the unique ID
+					file_put_contents($img_file, $bin);
+					$img_name = "profile_image_{$unique_id}.{$ext}";  // Use unique ID in image name
+				}
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+				////#####//////
+			
+			
+			
+				
+				if($array["user_id"] !="" && $array["age"] !="")
+				{
+				
+					$arrayV[] = "('".$array["user_id"]."','".$img_name."','".$array["age"]."','".$array["date_of_year"]."','".$array["gender"]."','".$array["nationality"]."','".$array["flag"]."','".$array["qualification"]."','".$array["name_of_school"]."','".$array["Course_Exam"]."','".$array["gra_year"]."','".$array["tutor_status"]."','".$array["tuition_type"]."','".$location_str."','".$array["postal_code"]."','".$array["travel_distance"]."','".$personal_statement_str."','".$array["lettitude"]."','".$array["longitude"]."','".$tutor_code."','','','".$create_date."')";				
+					
+					 $user_id_array[] = $array["user_id"];
+				}
+				
+				if($array["age"] !="")
+				{
+					$age = $array["age"];
+				}
+				
+				if($array["date_of_year"] !="")
+				{
+					$date_of_year = $array["date_of_year"];
+				}
+				if($array["gender"] !="")
+				{
+					$gender = $array["gender"];
+				}
+				if($array["nationality"] !="")
+				{
+					$nationality = $array["nationality"];
+				}
+				if($array["flag"] !="")
+				{
+					$flag = $array["flag"];
+				}
+				if($array["qualification"] !="")
+				{
+					$qualification = $array["qualification"];
+				}
+				if($array["name_of_school"] !="")
+				{
+					$name_of_school = $array["name_of_school"];
+				}
+				if($array["Course_Exam"] !="")
+				{
+					$Course_Exam = $array["Course_Exam"];
+				}
+				
+				if($array["gra_year"] !="")
+				{
+					$gra_year = $array["gra_year"];
+				}
+				if($array["tutor_status"] !="")
+				{
+					$tutor_status = $array["tutor_status"];
+				}
+				if($array["tuition_type"] !="")
+				{
+					$tuition_type = $array["tuition_type"];
+				}
+				if($array["location"] !="")
+				{
+					$location = $location_str;
+					
+				
+					
+				}
+				if($array["postal_code"] !="")
+				{
+					$postal_code = $array["postal_code"];
+				}	
+				if($array["travel_distance"] !="")
+				{
+					$travel_distance = $array["travel_distance"];
+				}	
+				
+				if($array["personal_statement"] !="")
+				{
+					$personal_statement = $personal_statement_str;
+				}
+				if($array["lettitude"] !="")
+				{
+					$lettitude = $array["lettitude"];
+				}
+				if($array["longitude"] !="")
+				{
+					$longitude = $array["longitude"];
+				}
+				
+				/**
+				if($array["tutor_code"] !="")
+				{
+					$tutor_code = $array["tutor_code"];
+				}				
+				**/
 				
 				
-			//}
-			//else{
-				//$resultData = array('status' => false, 'message' => 'User id can\'t blank');
-			//}
 				
+			
+			
+			
+			
+			
+			/// Get User_id from array
+				foreach($user_id_array as $idrow => $idvalue) 
+				{
+					 $user_id = $idvalue;
+				}
+			
+			
+			/// check user_tutor_info record
+			
+			$chk_rec = $conn->query("select * from user_tutor_info where user_id = '".$user_id."' ");
+			
+			
+			
+			
+			if(mysqli_num_rows($chk_rec)>0)
+			{
+				//$del_tinfo = $conn->query("delete from user_tutor_info where user_id = '".$user_id."' ");
+				
+				 $query = "UPDATE user_tutor_info SET profile_image = '".$img_name."', age = '".$age."', date_of_year = '".$date_of_year."', gender = '".$gender."',nationality = '".$nationality."',flag = '".$flag."',qualification = '".$qualification."',name_of_school = '".$name_of_school."',Course_Exam = '".$Course_Exam."',gra_year = '".$gra_year."',tutor_status = '".$tutor_status."',tuition_type = '".$tuition_type."',location = '".$location_str."',postal_code = '".$postal_code."' ,travel_distance = '".$travel_distance."',personal_statement = '".$personal_statement_str."',lettitude = '".$lettitude."',longitude = '".$longitude."' where user_id = '".$user_id."' ";  
+			
+				$imgup = 1;
+			
+			}
+			else			
+			{	
+				 $query = "INSERT INTO `user_tutor_info` (user_id,profile_image,age,date_of_year,gender,nationality,flag,qualification,name_of_school,Course_Exam,gra_year,tutor_status,tuition_type,location,postal_code,travel_distance,personal_statement,lettitude,longitude,tutor_code,OtherCourse_Exam,stream,create_date) VALUES " . implode(', ', $arrayV);  
+			
+				$imgup = 0;
+				
+			}
+			
+			
+			
+
+			if($conn->query($query))
+			{
+				if($imgup==0 || $imgup==1)
+				{
+					$update_user_info = $conn->query("UPDATE user_info SET profile_image = '".$img_name."' where user_id = '".$user_id."' ");  
+				
+				}
+				
+				
+				// Delay for 5 seconds
+				sleep(5);
+				// Introduce a delay (e.g., 5 seconds)
+				//$conn->query("DO SLEEP(5)");
+				
+				///+++++++++++++++++
+				
+				
+				
+				
+				$HistoryAcademy_del = $conn->query("delete from complete_user_profile_history_academy where user_id = 0 ");
+				
+				/// Delete History Academy Result
+				 $query_result_delete = $conn->query("delete from complete_user_profile_history_academy_result where user_id = '".$user_id."' ");
+				
+				
+				
+				$ak = 0;
+				
+				$QAcademy_del2 = $conn->query("delete from complete_user_profile_qualification_academy_result where user_id = '".$user_id."' ");
+					
+				
+				/// For QualificationAcademy_Array		
+				foreach($QualificationAcademy_Array as $entry) 
+				{
+					
+					//print_r($entry['subject']);
+	
+										
+					 $Result_Subject = $entry['subject'];
+					 $Result_Grade = $entry['grade'];
+					 
+					 
+					 $query_result = $conn->query("INSERT INTO complete_user_profile_qualification_academy_result ( subject, grade, user_id) VALUES ( '$Result_Subject', '$Result_Grade', '$user_id')");
+
+					 
+									
+							
+							
+					/// Get Result value end
+					
+					
+					
+					
+				}
+				
+				
+				/// For HistoryAcademy_Array		
+				foreach($HistoryAcademy_Array as $entry) 
+				{
+
+					$ID = $entry['HistoryID'];
+					
+					/// For History Academy Result	
+					
+						if($entry['result'] !="")
+						{					
+								
+							/// Get Result value start
+								foreach ($entry as $Result) 
+								{
+									foreach ($Result as $Result2) 
+									{
+										
+									 $Result_Subject = $Result2['subject'];
+									 $Result_Grade = $Result2['grade'];
+									 
+									 
+									 $query_result = $conn->query("INSERT INTO complete_user_profile_history_academy_result (record_id, subject, grade, user_id) VALUES ('$ID', '$Result_Subject', '$Result_Grade', '$user_id')");
+				
+									 
+									}
+								}
+							
+						}		
+					/// Get Result value end
+					
+					
+					//$allSubjects = implode(',', $entry['ALL_Subjects']);
+					
+					$school = $entry['school'];
+					$exam = $entry['exam'];
+					
+					if($exam == 'Others')
+					{
+						$examName = $entry['examName'];
+					}
+					else{
+						$examName = '';
+					}
+					
+					
+					$HistoryAcademy_del2 = $conn->query("delete from complete_user_profile_history_academy where user_id = '".$user_id."' ");
+				
+					
+					$query = $conn->query("INSERT INTO complete_user_profile_history_academy (record_id, school, exam,examName) VALUES ('$ID', '$school', '$exam', '$examName')");
+					
+					
+				}
+				
+				
+				
+				$Update_history_academy = $conn->query("UPDATE complete_user_profile_history_academy SET user_id = '".$user_id."' where user_id = 0 "); 	
+				
+				
+				
+				
+				
+				
+				//// +++++++++ Start Tutoting Details ++++++
+				
+				
+				                                                                                                                                                                                                                                                                 
+				$qua1 = $conn->query("delete from complete_user_profile_tutoring_grade_detail where user_id = 0 ");
+				$qua1 = $conn->query("delete from complete_user_profile_tutoring_grade_detail where user_id = '".$user_id."' ");
+				$qua4 = $conn->query("delete from complete_user_profile_tutoring_tutoring_subjects_detail where user_id = 0 ");
+				$qua4 = $conn->query("delete from complete_user_profile_tutoring_tutoring_subjects_detail where user_id = '".$user_id."' ");
+				
+				
+				$AdmissionStreamResult_del34 = $conn->query("delete from complete_user_profile_tutoring_admission_stream where user_id = 0 ");
+				$AdmissionStreamResult_del = $conn->query("delete from complete_user_profile_tutoring_admission_stream where user_id = '".$user_id."' ");
+				
+				
+				$AdmissionStreamResult_del34 = $conn->query("delete from complete_user_profile_tutoring_admission_level where user_id = 0 ");
+				$AdmissionStreamResult_del = $conn->query("delete from complete_user_profile_tutoring_admission_level where user_id = '".$user_id."' ");
+				
+				$TutoringDetail_del = $conn->query("delete from complete_user_profile_tutoring_detail where user_id = '".$user_id."' ");
+				$TutoringDetail_del22 = $conn->query("delete from complete_user_profile_tutoring_detail where user_id = 0 ");
+
+				/// For TutoringDetail_Array		
+				foreach($TutoringDetail_Array as $entry2Sub) 
+				{
+				
+				
+				
+				/// for Subject start
+					foreach($entry2Sub['Tutoring_ALL_Subjects'] as $aa2 => $vv2) 
+					{
+						$arrayV4[] = "('".$vv2."')";
+						
+						//print_r($vv1);
+						
+					}
+
+				}
+
+					
+					$qua4 = $conn->query("delete from complete_user_profile_tutoring_tutoring_subjects_detail where user_id = '".$user_id."' ");
+					$qua5 = $conn->query("INSERT INTO `complete_user_profile_tutoring_tutoring_subjects_detail` (Tutoring_ALL_Subjects) VALUES " . implode(', ', $arrayV4));  
+					$qua6 = $conn->query("UPDATE complete_user_profile_tutoring_tutoring_subjects_detail SET user_id = '".$user_id."' where user_id = 0 ");  
+					/// For Subject End
+					
+					
+					
+					
+					/// ----------
+					
+					
+					
+				
+				/// For TutoringDetail_Array		
+				foreach($TutoringDetail_Array as $entry2) 
+				{
+					
+			
+					
+					
+					if($entry2['TutoringLevel'] == "Secondary" )
+					{
+						
+						$AdmissionStreamResult_del34 = $conn->query("delete from complete_user_profile_tutoring_admission_stream where user_id = 0 ");
+						$AdmissionStreamResult_del = $conn->query("delete from complete_user_profile_tutoring_admission_stream where user_id = '".$user_id."' ");
+				
+						
+					
+						$TutoringLevel = $entry2['TutoringLevel'];
+						
+						
+						$Tutoring_ALL_Subjects = implode(',', $entry2['Tutoring_ALL_Subjects']);
+						$Tutoring_Year = $entry2['Tutoring_Year'];
+						$Tutoring_Month = $entry2['Tutoring_Month'];
+						
+						$query2 = $conn->query("INSERT INTO complete_user_profile_tutoring_detail (TutoringLevel, AdmissionLevel, Tutoring_ALL_Subjects, Tutoring_Year, Tutoring_Month, user_id,Tutoring_Grade) VALUES ('$TutoringLevel', '', '$Tutoring_ALL_Subjects', '$Tutoring_Year', '$Tutoring_Month', '$user_id','')");
+						
+						
+						$Update_TutoringDetail = $conn->query("UPDATE complete_user_profile_tutoring_detail SET user_id = '".$user_id."' where user_id = 0 "); 	
+					
+					
+					
+					
+						$all_AdmissionLevels = [];
+						$all_streams = [];
+						
+						foreach($entry2['AdmissionStreamResult'] as $entry3) 
+						{
+							//print_r($entry3);
+							 $AdmissionLevel = $entry3['AdmissionLevel'];
+							 $AdmissionStreamResultID = $entry3['AdmissionStreamResultID'];
+							 
+							 
+							//$AdmissionLevel_val = implode(',', $entry3['AdmissionLevel']);
+							//$Update_AdmissionLevel_1 = $conn->query("UPDATE complete_user_profile_tutoring_detail SET AdmissionLevel = '".$AdmissionLevel_val."' WHERE user_id = '".$user_id."' "); 	
+
+							
+							 
+							 $all_AdmissionLevels[] = $entry3['AdmissionLevel'];
+							 $all_streams = array_merge($all_streams, $entry3['Stream']);
+							 
+							
+							$AdmissionStreamResultquery2 = $conn->query("INSERT INTO complete_user_profile_tutoring_admission_level (AdmissionStreamResultID, AdmissionLevel, user_id) VALUES ('$AdmissionStreamResultID', '$AdmissionLevel', '$user_id')");
+							
+							foreach($entry3['Stream'] as $entry4) 
+							{
+								 $streamDatavval = $entry4;
+								 
+							
+								
+									//echo $streamDatavval;
+									
+									$AdmissionStreamquery2 = $conn->query("INSERT INTO complete_user_profile_tutoring_admission_stream (AdmissionStreamResultID, Stream, user_id) VALUES ('$AdmissionStreamResultID', '$streamDatavval', '$user_id')");
+									if($AdmissionStreamquery2)
+									{
+										 $succ = 1;
+										 
+									}
+									else{
+										$succ = 0;
+									}
+									
+									
+								
+								
+								
+							}
+						}
+						
+						
+						// Remove duplicate values
+						$unique_streams = array_unique($all_streams);
+
+						// Convert to a comma-separated string
+						$stream_values = implode(",", $unique_streams);
+
+						$Update_streamD = $conn->query("UPDATE complete_user_profile_tutoring_detail SET Stream = '".$stream_values."' WHERE user_id = '".$user_id."' "); 	
+							
+						
+						/////////
+							
+					
+						
+						// Remove duplicate values (if needed)
+						$unique_admission_levels = array_unique($all_AdmissionLevels);
+
+						// Convert to a comma-separated string
+						$admission_level_values = implode(",", $unique_admission_levels);
+
+						$Update_AdmissionLevel_1 = $conn->query("UPDATE complete_user_profile_tutoring_detail SET AdmissionLevel = '".$admission_level_values."' WHERE user_id = '".$user_id."' "); 	
+
+
+						/////////
+					
+					
+						
+					}  
+					
+					
+					if($entry2['TutoringLevel'] != "Secondary")
+					{
+						
+						
+						$TutoringLevel = $entry2['TutoringLevel'];
+						$AdmissionLevel = $entry2['AdmissionLevel'];
+						$Tutoring_Grade = implode(',', $entry2['Tutoring_Grade']);
+						$Tutoring_ALL_Subjects = implode(',', $entry2['Tutoring_ALL_Subjects']);
+						$Tutoring_Year = $entry2['Tutoring_Year'];
+						$Tutoring_Month = $entry2['Tutoring_Month'];
+						
+						
+						$query2 = $conn->query("INSERT INTO complete_user_profile_tutoring_detail (TutoringLevel, AdmissionLevel, Tutoring_Grade, Tutoring_ALL_Subjects, Tutoring_Year, Tutoring_Month) VALUES ('$TutoringLevel', '$AdmissionLevel', '$Tutoring_Grade', '$Tutoring_ALL_Subjects', '$Tutoring_Year', '$Tutoring_Month')");
+					
+							
+					
+						if(!empty($entry2['Tutoring_Grade']))
+						{					
+						/// for Grade start
+							foreach($entry2['Tutoring_Grade'] as $aa1 => $vv1) 
+							{
+								$arrayV3[] = "('".$vv1."')";
+								
+								//print_r($vv1);
+								
+							}	
+						
+						
+						$qua1 = $conn->query("delete from complete_user_profile_tutoring_grade_detail where user_id = '".$user_id."' ");
+						$qua2 = $conn->query("INSERT INTO `complete_user_profile_tutoring_grade_detail` (Tutoring_Grade) VALUES " . implode(', ', $arrayV3));  
+						$qua3 = $conn->query("UPDATE complete_user_profile_tutoring_grade_detail SET user_id = '".$user_id."' where user_id = 0 ");  
+						/// For Grade End
+						
+						}
+					
+					
+					
+					
+					}
+					
+					
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				$Update_TutoringDetail = $conn->query("UPDATE complete_user_profile_tutoring_detail SET user_id = '".$user_id."' where user_id = 0 "); 	
+				
+					
+					
+					
+					
+					
+					
+				
+				//// +++++++++ End Tutoting Details ++++++
+				
+				
+				
+				
+				
+				
+				///+++++++++++++++
+				
+				
+						
+				
+
+					/// Get Registration data
+					
+							//// Average Rating of student_date_time_offer_confirmation
+					
+					
+							$avg_rating_sql = $conn->query("SELECT * FROM tbl_rating WHERE tutor_id = '".$user_id."' ");
+							
+							
+							
+							$nn = 0;
+							$sn = 0;
+							while($avg_rating = mysqli_fetch_array($avg_rating_sql))
+							{
+								$sn = $sn+1;
+								$nn = $nn+$avg_rating['rating_no'];
+							}
+							
+							
+							if($nn !=0 && $sn !=0)
+							{
+								
+								 $avg_rating = round($nn/$sn); 
+							}
+							else
+							{
+								 $avg_rating = 'No rating.';
+							}
+					
+					
+					
+							 ///check suspended accound
+		
+							$check_sus = $conn->query("SELECT * FROM tbl_user_suspended WHERE user_id = '".$user_id."' and account_suspended = 'suspended' ");
+						
+							if(mysqli_num_rows($check_sus) > 0)
+							{
+								$AccountType = 'suspended';
+							}
+							else{
+								$AccountType = 'active';
+							}
+					
+					
+					
+								$pprofile_data = $conn->query("SELECT user.mobile,user.first_name,user.last_name,user.user_type, user.user_id,user.accessToken,user.device_token, info.postal_code,info.profile_image FROM user_tutor_info as info INNER JOIN user_info as user ON info.user_id = user.user_id WHERE info.user_id = '".$user_id."' ");
+								
+								if(mysqli_num_rows($pprofile_data)>0)
+								{
+									$RData = mysqli_fetch_array($pprofile_data);
+									$complete_profile = 'Yes';
+									$first_name = $RData['first_name'];
+									$last_name = $RData['last_name'];
+									$mobileNo = $RData['mobile'];
+									
+								}
+								else{
+									$complete_profile = 'No';
+								}
+								
+									
+									
+								
+								
+								if($RData['user_type'] !="")
+								{
+									
+									$resultData = array('status' => true, 'message' => 'Tutor Profile Data Inserted Successfully.', 'user_type'=>$RData['user_type'], 'user_id'=>$RData['user_id'], 'accessToken'=>$RData['accessToken'], 'device_token'=>$RData['device_token'], 'postal_code'=>$RData['postal_code'], 'profile_image' => $RData['profile_image'], 'first_name' => $first_name, 'last_name' => $last_name, 'complete_profile' => $complete_profile, 'Mobile' => $mobileNo, 'Average_rating' => $avg_rating, 'AccountType' => $AccountType);
+								
+									$chk = 1;
+									//echo json_encode($resultData2);
+								}
+								else{
+									
+									$resultData = array('status' => false, 'message' => 'Error Found.');
+									$chk = 0;
+									//echo json_encode($resultData2);
+								}
+				
+
+			}
+			else
+			{
+				$resultData = array('status' => false, 'message' => 'Error Found.');
+			}
+			
+			
+			
+			
+			/////#####/////				
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+    }
+}
+					
+					
+					
+			/////###################//////
+			
+			
+			
+			
+			/////#############///////
 				
 				
 				

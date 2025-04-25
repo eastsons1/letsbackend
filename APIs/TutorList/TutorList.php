@@ -9,8 +9,15 @@ require_once("config.php");
 header('content-type:application/json');
 
 	
+	/**
 		 $query = "SELECT * FROM user_info as info INNER JOIN user_tutor_info as tutor_info ON info.user_id=tutor_info.user_id where info.user_type = 'I am an Educator' order by tutor_info.travel_distance DESC ";
-				
+	**/
+
+
+	
+		$query = "SELECT * FROM user_info as info INNER JOIN user_tutor_info as tutor_info ON info.user_id=tutor_info.user_id order by info.user_id DESC ";
+
+		
 			
 		$result = $conn->query($query) or die ("table not found");
 		$numrows = mysqli_num_rows($result);
@@ -27,9 +34,11 @@ header('content-type:application/json');
 							$n=0;
 							$postid = $tutor_result['user_id'];
 							 
-							 
-							   //// Average Rating of student_date_time_offer_confirmation
 					
+
+					
+					
+					//// Average Rating of student_date_time_offer_confirmation
 					
 					
 					$avg_rating_sql = $conn->query("SELECT * FROM tbl_rating WHERE tutor_id = '".$postid."' ");
@@ -79,22 +88,33 @@ header('content-type:application/json');
 				//get user rating end
 				
 				
-				$Tutor_list[] = $tutor_result2;
+				$chk_account_not_suspended = $conn->query("SELECT user_id FROM tbl_user_suspended WHERE user_id = '".$tutor_result['user_id']."' and account_suspended = 'suspended' ");
+					
+					
+					if(mysqli_num_rows($chk_account_not_suspended)==0)
+					{
+						
+						$Tutor_list[] = $tutor_result2;
+					}
+					
+					
 				
 				
 				
-				
-				
-			}	
-			
-			if(!empty($Tutor_list))
-			{
-				$resultData = array('status' => true, 'Message' => $Tutor_list);
 			}
-			else			
-			{
-				$resultData = array('status' => false, 'Message' => 'No Record Found.');
-			}				
+
+
+						
+			
+				if(!empty($Tutor_list))
+				{
+					$resultData = array('status' => true, 'Message' => $Tutor_list);
+				}
+				else			
+				{
+					$resultData = array('status' => false, 'Message' => 'No Record Found.');
+				}
+				
 			
 			
 		}

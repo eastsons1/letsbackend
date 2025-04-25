@@ -11,6 +11,8 @@ header('content-type:application/json');
 	
 		
 		
+									
+									
 	
 		//if($_POST['tutor_booking_process_id'] != "" && $_POST['student_id'] && $_POST['tutor_id'] && $_POST['tutor_offer_date'] !="" && $_POST['tutor_offer_time'] !="" && $_POST['student_date_time_offer_confirmation'] !="" && $_POST['tutor_accept_date_time_status'] !="")
 		//{
@@ -46,8 +48,8 @@ header('content-type:application/json');
 		// Function to get the access token from Google OAuth 2.0 server
 		function getAccessToken() {
 			// Service account details
-			$serviceAccountEmail = 'firebase-adminsdk-owdis@tutorapp-7522f.iam.gserviceaccount.com'; // Replace with your service account email
-			$privateKey = "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCf8zAuesHZz7+h\n/Rz0DLbo6ScR4InXnhuz3R2pflzROAH2SNukxShYj+T6rLdL5TBPzOsTa0Gyfu3c\natsx9fbs/ZBEEBvq0FT4cAPJkA1HTYKRn2NhDaxslj4y+/6LWG7WnrODPZpnesqi\nyfaNM7BYp4xVLz1bjykMPZIa26DbuhzO2hb/BMqiYSkqTxX8ZJvPKXZUQkjGPNnu\nnAQwRnhBtNT2cozz+QA0TKR4E4kXHuFYX+vBTjrqIXRdRtmYgF8HSewTqBF1gzbo\n0yPa2OJq4azspQggEhFTVjkxd6rwDe/MPSTm6A4rJqSwa+m6V256BCK/+rGEr2wf\n1g7853nlAgMBAAECggEACLrkQVUv6Wx+YCAJiYR8I0A+gqpHu74Ecw+5g7vC4yR0\nbvXRDzA3oIXSEKCGrJzIw0JC/l9XSZ/F6cbnSdXL8Wlxi1V5wJo4WQr8Ge9D2kVv\nv/T8Hpr5cz/MC0pXvVFJU2t8Dsi4+bbpAnOVgmV01ZHnheq7JZktu15M8CxWnkd3\nA8eMUuKjS0G/cLN4/jZ3TDgiY5yaWeuQ07aPwbgXUK3XPpn2Tt8W7Ycf6j69n/Ol\n3EdByZXu1h9YqvmCUmHjiaaCB7/xLmo3kKvIaNcy87KW92ck0dVnl48DzcqK8PBA\n3ci3hi2ew5q9lDlPeYfT2700aT1qcd1Y8vr26OJyDQKBgQC3tlvFGeVkk1m7GHR9\nC8JoCkFDoQtDCv/sVDAf1p96NBkuuaGyOsAaLtmtXFGZ38c49Ci2DXEmfiVTq0rY\nsBp/eKDhr0P3wbUkauRXhOOYlxsaQGjqHW1+/nlA07vCnUxi1XFJnnfBkApk8xRe\ns22XCAqmXiGMJxQADRUAm2Np1wKBgQDe4zTP0wTDLTpWNJIe3evhj0V6yZ3MFNj3\nGhJTjB5wAaUaEzhG8mB9fL/w7VWW2e0bHu3Y9hWWrBjXdTXPP0RQPSQEk6DLmIJI\nZBJcpP9k9YRlcS7cdJBJjJJMZroQ3jqWMZVxTDix2+pH+PdgdIjWsGCtO0kHpQwV\nhg6SlBbaowKBgCiveC90hrr5bxviVJoE6q8D5mRF3Cqi2v7Jvkauz27O7uzMK6U/\nIaAq1AZytZewWXyhhgqbe32c3kNjYhYPGi801dxlZlYOTkGccql3QrhebqAnt5Rx\no/hF/zB+M8zr7SjOQGKfd8IkVkj5FH/MmO6j10f0/NT/KozAWPBjeWbNAoGAH5aD\nvZBidGbMhbsdmlJJQ8ZSSnyYaHvr49lGD6EkDyusgm2G5EcldaNgcHyyTJbGC7nu\na3k0xg3N13s9DQoiXFzN5fgmKbSLgkbsc0TPDTfec6H+yi+a41GQylMku49DLlYI\nn+31ev93zIt0Q69AVWzZxrNIPlUdyU8ecZebRZECgYAn6PuHDKUVkDiXGtX5EFTO\n98SK+ly3p0kIHZEJX0iE1JrSTcbAV7OYDoWsEAVOQy4SIhOCZWmdp/PbxfXPZSer\nnrOoXCMPGdjBIHcwxE55K3fH5zDABmEa3EIvJh/Hiq3Vygk/jSS5WryPZxXPbX+E\n18f40jBc5OqI3EkG3VbwPw==\n-----END PRIVATE KEY-----\n";
+			$serviceAccountEmail = 'firebase-adminsdk-fbsvc@tutorapp-7522f.iam.gserviceaccount.com'; // Replace with your service account email
+			$privateKey = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCwZcOIvh9XPQD6\nqwqnA89sHaase9+3s18TR3C4CFwqN6cqTv1tsAWqEMEg0aYFm2i3/KMFAma6LgN1\n8hDt4ZNqeVSj/XzL60iWDIDHKAE2F65upKUNMxeLc5qaYk4i9nJP7FbL/0EEhak2\nrJcHx63LNb/974vb26zy7jfXiGEJrDgLZkOrZMpO25g+MHH5h97L1s+hYF77Eygh\nuourI/ls6rn50mWlPgDqe1YgpK3H7xDvavtilktttZalbgv1bABHwlzE9Uas1H5y\neXqfAPaJu2hN+8CxaG6KUUmLqRaWTFFf0EnB5MDI1yJnVlKE2mtSfNdKZZs0zxlu\nDFc26zc5AgMBAAECggEAK+YbeB2mk5GfO4LTCxb36SZk6yKF3cPyOoxKKUaNV0VT\n4QPY7pICit0SDx6VlGolcLpbAJ1lHtriKhlkrKq5guMwlQI5607B2PPCHa4fRQy2\nMJthZwxKxP3vYRHrc6iE8M52mFyNG/i+kJh5mqpPHlYhUmsp0XyVSTzPIWCzk5IB\nWB6Q0fFrRfuFOX3pwoFWkjbqs0nRNxNy9/oAxcZUnwQw8m6Iv48NLFajgE4tNx9+\n0Vz8hNJ5LPeAVTiBU6+XQ9dmvQQKIIAzrzR7ujLP8syBq39+1DpCTr2ZVnITmIpX\nhy1bNmK/8K/tnO5R0BdVu84wiYnDK20zFRzRFSTJzQKBgQD124cM+sioke7+Rg6n\nARWz/zzvuDcRfT8lQM+Dl9SVW/PP3DH/+KmhkbRa89r39PnfpAkJtq7uSRB0+xis\nCw4W62iDOTgZ37clamOe2kvh8iidHbG0LUSZOK34V4TV+SkttLqWeFW3Gdaa751k\nqjbIK9fZnPFbMC/cZdqooH8/bQKBgQC3rK1eGkzK03yaNFscdlDNyXtNyM+zhqGR\nLU3Dn8jzgv71mHP4aXJJ4E74lgISINi2fXnX3rxeRTEu8tso79GQu8zruinsZTuD\nSXsOccW0SmdyBdMfO/a+3pg5BOfLTpM+dBVaU2GVpaIv0JhOB5MtweNnt5DISfY0\n5ICtdEPbfQKBgQDwMlWzHKBF8K1pxtAx4SFvBYJnQbarY435u2QB0Khkc72z6hD/\nX9V6gHuQEIZxkek90WjzEIO/Uaq+X0Mvcm2FfuBQs+pXfPXVnCdP3z4btRZwyb3/\npepLN9Dfu8GPuym7+cIBl/dGN/wuysMewh1bW1o6xNYYnO9liC0kagln0QKBgBq3\nnnxKvRLf0ocnyH0KZNSaUzpMVJIbqlLQ0Tf8fSGW03lsFKp0xDAk1bfpMiHq7zsU\nY23YM3RPAkl/AAwjXkt8VeGQMdr2GsMNJD5EpGqGTCfU2xH3CfxXqrLYmNME+fwi\nrJx39oDrF/12jUEEbw8/3dFPbVsFDzBAcMtKVziNAoGAAYYoBfrGhZBoEBzXBM+V\nxaa2Aly0VvkF4AZQTMGdMzlAosh8BE9VnE+pna4I9qhyYrOjJgX285GXz8r5EXbZ\nbLWZmte9CC9ENrT3RcKZWmW3Bxv5VvpITWQcNrB3j9D2uc+cfscCvVvCBxkV/LmQ\nzI4R2gJYm7sNq5AlmKNSprA=\n-----END PRIVATE KEY-----\n";
 
 			// JWT Header
 			$header = array(
@@ -196,7 +198,7 @@ header('content-type:application/json');
 	
 	//// Notification end
 			
-			
+			$create_date = date("d-m-Y h:i:s");
 			
 			
 	
@@ -204,7 +206,7 @@ header('content-type:application/json');
 							
 						
 					$result = $conn->query($query) or die ("table not found");
-					$numrows = mysqli_num_rows($result);
+					 $numrows = mysqli_num_rows($result);
 					
 					
 					if($numrows > 0)
@@ -293,10 +295,10 @@ header('content-type:application/json');
 						
 						$user_name = mysqli_fetch_array($conn->query("SELECT first_name,last_name FROM user_info WHERE user_id = '".$_POST['student_id']."' "));
 						
-						$FName = $user_name['first_name'];
+						 $FName = $user_name['first_name'];
 						$LName = $user_name['last_name'];
-						$firstCharacter = substr($FName, 0, 1);
-						$secondCharacter = substr($LName, 0, 1);
+						$firstCharacter = strtoupper(substr($FName, 0, 1));
+						$secondCharacter = strtoupper(substr($LName, 0, 1));
 						$ST_Name = $firstCharacter.$secondCharacter;
 						
 						
@@ -312,6 +314,12 @@ header('content-type:application/json');
 								$Confirmed = '';
 							}
 							
+							
+							$count_update_date_time_val = mysqli_fetch_array($conn->query("SELECT count_update_date_time FROM tutor_booking_process  WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' "));
+							
+							$count_update_date_time = $count_update_date_time_val['count_update_date_time']+1;;
+							
+							
 							$devT = $conn->query("select device_token from user_info_device_token where user_id = '".$_POST['tutor_id']."' ");
 							
 							while($device_token = mysqli_fetch_array($devT))
@@ -319,8 +327,14 @@ header('content-type:application/json');
 
 								if($student_date_time_offer_confirmation_Sql['student_offer_date'] == "" && $student_date_time_offer_confirmation_Sql['student_offer_time'] == "" )
 								{
+									if($count_update_date_time == 1)
+									{
+										$title = $ST_Name.' has proposed a Start Date/Time';
+									}
+									else{
+										$title = $ST_Name.' has updated a Start Date/Time';
+									}
 									
-									$title = $ST_Name.' has proposed a Start Date/Time';
 									$body = 'View Details in My Bookings/In Progress.';
 								}
 								else{
@@ -355,7 +369,7 @@ header('content-type:application/json');
 								$tutor_offer_time = $_POST['tutor_offer_time'];
 								$student_first_name = $student_data['first_name'];
 								$student_last_name = $student_data['last_name'];
-								$date_time_update_by = $student_date_time_offer_confirmation_Sql['date_time_update_by'];
+								$date_time_update_by = $_POST['date_time_update_by']; ///$student_date_time_offer_confirmation_Sql['date_time_update_by'];
 								
 								
 								$amount_negotiate_by_tutor = '';
@@ -369,7 +383,7 @@ header('content-type:application/json');
 								$negotiate_by_tutor_amount_type = '';
 								$tutorBookingStatus = '';
 								$offerStatus = '';
-								$tutorBookingProcessId = '';
+								$tutorBookingProcessId = $student_date_time_offer_confirmation_Sql['tutor_booking_process_id'];
 								//$student_offer_time = '';
 									
 								
@@ -388,12 +402,30 @@ header('content-type:application/json');
 									$date_time_update_by, $tutorBookingStatus, $offerStatus, $tutorBookingProcessId, $student_id,
 									$student_offer_time, $ProfilePic, $qualification, $TutorCode, $flag
 								);
+								
+								
+								
+								/// Add Notification
+								$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$_POST['tutor_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+								if(mysqli_num_rows($chk_noti)>0)
+								{
+									$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$_POST['tutor_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+								
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['tutor_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+								}
+								else{
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['tutor_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+								
+								}
+								
 
 								
 							}
 							
 							
-							 $sql = $conn->query("UPDATE tutor_booking_process SET student_offer_date = '".$_POST['student_offer_date']."', student_offer_time = '".$_POST['student_offer_time']."', date_time_update_by = '".$_POST['date_time_update_by']."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' ");
+							 
+							
+							 $sql = $conn->query("UPDATE tutor_booking_process SET student_offer_date = '".$_POST['student_offer_date']."', student_offer_time = '".$_POST['student_offer_time']."', date_time_update_by = '".$_POST['date_time_update_by']."', update_date_time = '".$create_date."', count_update_date_time = '".$count_update_date_time."'  WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' ");
 						
 								
 							
@@ -403,6 +435,8 @@ header('content-type:application/json');
 							
 						if($_POST['date_time_update_by'] == 'tutor' && $_POST['student_date_time_offer_confirmation'] != 'Confirmed' && $_POST['tutor_booking_process_id'] !="" && $_POST['student_id'] !="" && $_POST['student_offer_date'] =="" && $_POST['student_offer_time'] =="" && $_POST['tutor_offer_date'] !="" && $_POST['tutor_offer_time'] !="")
 						{
+							
+							
 							
 							
 							//$api_hit_date_time_by_tutor = $api_hit_date_time;      ///api_hit_date_time_by_tutor
@@ -436,7 +470,7 @@ header('content-type:application/json');
 								
 									$to =  $device_token_M['device_token']; 
 						
-									$title = $tutor_data['tutor_code'].' has proposed a Start Date/Time.';
+									$title = 'Tutor '.$tutor_data['tutor_code'].' has proposed a Start Date/Time.';
 									$body = 'View Details in My Bookings/In Progress';
 									$screen = 'StartDT';
 									$SelectedTab = '';
@@ -457,7 +491,7 @@ header('content-type:application/json');
 								//$date_time_update_by = '';
 								
 								
-								$tutor_booking_process_id = $_POST['tutor_booking_process_id'];
+								 $tutor_booking_process_id = $student_date_time_offer_confirmation_Sql['tutor_booking_process_id'];
 								$tutor_id = $_POST['tutor_id'];
 								$amount_negotiate_by_tutor = $student_date_time_offer_confirmation_Sql['amount_negotiate_by_tutor'];
 								$ProfilePic = $tutor_data['profile_image'];
@@ -470,7 +504,7 @@ header('content-type:application/json');
 								$negotiate_by_tutor_amount_type = $student_date_time_offer_confirmation_Sql['negotiate_by_tutor_amount_type'];
 								$tutorBookingStatus = $student_date_time_offer_confirmation_Sql['tutorBookingStatus'];
 								$offerStatus = $student_date_time_offer_confirmation_Sql['offerStatus'];
-								$tutorBookingProcessId = $student_date_time_offer_confirmation_Sql['tutorBookingProcessId'];
+								$tutorBookingProcessId = $student_date_time_offer_confirmation_Sql['tutor_booking_process_id'];
 								$student_offer_date = $student_date_time_offer_confirmation_Sql['student_offer_date'];
 								$student_offer_time = $student_date_time_offer_confirmation_Sql['student_offer_time'];
 								$date_time_update_by = 	$student_date_time_offer_confirmation_Sql['date_time_update_by'];
@@ -493,6 +527,24 @@ header('content-type:application/json');
 									$student_offer_time, $ProfilePic, $qualification, $TutorCode, $flag
 								);
 								
+								
+								
+								/// Add Notification
+								$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+								if(mysqli_num_rows($chk_noti)>0)
+								{
+									$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+								
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+								}
+								else{
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+								
+								}
+								
+								
+								
+								
 							}
 							else{
 							
@@ -505,7 +557,7 @@ header('content-type:application/json');
 
 									$to =  $device_token['device_token']; 
 						
-									$title = $tutor_data['tutor_code'].' has proposed a Start Date/Time.';
+									$title = 'Tutor '.$tutor_data['tutor_code'].' has proposed a Start Date/Time.';
 									$body = 'View Details in My Bookings/In Progress';
 									$screen = 'StartDT';
 									$SelectedTab = '';
@@ -562,6 +614,20 @@ header('content-type:application/json');
 									$date_time_update_by, $tutorBookingStatus, $offerStatus, $tutorBookingProcessId, $student_id,
 									$student_offer_time, $ProfilePic, $qualification, $TutorCode, $flag
 								);
+								
+								
+								/// Add Notification
+								$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+								if(mysqli_num_rows($chk_noti)>0)
+								{
+									$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+								
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+								}
+								else{
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+								
+								}
 									
 									
 								}
@@ -571,7 +637,7 @@ header('content-type:application/json');
 								
 								
 								
-							$sql = $conn->query("UPDATE tutor_booking_process SET tutor_offer_date = '".$_POST['tutor_offer_date']."', tutor_offer_time = '".$_POST['tutor_offer_time']."', date_time_update_by = '".$_POST['date_time_update_by']."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' ");
+							$sql = $conn->query("UPDATE tutor_booking_process SET tutor_offer_date = '".$_POST['tutor_offer_date']."', tutor_offer_time = '".$_POST['tutor_offer_time']."', date_time_update_by = '".$_POST['date_time_update_by']."', update_date_time = '".$create_date."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' ");
 						
 									
 								
@@ -586,7 +652,7 @@ header('content-type:application/json');
 						if($_POST['student_date_time_offer_confirmation'] == 'Confirmed' && $_POST['tutor_booking_process_id'] != "" && $_POST['student_id'] != "" && $_POST['student_offer_date'] !="" && $_POST['student_offer_time'] !="" && $_POST['date_time_update_by'] !="")
 						{
 						
-							$sql = $conn->query("UPDATE tutor_booking_process SET student_date_time_offer_confirmation = '".$Confirmed."',  student_offer_date = '".$_POST['student_offer_date']."', student_offer_time = '".$_POST['student_offer_time']."', date_time_update_by = '".$_POST['date_time_update_by']."', api_hit_date_by_confirmed_user = '".$api_hit_date_by_confirmed_user."', api_hit_time_by_confirmed_user = '".$api_hit_time_by_confirmed_user."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and student_id = '".$_POST['student_id']."'  ");
+							$sql = $conn->query("UPDATE tutor_booking_process SET student_date_time_offer_confirmation = '".$_POST['student_date_time_offer_confirmation']."',  student_offer_date = '".$_POST['student_offer_date']."', student_offer_time = '".$_POST['student_offer_time']."', date_time_update_by = '".$_POST['date_time_update_by']."', api_hit_date_by_confirmed_user = '".$api_hit_date_by_confirmed_user."', api_hit_time_by_confirmed_user = '".$api_hit_time_by_confirmed_user."', update_date_time = '".$create_date."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and student_id = '".$_POST['student_id']."'  ");
 						
 						}
 						else			
@@ -598,7 +664,7 @@ header('content-type:application/json');
 						if($_POST['student_date_time_offer_confirmation'] == 'Confirmed' && $_POST['tutor_booking_process_id'] != "" && $_POST['student_id'] != "" && $_POST['student_date_time_offer_confirmation'] !="" && $_POST['date_time_update_by'] !="" )
 						{
 						
-							$sql3 = $conn->query("UPDATE tutor_booking_process SET student_date_time_offer_confirmation = '".$Confirmed."', student_date_time_offer_confirmation = '".$_POST['student_date_time_offer_confirmation']."' , date_time_update_by = '".$_POST['date_time_update_by']."', api_hit_date_by_confirmed_user = '".$api_hit_date_by_confirmed_user."', api_hit_time_by_confirmed_user = '".$api_hit_time_by_confirmed_user."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and student_id = '".$_POST['student_id']."'  ");
+							$sql3 = $conn->query("UPDATE tutor_booking_process SET student_date_time_offer_confirmation = '".$_POST['student_date_time_offer_confirmation']."', student_date_time_offer_confirmation = '".$_POST['student_date_time_offer_confirmation']."' , date_time_update_by = '".$_POST['date_time_update_by']."', api_hit_date_by_confirmed_user = '".$api_hit_date_by_confirmed_user."', api_hit_time_by_confirmed_user = '".$api_hit_time_by_confirmed_user."' , update_date_time = '".$create_date."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and student_id = '".$_POST['student_id']."'  ");
 						
 						}
 						else			
@@ -611,7 +677,7 @@ header('content-type:application/json');
 						{
 						
 						
-							$sql = $conn->query("UPDATE tutor_booking_process SET student_date_time_offer_confirmation = '".$Confirmed."', tutor_accept_date_time_status = '".$tutor_accept_date_time_status."', tutor_offer_date = '".$_POST['tutor_offer_date']."', tutor_offer_time = '".$_POST['tutor_offer_time']."' , date_time_update_by = '".$_POST['date_time_update_by']."', api_hit_date_by_confirmed_user = '".$api_hit_date_by_confirmed_user."', api_hit_time_by_confirmed_user = '".$api_hit_time_by_confirmed_user."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and tutor_id = '".$_POST['tutor_id']."'  ");
+							$sql = $conn->query("UPDATE tutor_booking_process SET student_date_time_offer_confirmation = '".$_POST['student_date_time_offer_confirmation']."', tutor_accept_date_time_status = '".$tutor_accept_date_time_status."', tutor_offer_date = '".$_POST['tutor_offer_date']."', tutor_offer_time = '".$_POST['tutor_offer_time']."' , date_time_update_by = '".$_POST['date_time_update_by']."', api_hit_date_by_confirmed_user = '".$api_hit_date_by_confirmed_user."', api_hit_time_by_confirmed_user = '".$api_hit_time_by_confirmed_user."', update_date_time = '".$create_date."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and tutor_id = '".$_POST['tutor_id']."'  ");
 							
 							
 						}
@@ -625,7 +691,7 @@ header('content-type:application/json');
 						{
 						
 						
-							$sql2 = $conn->query("UPDATE tutor_booking_process SET student_date_time_offer_confirmation = '".$Confirmed."', tutor_accept_date_time_status = '".$tutor_accept_date_time_status."', tutor_accept_date_time_status = '".$_POST['tutor_accept_date_time_status']."' , date_time_update_by = '".$_POST['date_time_update_by']."', api_hit_date_by_confirmed_user = '".$api_hit_date_by_confirmed_user."', api_hit_time_by_confirmed_user = '".$api_hit_time_by_confirmed_user."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and tutor_id = '".$_POST['tutor_id']."'  ");
+							$sql2 = $conn->query("UPDATE tutor_booking_process SET student_date_time_offer_confirmation = '".$_POST['student_date_time_offer_confirmation']."', tutor_accept_date_time_status = '".$tutor_accept_date_time_status."', tutor_accept_date_time_status = '".$_POST['tutor_accept_date_time_status']."' , date_time_update_by = '".$_POST['date_time_update_by']."', api_hit_date_by_confirmed_user = '".$api_hit_date_by_confirmed_user."', api_hit_time_by_confirmed_user = '".$api_hit_time_by_confirmed_user."', update_date_time = '".$create_date."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and tutor_id = '".$_POST['tutor_id']."'  ");
 							
 							
 							//////######
@@ -680,6 +746,20 @@ header('content-type:application/json');
 													);
 								
 								
+								
+								/// Add Notification
+								$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+								if(mysqli_num_rows($chk_noti)>0)
+								{
+									$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+								
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+								}
+								else{
+									$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+								
+								}
+								
 							
 							
 							}
@@ -721,8 +801,8 @@ header('content-type:application/json');
 						
 							$FName = $user_name['first_name'];
 							$LName = $user_name['last_name'];
-							$firstCharacter = substr($FName, 0, 1);
-							$secondCharacter = substr($LName, 0, 1);
+							$firstCharacter = strtoupper(substr($FName, 0, 1));
+							$secondCharacter = strtoupper(substr($LName, 0, 1));
 							$ST_Name = $firstCharacter.$secondCharacter;	
 							
 							//###################
@@ -738,6 +818,11 @@ header('content-type:application/json');
 										
 										if($_POST['date_time_update_by'] == "student" && $_POST['student_date_time_offer_confirmation'] == "Confirmed" &&  $_POST['tutor_id'] !="" && $_POST['student_id'] !="" && $_POST['tutor_booking_process_id'] !="" && $_POST['current_app_date'] !="" && $_POST['current_app_time'] !="" && $result_notify_data2['tutor_accept_date_time_status'] == "")
 										{
+											
+											$date_time_update_by = $_POST['date_time_update_by'];
+											$student_date_time_offer_confirmation = $_POST['student_date_time_offer_confirmation'];
+											$tutor_id = $_POST['tutor_id'];
+											$tutor_booking_process_id = $_POST['tutor_booking_process_id'];
 											
 											$title = $ST_Name.' has Accepted your Start Date/Time';					
 											//$body = 'Client has agreed to your Start Date/Time';
@@ -761,6 +846,23 @@ header('content-type:application/json');
 																		$date_time_update_by, $tutorBookingStatus, $offerStatus, $tutorBookingProcessId, $student_id,
 																		$student_offer_time, $ProfilePic, $qualification, $TutorCode, $flag
 																	);
+																	
+																	
+												
+													/// Add Notification
+													$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$_POST['tutor_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+													if(mysqli_num_rows($chk_noti)>0)
+													{
+														$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$_POST['tutor_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+													
+														$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['tutor_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+													}
+													else{
+														$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['tutor_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+													
+													}	
+																	
+																	
 												
 											}
 											else{
@@ -780,6 +882,22 @@ header('content-type:application/json');
 																		$date_time_update_by, $tutorBookingStatus, $offerStatus, $tutorBookingProcessId, $student_id,
 																		$student_offer_time, $ProfilePic, $qualification, $TutorCode, $flag
 																	);
+																	
+																	
+																	
+													/// Add Notification
+													$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$_POST['tutor_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+													if(mysqli_num_rows($chk_noti)>0)
+													{
+														$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$_POST['tutor_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+													
+														$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['tutor_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+													}
+													else{
+														$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['tutor_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+													
+													}					
+																	
 													
 													
 												}
@@ -800,7 +918,7 @@ header('content-type:application/json');
 											$TutorCodeV = $TutorCodeSQL['tutor_code'];
 											
 											
-											$title = $TutorCodeV.' has Accepted your Start Date/Time';
+											$title = 'Tutor '.$TutorCodeV.' has Accepted your Start Date/Time';
 											$body = 'Proceed to Make Payment in My Bookings/In Progress';
 											$screen = 'MyBookings';
 											$SelectedTab = "InProgress";
@@ -822,6 +940,22 @@ header('content-type:application/json');
 																		$date_time_update_by, $tutorBookingStatus, $offerStatus, $tutorBookingProcessId, $student_id,
 																		$student_offer_time, $ProfilePic, $qualification, $TutorCode, $flag
 																	);
+																	
+																	
+													/// Add Notification
+													$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+													if(mysqli_num_rows($chk_noti)>0)
+													{
+														$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+													
+														$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+													}
+													else{
+														$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+													
+													}				
+														
+																	
 												
 											}
 											else{
@@ -841,6 +975,21 @@ header('content-type:application/json');
 																		$date_time_update_by, $tutorBookingStatus, $offerStatus, $tutorBookingProcessId, $student_id,
 																		$student_offer_time, $ProfilePic, $qualification, $TutorCode, $flag
 																	);
+																	
+													
+												/// Add Notification
+													$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+													if(mysqli_num_rows($chk_noti)>0)
+													{
+														$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$_POST['student_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - DateAndTimeOfferUpdate' ");
+													
+														$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+													}
+													else{
+														$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$_POST['student_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - DateAndTimeOfferUpdate', created_date = '".$create_date."' ");
+													
+													}													
+																	
 													
 													
 												}
@@ -854,12 +1003,231 @@ header('content-type:application/json');
 										
 										
 										
-										////// If confirmation confirmed condition end
-
+						////// If confirmation confirmed condition end
 										
+										
+										
+										
+						////////////	Discount Amount added for first time start ///////////////			
+										
+						
+						$chk22 = $conn->query("
+							SELECT * 
+							FROM tutor_booking_process as process INNER JOIN tutor_booking_process_discount as chk_discont ON
+							process.student_id = chk_discont.student_id
+							WHERE process.acceptby <> '' 
+								AND process.booked_date <> '' 
+								AND process.tutor_booking_status = 'Accept' 
+								AND process.offer_status = 'Accept' 
+								AND process.student_date_time_offer_confirmation = 'Confirmed' 
+								AND process.date_time_update_by <> '' 
+								
+								AND process.api_hit_date_by_confirmed_user <> '' 
+								AND process.api_hit_time_by_confirmed_user <> '' 
+								
+								AND process.student_id = '".$_POST['student_id']."'
+						");
+						
+
+					//echo mysqli_num_rows($chk);
+
+					   
+							
+						
+						 $countR = mysqli_num_rows($chk22);	
+							
+							if($countR == 0)
+							{
+								
+							 $chk2 = $conn->query("
+							SELECT * 
+							FROM tutor_booking_process 
+							WHERE  acceptby <> '' 
+								AND booked_date <> '' 
+								AND tutor_booking_status = 'Accept' 
+								AND offer_status = 'Accept' 
+								AND student_date_time_offer_confirmation = 'Confirmed' 
+								AND date_time_update_by <> '' 
+								
+								AND api_hit_date_by_confirmed_user <> '' 
+								AND api_hit_time_by_confirmed_user <> '' 
+								
+								AND student_id = '".$_POST['student_id']."'
+						");	
+						
+						
+								
+							$booking_data = mysqli_fetch_array($chk2);
+							
+							if($booking_data['acceptby'] == 'tutor')
+							{
+								 $Final_Fee = $booking_data['amount_negotiate_by_student'];
+							}
+							if($booking_data['acceptby'] == 'student')
+							{
+								 $Final_Fee = $booking_data['amount_negotiate_by_tutor'];
+							}
+							 
+							// echo $Final_Fee;
+							 
+							 
+							$tutor_duration_weeks = explode('lessons a week', $booking_data['tutor_duration_weeks']);
+							$tutor_duration_hours = explode('hours a lesson', $booking_data['tutor_duration_hours']);
+
+							$one_week_hours = (float)$tutor_duration_weeks[0] * (float)$tutor_duration_hours[0];
+							$one_month_hours = $one_week_hours * 4;
+
+							 $Total_Fee_Of_Hours = $one_month_hours * $Final_Fee;
+							 $Amount_to_Company_without_discount = $Total_Fee_Of_Hours / 2;
+
+							 $record_no = mysqli_num_rows($chk2);
+
+							// First-time discount 10%
+							
+						  
+								$discount = 10; // Discount in %
+								 $Save = $Amount_to_Company_without_discount * ($discount / 100); // 10% savings
+								$Amount_to_Company_with_discount = $Amount_to_Company_without_discount - $Save;
+
+								$Discount_Data[] = array(
+									'discount_type' => 'First discount',
+									'discount' => $discount,
+									'Save' => $Save,
+									'Amount_to_Company_without_discount' => $Amount_to_Company_without_discount,
+									'Amount_to_Company_with_discount' => $Amount_to_Company_with_discount
+								);
+						   
 							
 							
-							$resultData = array('status' => true, 'message' => 'Date and time Offer Acceptance Confirmed.');
+							if($Amount_to_Company_with_discount != "" )
+							{
+								
+
+									//$update_discount = $conn->query("INSERT INTO tutor_booking_process_discount SET student_id = '".$_POST['student_id']."', count_of_discount = 1	");	student_post_requirements_id
+									$update_discount = $conn->query("INSERT INTO tutor_booking_process_discount SET student_id = '".$_POST['student_id']."', tutor_booking_process_id = '".$booking_data['tutor_booking_process_id']."',student_post_requirements_id = '".$booking_data['student_post_requirements_id']."',final_accepted_amount = '".$Final_Fee."',tutor_duration_weeks = '".$booking_data['tutor_duration_weeks']."',tutor_duration_hours = '".$booking_data['tutor_duration_hours']."',discount = '".$discount."',savings = '".$Save."',Amount_to_Company_with_discount = '".$Amount_to_Company_with_discount."', count_of_discount = 1	");	
+													
+								
+								
+								if($update_discount)
+								{
+									
+									$tutor_booking_process_discount_GET = mysqli_fetch_array($conn->query("SELECT count_of_discount FROM tutor_booking_process_discount WHERE student_id = '".$_POST['student_id']."' and tutor_booking_process_id = '".$booking_data['tutor_booking_process_id']."' and student_post_requirements_id = '".$booking_data['student_post_requirements_id']."' " ));	
+									
+									$update_booking_No = $conn->query("UPDATE tutor_booking_process SET promocode = '".$tutor_booking_process_discount_GET['count_of_discount']."', update_date_time = '".$create_date."' WHERE student_id = '".$_POST['student_id']."' and tutor_id = '".$_POST['tutor_id']."' and tutor_booking_process_id = '".$booking_data['tutor_booking_process_id']."' and student_post_requirements_id = '".$booking_data['student_post_requirements_id']."' ");	
+									
+									$resultSet = array('status' => true, 'message' => 'Success', 'Discount_Data' => $Discount_Data);
+								}
+							}
+							else{
+								$resultSet = array('status' => true, 'message' => 'No record for discount.');
+							}
+
+						} 
+						else 
+						{
+							//$resultSet = array('status' => false, 'message' => 'Record not found.');
+							
+							$Discount_Data = [];
+							
+						}
+
+   
+   
+   
+				////////////	Discount Amount added for first time end ///////////////	
+						// Fetch the total count of bookings for the current month and only consider entries where Invoice_code is blank
+						// Fetch the total count of bookings for the current month that have an empty Invoice_code
+						$total_count_query = "
+							SELECT COUNT(tutor_booking_process_id) AS booking_count
+							FROM tutor_booking_process 
+							WHERE 
+								student_date_time_offer_confirmation = 'Confirmed'
+								AND api_hit_date_by_confirmed_user <> '' 
+								AND acceptby <> '' 
+								AND booked_date <> '' 
+								AND tutor_booking_status = 'Accept' 
+								AND offer_status = 'Accept' 
+								AND Invoice_code <> '' 
+								AND DATE_FORMAT(STR_TO_DATE(api_hit_date_by_confirmed_user, '%d-%m-%Y'), '%Y-%m') = 
+									DATE_FORMAT(NOW(), '%Y-%m')
+						";
+
+						$total_count_result = $conn->query($total_count_query);
+
+						if (!$total_count_result) {
+							die("Error fetching total count: " . $conn->error);
+						}
+
+						// Get the count of bookings with a valid Invoice_code
+						$total_count_row = $total_count_result->fetch_assoc();
+						$BookingCount = $total_count_row['booking_count'] ?? 0;
+
+						// Increment the count for the new booking
+						$BookingCount += 1;
+
+						// Fetch the `created_date` for the given tutor_booking_process_id
+						$tutor_booking_process_idVal = $conn->real_escape_string($_POST['tutor_booking_process_id']);
+						$get_create_date_query = "
+							SELECT api_hit_date_by_confirmed_user 
+							FROM tutor_booking_process 
+							WHERE tutor_booking_process_id = '$tutor_booking_process_idVal'
+						";
+
+						$get_create_date_result = $conn->query($get_create_date_query);
+
+						if (!$get_create_date_result) {
+							die("Error fetching creation date: " . $conn->error);
+						}
+
+						$get_create_date_row = $get_create_date_result->fetch_assoc();
+						$created_date = $get_create_date_row['api_hit_date_by_confirmed_user'] ?? null;
+
+						if (!$created_date) {
+							die("Error: Creation date not found for the given `tutor_booking_process_id`.");
+						}
+
+						// Process the `created_date` to generate the `Invoice_code`
+						$date_parts = explode('-', $created_date);
+
+						if (count($date_parts) === 3) {
+							$year = substr($date_parts[2], -2);
+							$month = $date_parts[1];
+
+							// Generate the invoice code
+							$Invoice_code = $month . $year . '-038-' . str_pad($BookingCount, 1, '0', STR_PAD_LEFT);
+
+							//echo "Generated Invoice Code: " . $Invoice_code;
+						} else {
+							die("Error: Invalid `created_date` format.");
+						}
+
+						// Update the `Invoice_code` in the database
+						$update_query = "
+							UPDATE tutor_booking_process 
+							SET Invoice_code = '$Invoice_code' 
+							WHERE 
+								student_id = '".$conn->real_escape_string($_POST['student_id'])."' 
+								AND tutor_id = '".$conn->real_escape_string($_POST['tutor_id'])."' 
+								AND tutor_booking_process_id = '$tutor_booking_process_idVal' 
+								AND Invoice_code = ''
+						";
+
+						$update_result = $conn->query($update_query);
+
+						if (!$update_result) {
+							die("Error updating Invoice_code: " . $conn->error);
+						}
+						
+						
+						//////////
+   
+   
+   
+							
+							
+							$resultData = array('status' => true, 'message' => 'Date and time Offer Acceptance Confirmed.', 'Discount_Data' => $Discount_Data);
+						
+						
 						}
 						
 						

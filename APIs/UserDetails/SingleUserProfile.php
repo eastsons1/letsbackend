@@ -30,18 +30,52 @@ header('content-type:application/json');
 				{
 					if($user_list['user_type']=="I am looking for a Tutor")
 					{
-						$sql = "SELECT * FROM user_student_info  WHERE user_id = '".$_GET['user_id']."' " ;
 						
 						$user_type = "Student";
+						
+						$sql = "SELECT * FROM  user_tutor_info WHERE user_id = '".$_GET['user_id']."' " ;
+						
+						
+						$sql_Date = mysqli_fetch_assoc($conn->query($sql));
+						
+						$currentYear = date("Y");
+						$date_of_year = $sql_Date['date_of_year'];
+						
+						$YearDifference = $currentYear - $date_of_year;
+						
+						$CurrentAge = $sql_Date['age'] + $YearDifference;
+						
+						
+						$user_extra_info = array('id' => $sql_Date['id'],'user_id' => $sql_Date['user_id'],'profile_image' => $sql_Date['profile_image'],'age' => $CurrentAge,'date_of_year' => $sql_Date['date_of_year'],'gender' => $sql_Date['gender'],'nationality' => $sql_Date['nationality'],'flag' => $sql_Date['flag'],'qualification' => $sql_Date['qualification'],'name_of_school' => $sql_Date['name_of_school'],'Course_Exam' => $sql_Date['Course_Exam'],'OtherCourse_Exam' => $sql_Date['OtherCourse_Exam'],'gra_year' => $sql_Date['gra_year'],'tutor_status' => $sql_Date['tutor_status'],'tuition_type' => $sql_Date['tuition_type'],'location' => $sql_Date['location'],'postal_code' => $sql_Date['postal_code'],'travel_distance' => $sql_Date['travel_distance'],'tutor_tutoring_experience_years' => $sql_Date['tutor_tutoring_experience_years'],'tutor_tutoring_experience_months' => $sql_Date['tutor_tutoring_experience_months'],'personal_statement' => $sql_Date['personal_statement'],'lettitude' => $sql_Date['lettitude'],'longitude' => $sql_Date['longitude'],'stream' => $sql_Date['stream'],'tutor_code' => $sql_Date['tutor_code'],'create_date' => $sql_Date['create_date']);
+
+						
+						
 					}
 					if($user_list['user_type']=="I am an Educator")
 					{
+						
+						
+						
 						$sql = "SELECT * FROM  user_tutor_info WHERE user_id = '".$_GET['user_id']."' " ;
 						
 						$user_type = "Tutor";
+						
+						$sql_Date = mysqli_fetch_assoc($conn->query($sql));
+						
+						$currentYear = date("Y");
+						$date_of_year = $sql_Date['date_of_year'];
+						
+						$YearDifference = $currentYear - $date_of_year;
+						
+						$CurrentAge = $sql_Date['age'] + $YearDifference;
+						
+						
+						$user_extra_info = array('id' => $sql_Date['id'],'user_id' => $sql_Date['user_id'],'profile_image' => $sql_Date['profile_image'],'age' => $CurrentAge,'date_of_year' => $sql_Date['date_of_year'],'gender' => $sql_Date['gender'],'nationality' => $sql_Date['nationality'],'flag' => $sql_Date['flag'],'qualification' => $sql_Date['qualification'],'name_of_school' => $sql_Date['name_of_school'],'Course_Exam' => $sql_Date['Course_Exam'],'OtherCourse_Exam' => $sql_Date['OtherCourse_Exam'],'gra_year' => $sql_Date['gra_year'],'tutor_status' => $sql_Date['tutor_status'],'tuition_type' => $sql_Date['tuition_type'],'location' => $sql_Date['location'],'postal_code' => $sql_Date['postal_code'],'travel_distance' => $sql_Date['travel_distance'],'tutor_tutoring_experience_years' => $sql_Date['tutor_tutoring_experience_years'],'tutor_tutoring_experience_months' => $sql_Date['tutor_tutoring_experience_months'],'personal_statement' => $sql_Date['personal_statement'],'lettitude' => $sql_Date['lettitude'],'longitude' => $sql_Date['longitude'],'stream' => $sql_Date['stream'],'tutor_code' => $sql_Date['tutor_code'],'create_date' => $sql_Date['create_date']);
+
+						
 					}
 					
-						$user_extra_info = mysqli_fetch_assoc($conn->query($sql));
+						
 						
 						
 						//// Average Rating of student_date_time_offer_confirmation

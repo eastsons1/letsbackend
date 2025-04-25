@@ -308,7 +308,7 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
 							<tr><td></td><td><strong></strong></td></tr>
 							<tr><td></td><td><strong></strong></td></tr>
 							<tr><td><strong>Thanks & regards,</strong></td><td></td></tr>
-							<tr><td>Tutorapp Admin</td><td></td></tr>
+							<tr><td>MyTutors Admin</td><td></td></tr>
 
 							</table>';
 
@@ -354,7 +354,7 @@ $url_otp = "https://api.authkey.io/request?authkey=a00bc3228c699037&mobile=$Mobi
                                                 <tr><td></td><td><strong></strong></td></tr>
                                                 <tr><td></td><td><strong></strong></td></tr>
                                                 <tr><td><strong>Thanks & regards,</strong></td><td></td></tr>
-                                                <tr><td>Tutorapp Admin</td><td></td></tr>
+                                                <tr><td>MyTutors Admin</td><td></td></tr>
 
                                                 </table>';
 

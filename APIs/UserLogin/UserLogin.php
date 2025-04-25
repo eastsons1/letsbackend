@@ -17,17 +17,19 @@ header('content-type:application/json');
 		
 		
 		
+		
 		if($_POST['login_option']=="Mobile Number")
 		{
 			$mobile_num = $_POST['mobile'];
-			$query = "SELECT * FROM user_info WHERE mobile	='".$mobile_num."' and password ='".md5($userpassword)."' ";
-		
+			$country_phone_code = $_POST['country_phone_code'];
+			$query = "SELECT * FROM user_info WHERE mobile	='".$mobile_num."' and country_phone_code = '".$country_phone_code."'  ";
+			$idt = 1;
 		}
 		if($_POST['login_option']=="Email")
 		{
 			$emailId = $_POST['emailId'];
-			 $query = "SELECT * FROM user_info WHERE email	='".$emailId."' and password ='".md5($userpassword)."' ";
-		
+			 $query = "SELECT * FROM user_info WHERE email	='".$emailId."'  ";
+			$idt = 2;
 		}
 		
 		//echo $query;
@@ -42,8 +44,25 @@ header('content-type:application/json');
 		
 		if($numrows > 0)
 		{
+			
+			if($idt==1)
+			{
+				$queryPass = $conn->query("SELECT * FROM user_info WHERE country_phone_code = '".$country_phone_code."' and mobile	='".$_POST['mobile']."' and password ='".md5($userpassword)."' ");
+			}
+			if($idt==2)
+			{
+				$queryPass = $conn->query("SELECT * FROM user_info WHERE email	='".$_POST['emailId']."' and password ='".md5($userpassword)."' ");
+			}
+			
+			$checkPass = mysqli_num_rows($queryPass);
+		
+		 if($checkPass > 0)
+		 {
+			
+			
+			
 		  
-		  $results = mysqli_fetch_array($result);
+		  $results = mysqli_fetch_array($queryPass);
 		  
 		  
 		  
@@ -54,8 +73,8 @@ header('content-type:application/json');
 			
 			
 			
-			if( ($emailId==$results['email'] || $mobile_num==$results['mobile'] ) && md5($userpassword) == $results['password'] )
-			{
+			//if( ($emailId==$results['email'] || $mobile_num==$results['mobile'] ) && md5($userpassword) == $results['password'] )
+			//{
 				
 				
 				
@@ -277,13 +296,14 @@ header('content-type:application/json');
 				//$update_Token_type = $conn->query("UPDATE user_info SET device_token ='".$device_token."', device_type ='".$device_type."' WHERE email	= '".$emailId."' and password = '".md5($userpassword)."'  ");
 					
 				
-				$chkT = $conn->query("select * from user_info_device_token where user_id = '".$user_id."' ");
+				$chkT = $conn->query("select * from user_info_device_token where user_id = '".$user_id."' and device_token ='".$device_token."' and device_type ='".$device_type."' ");
 				if(mysqli_num_rows($chkT)>0)
 				{
-					$update_Token_type = $conn->query("UPDATE user_info_device_token SET device_token ='".$device_token."' WHERE user_id ='".$user_id."' and device_type ='".$device_type."' ");
+					//$update_Token_type = $conn->query("UPDATE user_info_device_token SET device_token = '".$device_token."' WHERE user_id ='".$user_id."' and device_type ='".$device_type."' ");
 				
 				}
 				else{
+					
 					$Add_Token_type = $conn->query("INSERT INTO user_info_device_token SET device_token ='".$device_token."', device_type ='".$device_type."' , user_id ='".$user_id."' ");
 				
 				}
@@ -313,14 +333,18 @@ header('content-type:application/json');
 				}
 				
 				
+			///}
+			//else{ ///$message1="Password not valid !";
+				//$resultData = array('status' => false, 'message' => 'Password not valid !');
+			//}
+			
+			
+			
 			}
-			else{ ///$message1="Password not valid !";
-				$resultData = array('status' => false, 'message' => 'Password not valid !');
+			else 
+			{
+				$resultData = array('status' => false, 'message' => 'Incorrect password. Please enter again.');
 			}
-			
-			
-			
-			
 			
 			
 			

@@ -10,56 +10,58 @@ header('content-type:application/json');
 
 
 
-		
-		
-			
-		if($_POST['email']!="" && $_POST['OTP_EMAIL']!="" )
-		{
-			$check_otp = "SELECT * FROM user_info_temp WHERE OTP = '".$_POST['OTP_EMAIL']."' and OTP_Validate ='0' and email = '".$_POST['email']."' ";
-			$check_otp_result = $conn->query($check_otp);
+$servername = "localhost";
+$username = "mytutors_tutorapp_ver3";
+$password = "^%&^*&TYY6567*(&uyur$7";
+$dbname = "mytutors_tutorapp_ver3";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+} 
 
-			$check_otp_expire = mysqli_fetch_array($check_otp_result);
 
-			$timestampToCheck = $check_otp_expire['otp_timestamp'];
 
-			$currentTimestamp = time();
-			$oneMinuteAgoTimestamp = $currentTimestamp - 60;
-			
+if(!empty($_POST['email']) && !empty($_POST['OTP_EMAIL'])) 
+{
+    date_default_timezone_set('Your/Timezone'); // Set the timezone
+    $email = $conn->real_escape_string($_POST['email']);
+    $otp = $conn->real_escape_string($_POST['OTP_EMAIL']);
+    
+    $check_otp = "SELECT * FROM user_info_temp WHERE OTP = '".$_POST['OTP_EMAIL']."' AND OTP_Validate = '0' AND email = '$email'";
+    $check_otp_result = $conn->query($check_otp);
 
-			if($timestampToCheck >= $oneMinuteAgoTimestamp && $timestampToCheck <= $currentTimestamp) 
-			{
-				//echo 'The timestamp is within the last 1 minute.';
-						
-				
-			$check_otp_exits = mysqli_num_rows($check_otp_result);
+    if (mysqli_num_rows($check_otp_result) > 0) {
+        $check_otp_expire = mysqli_fetch_array($check_otp_result);
+        
+      
+            $otp_unix_timestamp = strtotime($check_otp_expire['otp_timestamp']);
+            $current_time = time(); //time();
 			
+			//echo  $otp_unix_timestamp.'===';
 			
-		  if($check_otp_exits == 1)	
-		  {
-					
-			 $resultData = array('status' => true, 'message' => 'OTP Verified Successfully.');
-			
-		  }
-		  else{
-			  ///$msg1 = "OTP entered is not valid. Please enter correct OTP.";
-			   $resultData = array('status' => false, 'message' => 'OTP entered is not valid. Please enter correct OTP.');
-							
-		  }
-		  
-		  
-		} else {
-				//$msg2 =  'OTP Has expired.';  ///The timestamp is not within the last 1 minute.
-				$resultData = array('status' => false, 'message' => 'OTP Has expired.');
-			  }
-		  
-		  
-		  
-		}
-		else{
-			$resultData = array('status' => false, 'message' => 'Email and OTP can Not Blank.' );
-		}
-		
-					
-			echo json_encode($resultData);
+             //echo ($current_time - $otp_unix_timestamp);
+            
+            
+            if (($current_time - $otp_unix_timestamp) > 0 && ($current_time - $otp_unix_timestamp) <= 90) {
+                $resultData = array('status' => true, 'message' => 'OTP Verified Successfully.');
+            } else if (($current_time - $otp_unix_timestamp) <= 0) {
+                $resultData = array('status' => false, 'message' => 'OTP has Expired.');
+            } else {
+                $resultData = array('status' => false, 'message' => 'OTP has Expired.');
+            }
+        
+    } else {
+        $resultData = array('status' => false, 'message' => 'OTP is Incorrect.');
+    }
+} else {
+    $resultData = array('status' => false, 'message' => 'Email and OTP cannot be blank.');
+}
+
+echo json_encode($resultData);
+
+
+
 			
 ?>

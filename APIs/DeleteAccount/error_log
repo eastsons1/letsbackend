@@ -17,3 +17,41 @@
 [19-Nov-2024 12:10:26 UTC] PHP Warning:  file_get_contents(/path/to/private.key): Failed to open stream: No such file or directory in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2227
 [19-Nov-2024 12:10:26 UTC] PHP Warning:  Undefined property: PHPMailer::$DKIM_passphrase in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2228
 [19-Nov-2024 12:10:26 UTC] PHP Warning:  openssl_sign(): Supplied key param cannot be coerced into a private key in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2233
+[12-Feb-2025 06:24:58 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 97
+[12-Feb-2025 06:25:03 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 97
+[12-Feb-2025 06:41:19 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 236
+[12-Feb-2025 06:41:26 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 236
+[12-Feb-2025 06:41:29 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 236
+[12-Feb-2025 06:49:19 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 06:49:21 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 06:52:51 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 06:52:53 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 06:56:24 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 06:56:26 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 06:57:14 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 06:57:19 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 06:57:49 UTC] Email could not be sent: SMTP Error: Could not authenticate.
+[12-Feb-2025 06:59:13 UTC] PHP Parse error:  syntax error, unexpected token "=>", expecting ")" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 40
+[12-Feb-2025 07:00:06 UTC] Email could not be sent: SMTP Error: Could not authenticate.
+[12-Feb-2025 07:05:32 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 07:05:39 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[12-Feb-2025 07:08:54 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 237
+[17-Feb-2025 08:49:44 UTC] PHP Parse error:  syntax error, unexpected token ";" in /home/mytutors/public_html/version3/APIs/DeleteAccount/DeleteAccount.php on line 295
+[17-Feb-2025 08:59:44 UTC] PHP Warning:  Undefined variable $from_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2297
+[17-Feb-2025 08:59:44 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2209
+[17-Feb-2025 08:59:44 UTC] PHP Warning:  Undefined variable $to_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2298
+[17-Feb-2025 08:59:44 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2209
+[17-Feb-2025 08:59:44 UTC] PHP Warning:  Undefined variable $from_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2313
+[17-Feb-2025 08:59:44 UTC] PHP Warning:  Undefined variable $to_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2313
+[17-Feb-2025 08:59:44 UTC] PHP Warning:  file_get_contents(/path/to/private.key): Failed to open stream: No such file or directory in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2227
+[17-Feb-2025 08:59:44 UTC] PHP Warning:  Undefined property: PHPMailer::$DKIM_passphrase in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2228
+[17-Feb-2025 08:59:44 UTC] PHP Warning:  openssl_sign(): Supplied key param cannot be coerced into a private key in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2233
+[17-Feb-2025 08:59:54 UTC] PHP Warning:  Undefined variable $from_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2297
+[17-Feb-2025 08:59:54 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2209
+[17-Feb-2025 08:59:54 UTC] PHP Warning:  Undefined variable $to_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2298
+[17-Feb-2025 08:59:54 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2209
+[17-Feb-2025 08:59:54 UTC] PHP Warning:  Undefined variable $from_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2313
+[17-Feb-2025 08:59:54 UTC] PHP Warning:  Undefined variable $to_header in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2313
+[17-Feb-2025 08:59:54 UTC] PHP Warning:  file_get_contents(/path/to/private.key): Failed to open stream: No such file or directory in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2227
+[17-Feb-2025 08:59:54 UTC] PHP Warning:  Undefined property: PHPMailer::$DKIM_passphrase in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2228
+[17-Feb-2025 08:59:54 UTC] PHP Warning:  openssl_sign(): Supplied key param cannot be coerced into a private key in /home/mytutors/public_html/version3/phpmailer-master/class.phpmailer.php on line 2233

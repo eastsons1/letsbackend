@@ -1,0 +1,17 @@
+[26-Dec-2024 08:34:11 UTC] Current Time: 1735202051
+[26-Dec-2024 08:34:11 UTC] OTP Unix Timestamp: 1735221228
+[26-Dec-2024 08:34:11 UTC] Difference: -19177 seconds
+[26-Dec-2024 08:35:00 UTC] Current Time: 1735202100
+[26-Dec-2024 08:35:00 UTC] OTP Unix Timestamp: 1735221228
+[26-Dec-2024 08:35:00 UTC] Difference: -19128 seconds
+[26-Dec-2024 08:35:39 UTC] Current Time: 1735202139
+[26-Dec-2024 08:35:39 UTC] OTP Unix Timestamp: 1735221228
+[26-Dec-2024 08:35:39 UTC] Difference: -19089 seconds
+[26-Dec-2024 08:36:03 UTC] Current Time: 1735202163
+[26-Dec-2024 08:36:03 UTC] OTP Unix Timestamp: 1735221944
+[26-Dec-2024 08:36:03 UTC] Difference: -19781 seconds
+[26-Dec-2024 08:36:06 UTC] Current Time: 1735202166
+[26-Dec-2024 08:36:06 UTC] OTP Unix Timestamp: 1735221944
+[26-Dec-2024 08:36:06 UTC] Difference: -19778 seconds
+[26-Dec-2024 08:59:37 UTC] PHP Parse error:  syntax error, unexpected token "echo" in /home/mytutors/public_html/version3/APIs/UserRegistration/OTPVerify.php on line 29
+[26-Dec-2024 12:35:25 UTC] PHP Parse error:  syntax error, unexpected token ";", expecting ")" in /home/mytutors/public_html/version3/APIs/UserRegistration/CompleteUserProfile.php on line 187

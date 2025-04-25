@@ -14,8 +14,10 @@ header('content-type:application/json');
 		{
 	
 	
-			$query = "SELECT * FROM tutor_booking_process where tutor_id = '".$_GET['tutor_id']."' order by readUnreadTag ASC ";
-					
+			//$query = "SELECT * FROM tutor_booking_process where tutor_id = '".$_GET['tutor_id']."' order by readUnreadTag ASC ";
+			
+			$query = "SELECT * FROM tutor_booking_process where tutor_id = '".$_GET['tutor_id']."' ORDER BY readUnreadTag = '', update_date_time desc ";
+						
 				
 			$result = $conn->query($query) or die ("table not found");
 			$numrows = mysqli_num_rows($result);
@@ -179,48 +181,50 @@ header('content-type:application/json');
 					
 					
 					$Response[] = array(
-									 'tutor_booking_process_id' => $tutor_result['tutor_booking_process_id'],
-									 'tutor_id' => $tutor_result['tutor_id'],
-									 'readUnreadTag' => $tutor_result['readUnreadTag'],
-									 'No_of_Students' => $tutor_result['No_of_Students'],
-									 'Cancelled_By' => $tutor_result['Cancelled_By'],
-									 'api_hit_date_by_confirmed_user' => $tutor_result['api_hit_date_by_confirmed_user'],
-									 'api_hit_time_by_confirmed_user' => $tutor_result['api_hit_time_by_confirmed_user'],
-									 'negotiate_by' => $tutor_result['negotiateby'],
-									 'negotiateby' => $tutor_result['negotiateby'],
-                      				 'acceptby' => $tutor_result['acceptby'],
-									 'date_time_update_by' => $tutor_result['date_time_update_by'],
-									 'booking_from' => $tutor_result['booking_from'],
-                      				 'tutor_profile_image' => $tutorImage['profile_image'],
-									 'student_id' => $tutor_result['student_id'],
-                     				 'student_first_name' => $student_name['first_name'],
-									 'student_last_name' => $student_name['last_name'],
-									 'student_level' => $tutor_result['student_level'],
-									 'student_grade' => $tutor_result['student_grade'],
-									 'student_tution_type' => $tutor_result['student_tution_type'],
-									 'tutor_id' => $tutor_result['tutor_id'],
-									  'postal_code' => $tutor_result['postal_code'],
-									  'postal_address' => $tutor_result['postal_address'],
-									 'tutor_duration_weeks' => $tutor_result['tutor_duration_weeks'],
-									 'tutor_duration_hours' => $tutor_result['tutor_duration_hours'],
-									 'tutor_tution_fees' => $tutor_result['tutor_tution_fees'],
-									 'tutor_tution_schedule_time' => $tutor_result['tutor_tution_schedule_time'],
-									 'tutor_tution_offer_amount_type' => $tutor_result['tutor_tution_offer_amount_type'],
-									 'tutor_tution_offer_amount' => $tutor_result['tutor_tution_offer_amount'],
-                                     'amount_negotiate_by_tutor' => $tutor_result['amount_negotiate_by_tutor'],
-                                     'amount_negotiate_by_student' => $tutor_result['amount_negotiate_by_student'],
-									 'booked_date' => $tutor_result['booked_date'],
-									 'tutor_booking_status' => $tutor_booking_status,
-									 'offer_status' => $tutor_result['offer_status'],
-                                      'student_offer_date' => $tutor_result['student_offer_date'],
-                                      'student_offer_time' => $tutor_result['student_offer_time'],
-                                       'tutor_offer_date' => $tutor_result['tutor_offer_date'],
-                                      'tutor_offer_time' => $tutor_result['tutor_offer_time'],
-									  'tutor_accept_date_time_status' => $tutor_result['tutor_accept_date_time_status'],
-                                       'student_date_time_offer_confirmation' => $tutor_result['student_date_time_offer_confirmation'],
-									 'student_level_grade_subjects' => $post_requirements_student_subjects,
-									 'tutor_qualification' => $Tutor_Qualification,
-									 'tutor_schedule_and_slot_times' => $Tutor_Schedule
+									'tutor_booking_process_id' => $tutor_result['tutor_booking_process_id'],
+									'tutor_id' => $tutor_result['tutor_id'],
+									'readUnreadTag' => $tutor_result['readUnreadTag'],
+									'No_of_Students' => $tutor_result['No_of_Students'],
+									'Cancelled_By' => $tutor_result['Cancelled_By'],
+									'api_hit_date_by_confirmed_user' => $tutor_result['api_hit_date_by_confirmed_user'],
+									'api_hit_time_by_confirmed_user' => $tutor_result['api_hit_time_by_confirmed_user'],
+									'negotiate_by' => $tutor_result['negotiateby'],
+									'negotiateby' => $tutor_result['negotiateby'],
+									'acceptby' => $tutor_result['acceptby'],
+									'date_time_update_by' => $tutor_result['date_time_update_by'],
+									'booking_from' => $tutor_result['booking_from'],
+									'tutor_profile_image' => $tutorImage['profile_image'],
+									'student_id' => $tutor_result['student_id'],
+									'student_first_name' => $student_name['first_name'],
+									'student_last_name' => $student_name['last_name'],
+									'student_level' => $tutor_result['student_level'],
+									'student_grade' => $tutor_result['student_grade'],
+									'student_tution_type' => $tutor_result['student_tution_type'],
+									'tutor_id' => $tutor_result['tutor_id'],
+									'postal_code' => $tutor_result['postal_code'],
+									'postal_address' => $tutor_result['postal_address'],
+									'tutor_duration_weeks' => $tutor_result['tutor_duration_weeks'],
+									'tutor_duration_hours' => $tutor_result['tutor_duration_hours'],
+									'tutor_tution_fees' => $tutor_result['tutor_tution_fees'],
+									'tutor_tution_schedule_time' => $tutor_result['tutor_tution_schedule_time'],
+									'tutor_tution_offer_amount_type' => $tutor_result['tutor_tution_offer_amount_type'],
+									'tutor_tution_offer_amount' => $tutor_result['tutor_tution_offer_amount'],
+									'amount_negotiate_by_tutor' => $tutor_result['amount_negotiate_by_tutor'],
+									'amount_negotiate_by_student' => $tutor_result['amount_negotiate_by_student'],
+									'booked_date' => $tutor_result['booked_date'],
+									'tutor_booking_status' => $tutor_booking_status,
+									'offer_status' => $tutor_result['offer_status'],
+									'student_offer_date' => $tutor_result['student_offer_date'],
+									'student_offer_time' => $tutor_result['student_offer_time'],
+									'tutor_offer_date' => $tutor_result['tutor_offer_date'],
+									'tutor_offer_time' => $tutor_result['tutor_offer_time'],
+									'tutor_accept_date_time_status' => $tutor_result['tutor_accept_date_time_status'],
+									'student_date_time_offer_confirmation' => $tutor_result['student_date_time_offer_confirmation'],
+									'promocode' => $tutor_result['promocode'],	
+									'Invoice_code' => $tutor_result['Invoice_code'],
+									'student_level_grade_subjects' => $post_requirements_student_subjects,
+									'tutor_qualification' => $Tutor_Qualification,
+									'tutor_schedule_and_slot_times' => $Tutor_Schedule
 									 
 									 );
 					

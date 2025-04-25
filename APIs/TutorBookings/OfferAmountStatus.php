@@ -12,6 +12,8 @@ header('content-type:application/json');
 	
 		if($_POST['tutor_id'] !="" &&  $_POST['student_id'] !="" && $_POST['tutor_booking_process_id'] != "" && $_POST['tutor_tution_offer_amount'] !="" && $_POST['tutor_tution_offer_amount_type'] !="" && $_POST['tutor_booking_status'] !="")
 		{
+			
+			$create_date = date("d-m-Y h:i:s");
 	
 	
 			$query = "SELECT * FROM tutor_booking_process where tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and tutor_id = '".$_POST['tutor_id']."' and student_id = '".$_POST['student_id']."' and tutor_tution_offer_amount_type = '".$_POST['tutor_tution_offer_amount_type']."' ";
@@ -26,7 +28,7 @@ header('content-type:application/json');
 				
 				
 				
-				$sql = $conn->query("UPDATE tutor_booking_process SET tutor_tution_offer_amount = '".$_POST['tutor_tution_offer_amount']."', tutor_tution_fees = '".$_POST['tutor_tution_offer_amount']."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and tutor_id = '".$_POST['tutor_id']."' and student_id = '".$_POST['student_id']."' and tutor_tution_offer_amount_type = '".$_POST['tutor_tution_offer_amount_type']."'   ");
+				$sql = $conn->query("UPDATE tutor_booking_process SET tutor_tution_offer_amount = '".$_POST['tutor_tution_offer_amount']."', tutor_tution_fees = '".$_POST['tutor_tution_offer_amount']."', update_date_time = '".$create_date."' WHERE tutor_booking_process_id = '".$_POST['tutor_booking_process_id']."' and tutor_id = '".$_POST['tutor_id']."' and student_id = '".$_POST['student_id']."' and tutor_tution_offer_amount_type = '".$_POST['tutor_tution_offer_amount_type']."'   ");
 				
 				 //$sql = $conn->query("UPDATE tutor_booking_process SET tutor_booking_status  = '".$tutor_booking_status."' WHERE tutor_id = '".$_POST['tutor_id']."' and student_id = '".$_POST['student_id']."' and tutor_tution_offer_amount_type = '".$_POST['tutor_tution_offer_amount_type']."' and tutor_tution_offer_amount = '".$_POST['tutor_tution_offer_amount']."' and amount_negotiate_by_tutor = '".$_POST['amount_negotiate_by_tutor']."' and amount_negotiate_by_student = '".$_POST['amount_negotiate_by_student']."' ");
 				

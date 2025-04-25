@@ -17,23 +17,34 @@ header('content-type:application/json');
 	if($email !="" && $OTP !="" && $newPassword !="" )
 	{
 
+		$check_pass = $conn->query("select * from user_password where email = '".$email."' and password = '".$newPassword."'  ");
+					 
+		 if(mysqli_num_rows($check_pass)>0)
+		 {
+			 $resultSet = array('status' => false, 'message' => 'This password has been used. Please try another.');
+		 }
+		 else{
+		
+
 		$sql = $conn->query("SELECT * FROM user_info WHERE email = '".$email."' and otp = '".$OTP."' ");
 
 		if(mysqli_num_rows($sql)>0)
 		{
 			
+			
+			
 			$user_details = mysqli_fetch_array($sql);
 			
-			$otp_timestamp = $user_details['otp_timestamp'];
+			$otp_timestamp = strtotime($user_details['otp_timestamp']);
 			
 			$currectTimeStamp = time();
-			$OneMinuteAgoTimestamp = $currectTimeStamp - 60;
+			//$OneMinuteAgoTimestamp = $currectTimeStamp - 90;
 				 
-			
-			if($otp_timestamp >= $OneMinuteAgoTimestamp && $otp_timestamp <= $currectTimeStamp)
-			{	
-			
-				$update_new_password = $conn->query("UPDATE user_info SET password = '".$newPassword."' WHERE email = '".$email."' and otp = '".$OTP."' ");
+				 
+				 
+			if(($currectTimeStamp - $otp_timestamp) > 0 && ($currectTimeStamp - $otp_timestamp) <= 90) 
+			{
+                $update_new_password = $conn->query("UPDATE user_info SET password = '".$newPassword."' WHERE email = '".$email."' and otp = '".$OTP."' ");
 			
 				if($update_new_password)
 				{
@@ -42,20 +53,29 @@ header('content-type:application/json');
 				else{
 					$resultSet = array('status' => false, 'message' => 'Password not updated.');
 				}
-			
-			
-			}
-			else{
 				
-				$resultSet = array('status' => false, 'message' => 'OTP has expired.');
-			}
+            } else if (($currectTimeStamp - $otp_timestamp) <= 0) {
+                $resultSet = array('status' => false, 'message' => 'OTP has Expired.');
+            } else {
+                $resultSet = array('status' => false, 'message' => 'OTP has Expired.');
+            }	 
+				 
+			
+			
+			
+			
 			
 		
 		}
 		else
 		{
-			$resultSet = array('status' => false, 'message' => 'No record found.');
+			$resultSet = array('status' => false, 'message' => 'OTP is Incorrect.');
 		}
+		
+		
+		
+		 }
+		
 
 	}
 	else{

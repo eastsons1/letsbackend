@@ -128,7 +128,7 @@ header('content-type:application/json');
 				if (!empty($cond)) {
 					$sql2 = $conn->query('SELECT * FROM user_tutor_info as info INNER JOIN student_post_requirements_Applied_by_tutor as apply ON info.user_id = apply.tutor_login_id WHERE apply.apply_tag = "true" and ' . implode(' AND ', $cond). 'ORDER BY user_id DESC');
 					
-							
+					
 					$status_Q = 1;	
 				
 				}
@@ -216,6 +216,8 @@ header('content-type:application/json');
 							}
 							
 							
+							$student_idvvs = mysqli_fetch_array($conn->query("SELECT logged_in_user_id FROM student_post_requirements WHERE student_post_requirements_id = '".$tutor_Search_Data['student_post_requirements_id']."' "));
+							
 							
 							//$tutor_List_array[] = $tutor_Search_Data;
 							
@@ -252,7 +254,7 @@ header('content-type:application/json');
 														'applied_date' => $tutor_Search_Data['applied_date'],
 														'applied_time' => $tutor_Search_Data['applied_time'],
 														'student_response' => $tutor_Search_Data['student_response'],
-														'student_loggedIn_id' => $tutor_Search_Data['student_loggedIn_id'],
+														'student_loggedIn_id' => $student_idvvs['logged_in_user_id'],
 														'tutor_tution_offer_amount_type' => $tutor_tution_offer_amount_type['tutor_tution_offer_amount_type'],
 														'tutor_tution_offer_amount' => $tutor_tution_offer_amount,
 														'final_accepted_amount' => $spramNeo['final_accepted_amount'],

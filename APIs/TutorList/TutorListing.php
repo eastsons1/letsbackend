@@ -14,8 +14,10 @@ header('content-type:application/json');
 		{
 	
 	
-			 $query = "SELECT * FROM tutor_booking_process where student_id = '".$_GET['student_id']."' order by tutor_booking_process_id desc ";
-					
+			//$query = "SELECT * FROM tutor_booking_process where student_id = '".$_GET['student_id']."' order by tutor_booking_process_id desc ";
+				
+			$query = "SELECT * FROM tutor_booking_process where student_id = '".$_GET['student_id']."' order by update_date_time desc ";
+						
 				
 			$result = $conn->query($query) or die ("table not found");
 			
@@ -299,7 +301,8 @@ header('content-type:application/json');
 									 'booked_date' => $tutor_result['booked_date'],
 									 'tutor_booking_status' => $tutor_result['tutor_booking_status'],
 									 'offer_status' => $tutor_result['offer_status'],
-                      
+									 'promocode' => $tutor_result['promocode'],	
+									 'Invoice_code' => $tutor_result['Invoice_code'],	
                       
                       				'student_level_grade_subjects' => $post_requirements_student_subjects,
 									

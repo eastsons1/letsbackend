@@ -1,2 +1,463 @@
 [22-Oct-2024 10:39:15 UTC] PHP Parse error:  syntax error, unexpected token "," in /home/louis/public_html/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php on line 353
 [22-Oct-2024 10:39:18 UTC] PHP Parse error:  syntax error, unexpected token "," in /home/louis/public_html/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php on line 353
+[05-Feb-2025 12:53:34 UTC] PHP Parse error:  syntax error, unexpected variable "$check_res" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php on line 413
+[05-Feb-2025 12:54:31 UTC] PHP Parse error:  syntax error, unexpected variable "$check_res" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php on line 413
+[05-Feb-2025 12:55:02 UTC] PHP Parse error:  syntax error, unexpected variable "$check_res" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php on line 412
+[05-Feb-2025 13:46:15 UTC] PHP Parse error:  syntax error, unexpected token "if", expecting "," or ";" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php on line 396
+[12-Mar-2025 12:48:13 UTC] PHP Parse error:  syntax error, unexpected token "/" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance77.php on line 211
+[12-Mar-2025 12:48:20 UTC] PHP Parse error:  syntax error, unexpected token "/" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance77.php on line 211
+[20-Mar-2025 09:45:28 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/a1.php on line 406
+[26-Mar-2025 07:36:30 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 35
+[26-Mar-2025 07:36:30 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 36
+[26-Mar-2025 07:36:30 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 37
+[26-Mar-2025 07:36:30 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 38
+[26-Mar-2025 07:36:30 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 159
+[26-Mar-2025 07:36:30 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 162
+[26-Mar-2025 08:26:02 UTC] PHP Warning:  Undefined variable $array in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:26:02 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:26:02 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:26:02 UTC] PHP Warning:  Undefined variable $array in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:26:02 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:26:02 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:40:11 UTC] PHP Warning:  Undefined variable $array in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:40:11 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:40:11 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:40:11 UTC] PHP Warning:  Undefined variable $array in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:40:11 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:40:11 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 153
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 428
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 431
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 428
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 431
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  Undefined array key "Tutoring_ALL_Subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 603
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 649
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 428
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 431
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  Undefined array key "Tutoring_ALL_Subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 603
+[26-Mar-2025 08:54:34 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 649
+[26-Mar-2025 09:14:35 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 812
+[26-Mar-2025 09:15:03 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 792
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 421
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 424
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 421
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 424
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  Undefined array key "Tutoring_ALL_Subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 596
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 642
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 421
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 424
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  Undefined array key "Tutoring_ALL_Subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 596
+[26-Mar-2025 09:18:22 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 642
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 421
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 424
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 421
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 424
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  Undefined array key "Tutoring_ALL_Subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 596
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 642
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 421
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 424
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  Undefined array key "Tutoring_ALL_Subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 596
+[26-Mar-2025 09:19:55 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 642
+[26-Mar-2025 09:26:51 UTC] PHP Warning:  Undefined variable $resultData in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 382
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 425
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 428
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 425
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 428
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  Undefined array key "Tutoring_ALL_Subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 600
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 646
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 425
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 428
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  Undefined array key "Tutoring_ALL_Subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 600
+[26-Mar-2025 09:30:46 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 646
+[26-Mar-2025 09:40:25 UTC] PHP Warning:  Undefined variable $resultData in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 383
+[26-Mar-2025 09:45:40 UTC] PHP Warning:  Undefined variable $resultData in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 378
+[26-Mar-2025 09:48:10 UTC] PHP Warning:  Undefined array key "lettitude" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 344
+[26-Mar-2025 09:48:10 UTC] PHP Warning:  Undefined array key "lettitude" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 344
+[26-Mar-2025 09:48:10 UTC] PHP Warning:  Undefined variable $resultData in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 379
+[26-Mar-2025 09:52:27 UTC] PHP Warning:  Undefined variable $resultData in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 381
+[26-Mar-2025 09:52:30 UTC] PHP Warning:  Undefined variable $resultData in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 381
+[26-Mar-2025 09:53:33 UTC] PHP Warning:  Undefined variable $resultData in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 382
+[26-Mar-2025 09:53:35 UTC] PHP Warning:  Undefined variable $resultData in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 382
+[27-Mar-2025 08:26:22 UTC] PHP Parse error:  syntax error, unexpected token "echo" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 386
+[27-Mar-2025 08:26:29 UTC] PHP Parse error:  syntax error, unexpected token "echo" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 386
+[27-Mar-2025 11:02:53 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 954
+[27-Mar-2025 11:18:17 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 705
+[27-Mar-2025 11:20:17 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 720
+[27-Mar-2025 11:20:52 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 715
+[27-Mar-2025 11:22:07 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 720
+[27-Mar-2025 11:22:28 UTC] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 721
+[27-Mar-2025 11:23:34 UTC] PHP Parse error:  Unclosed '{' on line 45 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 958
+[27-Mar-2025 13:41:57 UTC] PHP Parse error:  syntax error, unexpected variable "$student" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 437
+[28-Mar-2025 07:56:54 UTC] PHP Parse error:  syntax error, unexpected token "echo" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 55
+[28-Mar-2025 11:14:18 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 307
+[28-Mar-2025 12:38:48 UTC] PHP Parse error:  Unmatched '}' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 276
+[28-Mar-2025 12:45:02 UTC] PHP Parse error:  Unclosed '{' on line 43 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 287
+[28-Mar-2025 13:06:40 UTC] PHP Parse error:  Unclosed '{' on line 43 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 275
+[28-Mar-2025 13:06:49 UTC] PHP Parse error:  Unclosed '{' on line 43 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 275
+[28-Mar-2025 13:38:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'mytutors_tutorapp_ver3.complete_user_profile_tutoring_subjects_detail' doesn't exist in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:184
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(184): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 184
+[28-Mar-2025 13:39:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 's.Subject' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:184
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(184): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 184
+[28-Mar-2025 13:39:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 's.Subject' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:184
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(184): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 184
+[30-Mar-2025 09:42:56 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 58
+[30-Mar-2025 09:42:56 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 58
+[30-Mar-2025 09:42:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 140
+[30-Mar-2025 09:42:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 140
+[30-Mar-2025 09:42:56 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 58
+[30-Mar-2025 09:42:56 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 58
+[30-Mar-2025 09:42:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 140
+[30-Mar-2025 09:42:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 140
+[30-Mar-2025 09:42:56 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 58
+[30-Mar-2025 09:42:56 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 58
+[30-Mar-2025 09:42:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 140
+[30-Mar-2025 09:42:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 140
+[30-Mar-2025 09:42:56 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 58
+[30-Mar-2025 09:42:56 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 58
+[30-Mar-2025 09:42:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 140
+[30-Mar-2025 09:42:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 140
+[30-Mar-2025 09:44:16 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:16 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:16 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:16 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:16 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:16 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:16 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:16 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:16 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:16 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:16 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:16 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:16 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:16 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:16 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:16 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:19 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:19 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:19 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:19 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:19 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:19 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:19 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:19 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:19 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:19 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:19 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:19 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:19 UTC] PHP Warning:  Undefined variable $student_lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:19 UTC] PHP Warning:  Undefined variable $student_long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 78
+[30-Mar-2025 09:44:19 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 09:44:19 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[30-Mar-2025 10:38:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'complete_user_profile_tutoring_detail.Grade' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:149
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(149): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 149
+[30-Mar-2025 10:51:25 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 53
+[30-Mar-2025 10:52:42 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 53
+[30-Mar-2025 10:52:45 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 53
+[30-Mar-2025 10:53:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') OR ((complete_user_profile_tutoring_detail.TutoringLevel IN ('AEIS') 
+    ...' at line 29 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:151
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(151): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 151
+[30-Mar-2025 10:55:34 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 53
+[30-Mar-2025 11:41:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 32 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:179
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(179): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 179
+[30-Mar-2025 11:41:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 32 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:179
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(179): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 179
+[30-Mar-2025 11:44:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 32 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:179
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(179): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 179
+[30-Mar-2025 11:47:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 32 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:179
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(179): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 179
+[30-Mar-2025 11:47:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 32 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:179
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(179): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 179
+[30-Mar-2025 11:48:26 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 38 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:185
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(185): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 185
+[30-Mar-2025 11:54:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 32 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:185
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(185): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 185
+[30-Mar-2025 11:56:06 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 38 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:192
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(192): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 192
+[30-Mar-2025 12:01:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'AND FIND_IN_SET('Math', complete_user_profile_tutoring_detail.Tutoring_ALL_Su...' at line 38 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:186
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(186): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 186
+[01-Apr-2025 06:30:32 UTC] PHP Warning:  Array to string conversion in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 152
+[01-Apr-2025 06:30:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'Array' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:221
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(221): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 221
+[01-Apr-2025 07:17:45 UTC] PHP Warning:  Undefined variable $stream in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 77
+[01-Apr-2025 07:17:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' complete_user_profile_tutoring_detail.Stream) > 0
+                         ...' at line 35 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:298
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(298): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 298
+[01-Apr-2025 07:18:29 UTC] PHP Warning:  Undefined variable $stream in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 77
+[01-Apr-2025 07:18:29 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' complete_user_profile_tutoring_detail.Stream) > 0
+                         ...' at line 35 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:298
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(298): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 298
+[01-Apr-2025 07:20:10 UTC] PHP Warning:  Undefined variable $stream in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 77
+[01-Apr-2025 07:20:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' complete_user_profile_tutoring_detail.Stream) > 0
+                         ...' at line 35 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:298
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(298): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 298
+[01-Apr-2025 07:22:05 UTC] PHP Warning:  Undefined variable $stream in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 88
+[01-Apr-2025 07:22:05 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' complete_user_profile_tutoring_detail.Stream) > 0
+                         ...' at line 35 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:309
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(309): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 309
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 648
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 651
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 869
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "flag" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 932
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 648
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 651
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 648
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 651
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 648
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 651
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 648
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 651
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 869
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "flag" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 932
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 648
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 651
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 869
+[01-Apr-2025 09:44:07 UTC] PHP Warning:  Undefined array key "flag" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 932
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 653
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 656
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 874
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 653
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 656
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 653
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 656
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 653
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 656
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 653
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 656
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 874
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Undefined array key "subjects" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 653
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 656
+[01-Apr-2025 09:46:14 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 874
+[01-Apr-2025 14:47:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'complete_user_profile_tutoring_detail.TutoringLevel' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:201
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(201): mysqli_query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 201
+[01-Apr-2025 14:48:51 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'complete_user_profile_tutoring_detail.TutoringLevel' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:201
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(201): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 201
+[01-Apr-2025 14:48:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'complete_user_profile_tutoring_detail.TutoringLevel' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:201
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(201): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 201
+[01-Apr-2025 14:50:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'complete_user_profile_tutoring_detail.TutoringLevel' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:201
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(201): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 201
+[01-Apr-2025 14:51:59 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'complete_user_profile_tutoring_detail.TutoringLevel' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:201
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(201): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 201
+[01-Apr-2025 14:53:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'complete_user_profile_tutoring_detail.TutoringLevel' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:201
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(201): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 201
+[01-Apr-2025 14:55:38 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: execute command denied to user 'mytutors_tutorapp_ver3'@'localhost' for routine 'tbl_rating.tutor_id' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:232
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(232): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 232
+[01-Apr-2025 14:56:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: execute command denied to user 'mytutors_tutorapp_ver3'@'localhost' for routine 'complete_user_profile_tutoring_admission_level.user_id' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:231
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(231): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 231
+[01-Apr-2025 14:59:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: execute command denied to user 'mytutors_tutorapp_ver3'@'localhost' for routine 'complete_user_profile_tutoring_detail.user_id' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:227
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(227): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 227
+[01-Apr-2025 15:02:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: execute command denied to user 'mytutors_tutorapp_ver3'@'localhost' for routine 'complete_user_profile_tutoring_detail.user_id' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:209
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(209): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 209
+[01-Apr-2025 15:03:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: execute command denied to user 'mytutors_tutorapp_ver3'@'localhost' for routine 'complete_user_profile_tutoring_detail.user_id' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:209
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(209): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 209
+[01-Apr-2025 15:04:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: execute command denied to user 'mytutors_tutorapp_ver3'@'localhost' for routine 'complete_user_profile_tutoring_detail.user_id' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:209
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(209): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 209
+[01-Apr-2025 15:04:52 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: execute command denied to user 'mytutors_tutorapp_ver3'@'localhost' for routine 'complete_user_profile_tutoring_detail.user_id' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:209
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(209): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 209
+[01-Apr-2025 15:05:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'complete_user_profile_tutoring_detail.TutoringLevel' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:201
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(201): mysqli_query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 201
+[01-Apr-2025 15:07:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'user_tutor_info.user_id' in 'where clause' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:201
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(201): mysqli_query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 201
+[02-Apr-2025 08:38:38 UTC] PHP Parse error:  Unclosed '{' on line 142 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 525
+[02-Apr-2025 09:38:34 UTC] PHP Parse error:  syntax error, unexpected token ")", expecting variable or "{" or "$" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 124
+[02-Apr-2025 09:40:11 UTC] PHP Parse error:  syntax error, unexpected token ")", expecting variable or "{" or "$" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 124
+[02-Apr-2025 09:53:00 UTC] PHP Parse error:  syntax error, unexpected single-quoted string "Economics H1", expecting "]" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 14
+[02-Apr-2025 09:53:32 UTC] PHP Parse error:  syntax error, unexpected single-quoted string "Economics H1", expecting "]" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 14
+[02-Apr-2025 09:53:34 UTC] PHP Parse error:  syntax error, unexpected single-quoted string "Economics H1", expecting "]" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 14
+[02-Apr-2025 11:57:11 UTC] PHP Parse error:  syntax error, unexpected single-quoted string "History H1", expecting "]" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 15
+[02-Apr-2025 12:23:56 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 33
+[02-Apr-2025 12:23:56 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 34
+[02-Apr-2025 12:23:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 12:23:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 12:23:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 12:23:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 12:23:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 12:23:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 12:23:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 12:23:56 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 12:23:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 7 in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:147
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(147): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 147
+[02-Apr-2025 12:53:02 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 12:53:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 12:54:00 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 12:55:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 12:55:51 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 13:01:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 13:12:07 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 13:13:02 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 13:13:43 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 13:15:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 13:16:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 13:17:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:225
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(225): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 225
+[02-Apr-2025 13:23:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Incorrect parameter count in the call to native function 'FIND_IN_SET' in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php:81
+Stack trace:
+#0 /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php(81): mysqli->query()
+#1 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 81
+[02-Apr-2025 14:06:27 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 262
+[02-Apr-2025 14:06:27 UTC] PHP Warning:  Undefined variable $lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 278
+[02-Apr-2025 14:06:27 UTC] PHP Warning:  Undefined variable $long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 278
+[02-Apr-2025 14:06:27 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 14:06:27 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 14:06:27 UTC] PHP Warning:  Undefined variable $avg_rating in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 290
+[02-Apr-2025 14:07:57 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 262
+[02-Apr-2025 14:07:57 UTC] PHP Warning:  Undefined variable $lat in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 278
+[02-Apr-2025 14:07:57 UTC] PHP Warning:  Undefined variable $long in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 278
+[02-Apr-2025 14:07:57 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 14:07:57 UTC] PHP Deprecated:  deg2rad(): Passing null to parameter #1 ($num) of type float is deprecated in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 20
+[02-Apr-2025 14:07:57 UTC] PHP Warning:  Undefined variable $avg_rating in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 290
+[03-Apr-2025 11:07:27 UTC] PHP Parse error:  syntax error, unexpected token "=>", expecting ")" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance_New.php on line 385
+[07-Apr-2025 06:45:51 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/test2.php on line 1051
+[07-Apr-2025 06:46:01 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/test2.php on line 1051
+[07-Apr-2025 06:46:04 UTC] PHP Parse error:  syntax error, unexpected token "else" in /home/mytutors/public_html/version3/APIs/TutorSearchListingByDistance/test2.php on line 1051

@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(0);
 header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
@@ -14,11 +13,22 @@ $sender_id =  $_POST['logged_in_user_id'];
 if($sender_id) {
     $user_array = array();
     $added_user_ids = array(); // Array to track added user IDs
+	
+	
+	
+	// Fetch logged-in user's role
+	$logged_in_user_roll = mysqli_fetch_array($conn->query("SELECT user_type FROM user_info WHERE user_id = '".$sender_id."'"));
 
-    $sql_m = $conn->query("SELECT DISTINCT loggedIn_user_id, chat_userid, created_on, msg , readUnreadMessageTag 
-                            FROM chatrooms 
-                            WHERE loggedIn_user_id = '".$sender_id."' OR chat_userid = '".$sender_id."' 
-                            ORDER BY created_on DESC");
+	// Ensure role is correctly retrieved
+	$user_role = $logged_in_user_roll['user_type'];
+
+	$sql_m = $conn->query("SELECT DISTINCT loggedIn_user_id, loggedIn_user_id_roll, chat_userid, chat_userid_roll, created_on, msg, readUnreadMessageTag 
+							FROM chatrooms 
+							WHERE ( (loggedIn_user_id = '".$sender_id."' AND loggedIn_user_id_roll = '".$user_role."' ) 
+							OR (chat_userid = '".$sender_id."' AND chat_userid_roll = '".$user_role."')) 
+							AND loggedIn_user_id_roll <> chat_userid_roll
+							ORDER BY created_on DESC");
+
 	
 	
 	
@@ -51,7 +61,16 @@ if($sender_id) {
 						$UserCode = $avatar['tutor_code'];
 						$Flag = $avatar['flag']; 	
 						
-						$Time =  date('h:i A', strtotime($send_receive_messages['created_on']));
+						//$Time =  date('h:i A', strtotime($send_receive_messages['created_on']));
+						
+						
+						
+						$timestamp = strtotime($send_receive_messages['created_on']); // Example input date string
+						$Time = date("d-m-Y H:i", $timestamp);
+
+
+
+
 						
 						
 						$unread_message = mysqli_fetch_array($conn->query("SELECT count(readUnreadMessageTag) FROM chatrooms WHERE loggedIn_user_id = '".$user_details_Data['user_id']."' "));
@@ -73,6 +92,17 @@ if($sender_id) {
 							$Qualification = $avatar['qualification'];
 						}					
 						
+						
+						/// total count Message
+						
+						$count_message = mysqli_fetch_array($conn->query("SELECT count(loggedIn_user_id) FROM chatrooms WHERE loggedIn_user_id = '".$user_details_Data['user_id']."' and readUnreadMessageTag = 'unread' "));
+						
+						$LoggedInUserUnreadCount =  $count_message['count(loggedIn_user_id)'];
+						
+						$count_message2 = mysqli_fetch_array($conn->query("SELECT count(loggedIn_user_id) FROM chatrooms WHERE loggedIn_user_id = '".$user_details_Data['user_id']."' and readUnreadMessageTag = 'unread' "));
+						
+						$LoggedInUserUnreadCount22 =  $count_message2['count(loggedIn_user_id)'];
+						
                         $user_array[] = array(
                             '_id' => $user_details_Data['user_id'],
 							'first_name' => $first_name,
@@ -84,7 +114,8 @@ if($sender_id) {
 							'Time' => $Time,
 							'message' => $send_receive_messages['msg'],
 							'readUnreadMessageTag' => $send_receive_messages['readUnreadMessageTag'],
-                            'Total_unread_message' => $unread_message['count(readUnreadMessageTag)']
+                            'Total_unread_message' => $unread_message['count(readUnreadMessageTag)'],
+							'LoggedInUserUnreadCount' => $LoggedInUserUnreadCount
 							
                         );
                         // Add user ID to the tracking array

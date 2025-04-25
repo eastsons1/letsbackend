@@ -38,8 +38,8 @@ function createJWT($header, $payload, $privateKey) {
 // Function to get the access token from Google OAuth 2.0 server
 function getAccessToken() {
     // Service account details
-    $serviceAccountEmail = 'firebase-adminsdk-owdis@tutorapp-7522f.iam.gserviceaccount.com'; // Replace with your service account email
-    $privateKey = "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCf8zAuesHZz7+h\n/Rz0DLbo6ScR4InXnhuz3R2pflzROAH2SNukxShYj+T6rLdL5TBPzOsTa0Gyfu3c\natsx9fbs/ZBEEBvq0FT4cAPJkA1HTYKRn2NhDaxslj4y+/6LWG7WnrODPZpnesqi\nyfaNM7BYp4xVLz1bjykMPZIa26DbuhzO2hb/BMqiYSkqTxX8ZJvPKXZUQkjGPNnu\nnAQwRnhBtNT2cozz+QA0TKR4E4kXHuFYX+vBTjrqIXRdRtmYgF8HSewTqBF1gzbo\n0yPa2OJq4azspQggEhFTVjkxd6rwDe/MPSTm6A4rJqSwa+m6V256BCK/+rGEr2wf\n1g7853nlAgMBAAECggEACLrkQVUv6Wx+YCAJiYR8I0A+gqpHu74Ecw+5g7vC4yR0\nbvXRDzA3oIXSEKCGrJzIw0JC/l9XSZ/F6cbnSdXL8Wlxi1V5wJo4WQr8Ge9D2kVv\nv/T8Hpr5cz/MC0pXvVFJU2t8Dsi4+bbpAnOVgmV01ZHnheq7JZktu15M8CxWnkd3\nA8eMUuKjS0G/cLN4/jZ3TDgiY5yaWeuQ07aPwbgXUK3XPpn2Tt8W7Ycf6j69n/Ol\n3EdByZXu1h9YqvmCUmHjiaaCB7/xLmo3kKvIaNcy87KW92ck0dVnl48DzcqK8PBA\n3ci3hi2ew5q9lDlPeYfT2700aT1qcd1Y8vr26OJyDQKBgQC3tlvFGeVkk1m7GHR9\nC8JoCkFDoQtDCv/sVDAf1p96NBkuuaGyOsAaLtmtXFGZ38c49Ci2DXEmfiVTq0rY\nsBp/eKDhr0P3wbUkauRXhOOYlxsaQGjqHW1+/nlA07vCnUxi1XFJnnfBkApk8xRe\ns22XCAqmXiGMJxQADRUAm2Np1wKBgQDe4zTP0wTDLTpWNJIe3evhj0V6yZ3MFNj3\nGhJTjB5wAaUaEzhG8mB9fL/w7VWW2e0bHu3Y9hWWrBjXdTXPP0RQPSQEk6DLmIJI\nZBJcpP9k9YRlcS7cdJBJjJJMZroQ3jqWMZVxTDix2+pH+PdgdIjWsGCtO0kHpQwV\nhg6SlBbaowKBgCiveC90hrr5bxviVJoE6q8D5mRF3Cqi2v7Jvkauz27O7uzMK6U/\nIaAq1AZytZewWXyhhgqbe32c3kNjYhYPGi801dxlZlYOTkGccql3QrhebqAnt5Rx\no/hF/zB+M8zr7SjOQGKfd8IkVkj5FH/MmO6j10f0/NT/KozAWPBjeWbNAoGAH5aD\nvZBidGbMhbsdmlJJQ8ZSSnyYaHvr49lGD6EkDyusgm2G5EcldaNgcHyyTJbGC7nu\na3k0xg3N13s9DQoiXFzN5fgmKbSLgkbsc0TPDTfec6H+yi+a41GQylMku49DLlYI\nn+31ev93zIt0Q69AVWzZxrNIPlUdyU8ecZebRZECgYAn6PuHDKUVkDiXGtX5EFTO\n98SK+ly3p0kIHZEJX0iE1JrSTcbAV7OYDoWsEAVOQy4SIhOCZWmdp/PbxfXPZSer\nnrOoXCMPGdjBIHcwxE55K3fH5zDABmEa3EIvJh/Hiq3Vygk/jSS5WryPZxXPbX+E\n18f40jBc5OqI3EkG3VbwPw==\n-----END PRIVATE KEY-----\n";
+    $serviceAccountEmail = 'firebase-adminsdk-fbsvc@tutorapp-7522f.iam.gserviceaccount.com'; // Replace with your service account email
+    $privateKey = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCwZcOIvh9XPQD6\nqwqnA89sHaase9+3s18TR3C4CFwqN6cqTv1tsAWqEMEg0aYFm2i3/KMFAma6LgN1\n8hDt4ZNqeVSj/XzL60iWDIDHKAE2F65upKUNMxeLc5qaYk4i9nJP7FbL/0EEhak2\nrJcHx63LNb/974vb26zy7jfXiGEJrDgLZkOrZMpO25g+MHH5h97L1s+hYF77Eygh\nuourI/ls6rn50mWlPgDqe1YgpK3H7xDvavtilktttZalbgv1bABHwlzE9Uas1H5y\neXqfAPaJu2hN+8CxaG6KUUmLqRaWTFFf0EnB5MDI1yJnVlKE2mtSfNdKZZs0zxlu\nDFc26zc5AgMBAAECggEAK+YbeB2mk5GfO4LTCxb36SZk6yKF3cPyOoxKKUaNV0VT\n4QPY7pICit0SDx6VlGolcLpbAJ1lHtriKhlkrKq5guMwlQI5607B2PPCHa4fRQy2\nMJthZwxKxP3vYRHrc6iE8M52mFyNG/i+kJh5mqpPHlYhUmsp0XyVSTzPIWCzk5IB\nWB6Q0fFrRfuFOX3pwoFWkjbqs0nRNxNy9/oAxcZUnwQw8m6Iv48NLFajgE4tNx9+\n0Vz8hNJ5LPeAVTiBU6+XQ9dmvQQKIIAzrzR7ujLP8syBq39+1DpCTr2ZVnITmIpX\nhy1bNmK/8K/tnO5R0BdVu84wiYnDK20zFRzRFSTJzQKBgQD124cM+sioke7+Rg6n\nARWz/zzvuDcRfT8lQM+Dl9SVW/PP3DH/+KmhkbRa89r39PnfpAkJtq7uSRB0+xis\nCw4W62iDOTgZ37clamOe2kvh8iidHbG0LUSZOK34V4TV+SkttLqWeFW3Gdaa751k\nqjbIK9fZnPFbMC/cZdqooH8/bQKBgQC3rK1eGkzK03yaNFscdlDNyXtNyM+zhqGR\nLU3Dn8jzgv71mHP4aXJJ4E74lgISINi2fXnX3rxeRTEu8tso79GQu8zruinsZTuD\nSXsOccW0SmdyBdMfO/a+3pg5BOfLTpM+dBVaU2GVpaIv0JhOB5MtweNnt5DISfY0\n5ICtdEPbfQKBgQDwMlWzHKBF8K1pxtAx4SFvBYJnQbarY435u2QB0Khkc72z6hD/\nX9V6gHuQEIZxkek90WjzEIO/Uaq+X0Mvcm2FfuBQs+pXfPXVnCdP3z4btRZwyb3/\npepLN9Dfu8GPuym7+cIBl/dGN/wuysMewh1bW1o6xNYYnO9liC0kagln0QKBgBq3\nnnxKvRLf0ocnyH0KZNSaUzpMVJIbqlLQ0Tf8fSGW03lsFKp0xDAk1bfpMiHq7zsU\nY23YM3RPAkl/AAwjXkt8VeGQMdr2GsMNJD5EpGqGTCfU2xH3CfxXqrLYmNME+fwi\nrJx39oDrF/12jUEEbw8/3dFPbVsFDzBAcMtKVziNAoGAAYYoBfrGhZBoEBzXBM+V\nxaa2Aly0VvkF4AZQTMGdMzlAosh8BE9VnE+pna4I9qhyYrOjJgX285GXz8r5EXbZ\nbLWZmte9CC9ENrT3RcKZWmW3Bxv5VvpITWQcNrB3j9D2uc+cfscCvVvCBxkV/LmQ\nzI4R2gJYm7sNq5AlmKNSprA=\n-----END PRIVATE KEY-----\n";
 
     // JWT Header
     $header = array(
@@ -160,6 +160,9 @@ function sendPushNotification($accessToken, $deviceToken, $title, $body) {
 		date_default_timezone_set("Asia/Calcutta");  ///America/New_York
 		$time =  date("h:i:sa");
 		
+		$create_date = date("d-m-Y h:i:s");
+		
+		
 		if($logged_in_tutor_id != "" && $student_post_requirements_id != "" && $apply_tag != "")
 		{
 			
@@ -259,6 +262,19 @@ function sendPushNotification($accessToken, $deviceToken, $title, $body) {
 								
 										/// send notification	
 										sendPushNotification($accessToken, $to, $title, $body);	
+										
+										/// Add Notification
+										$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+										if(mysqli_num_rows($chk_noti)>0)
+										{
+											$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+										
+											$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+										}
+										else{
+											$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+										
+										}
 								
 										
 
@@ -266,6 +282,10 @@ function sendPushNotification($accessToken, $deviceToken, $title, $body) {
 						
 						
 						}
+						
+						
+						
+						
 						
 						$resultData = array('status' => true, 'message' => $msg, 'student_post_requirements_id' => $student_post_requirements_id );
 					}
@@ -285,12 +305,15 @@ function sendPushNotification($accessToken, $deviceToken, $title, $body) {
 						if($apply_tag == 'true')
 						{
 							
+							$update_interested = $conn->query("UPDATE student_post_requirements SET New_Interested = 1, update_date_time = '".$create_date."' WHERE student_post_requirements_id = '".$student_post_requirements_id."' ");	
+					
+							
 								$msg = 'You have applied successfully.';
 							
 						}
 						
 						
-						if($apply_tag=='false')
+						if($apply_tag == 'false')
 						{
 							
 							$msg = 'You have withdraw successfully.';
@@ -315,6 +338,20 @@ function sendPushNotification($accessToken, $deviceToken, $title, $body) {
 								
 										/// send notification	
 										sendPushNotification($accessToken, $to, $title, $body);	
+										
+										
+										/// Add Notification
+										$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+										if(mysqli_num_rows($chk_noti)>0)
+										{
+											$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+										
+											$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+										}
+										else{
+											$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+										
+										}
 								
 										
 
@@ -323,12 +360,17 @@ function sendPushNotification($accessToken, $deviceToken, $title, $body) {
 						
 						}
 						
-						$resultData = array('status' => true, 'message' => $msg);
+					
+						$resultData = array('status' => true, 'message' => $msg, 'student_post_requirements_id' => $student_post_requirements_id);
+					
 					}
 					else{
+						
 						$resultData = array('status' => false, 'message' => 'error!');
+					
 					}
 				}
+				
 				
 				
 				
@@ -337,20 +379,67 @@ function sendPushNotification($accessToken, $deviceToken, $title, $body) {
 				if($PostApply==1)
 				{
 					
-					
-						//echo $student_id['logged_in_user_id'];
+					$DircetApplywithoutAmount = $conn->query("SELECT * FROM student_post_requirement_amount_negotiate WHERE student_post_requirement_id = '".$_POST['student_post_requirements_id']."' and tutor_login_id = '".$_POST['logged_in_tutor_id']."'  ");
+					//echo mysqli_num_rows($DircetApplywithoutAmount);	
 						
-						//echo "SELECT tutor_code FROM user_tutor_info where user_id = '".$_POST['logged_in_tutor_id']."'  ";
 						
-					
-						//// if Non negotiable
+					//// if Non negotiable
 							
 							$nnsql = mysqli_fetch_array($conn->query("select tutor_tution_offer_amount_type, tutor_tution_offer_amount from student_post_requirements where student_post_requirements_id = '".$_POST['student_post_requirements_id']."' "));
+							
 							
 							if($nnsql['tutor_tution_offer_amount_type']=="Non Negotiable")
 							{
 								$Amount = $nnsql['tutor_tution_offer_amount'];
+								
+								/////
+								$user_main_device_token = $conn->query("select device_token from user_info_device_token where user_id = '".$student_id['logged_in_user_id']."' ");
+								
+								 while($user_device_token = mysqli_fetch_array($user_main_device_token))
+								 {
+										 $to = $user_device_token['device_token'];
+										 
+										 
+										$title = 'You have a New Applicant';
+										 
+										 $body = $tutorCode.' has accepted the fee of SGD'.$Amount.' per hour.';  
+										
+
+										 /// send notification	
+										$response = sendPushNotification($accessToken, $to, $title, $body);	
+
+
+										/// Add Notification
+										$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+										if(mysqli_num_rows($chk_noti)>0)
+										{
+											$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+										
+											$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+										}
+										else{
+											$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+										
+										}
+								
+										
+
+								}
+								/////
+								
+								
 							}
+							
+							
+						
+							
+						
+					/// if post apply First Time
+					if(mysqli_num_rows($DircetApplywithoutAmount)>0)
+					{
+						
+					
+						
 							
 							//// if Negotiable
 							
@@ -359,55 +448,135 @@ function sendPushNotification($accessToken, $deviceToken, $title, $body) {
 							if($nnsql2['amount_type']=="Negotiable")
 							{
 								 $Amount = $nnsql2['final_accepted_amount'];
-							}
 							
 							
 							
 							
-							$user_main_device_token = $conn->query("SELECT device_token FROM user_info WHERE user_id = '".$student_id['logged_in_user_id']."' ");
-				
-						if(mysqli_num_rows($user_main_device_token)>0)
-						{
 							
-							 $user_device_token = mysqli_fetch_array($user_main_device_token);
-							
-							$to =  $user_device_token['device_token']; 
-									 
-								 $title = 'You have a New Applicant';
-								 
-								 $body = $tutorCode.' has accepted the fee of SGD'.$Amount.' per hour.';  
-								
-
-								 /// send notification	
-								$response = sendPushNotification($accessToken, $to, $title, $body);	
-							
-						}
-						else{
-							
-							
-								$student_token = $conn->query("select device_token from user_info_device_token where user_id = '".$student_id['logged_in_user_id']."' ");
-						
-								 while($device_Token = mysqli_fetch_array($student_token))
-								 {
-									 
-									 
-									 $to = $device_Token['device_token'];
-									 
-									 $title = 'You have a New Applicant';
-									 
-									 $body = $tutorCode.' has accepted the fee of SGD'.$Amount.' per hour.';  
+									/////
+									$user_main_device_token = $conn->query("select device_token from user_info_device_token where user_id = '".$student_id['logged_in_user_id']."' ");
 									
+									 while($user_device_token = mysqli_fetch_array($user_main_device_token))
+									 {
+											 $to = $user_device_token['device_token'];
+											 
+											 
+											$title = 'You have a New Applicant';
+											 
+											 $body = $tutorCode.' has accepted the fee of SGD'.$Amount.' per hour.';  
+											
 
-									 /// send notification	
-									$response = sendPushNotification($accessToken, $to, $title, $body);	
-									 
-									// echo $response;
-									 
-								 }
-							
-						}
+											 /// send notification	
+											$response = sendPushNotification($accessToken, $to, $title, $body);		
+
+
+											/// Add Notification
+											$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+											if(mysqli_num_rows($chk_noti)>0)
+											{
+												$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+											
+												$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+											}
+											else{
+												$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+											
+											}
+									
+											
+
+									}
+									/////
+						
+						
+							}
+						
+						
+						
+					}	
+						
+						
 
 				}
+				
+				
+				
+				
+				////////////////  Dircet Apply without amount/////
+				
+				
+						$DircetApplywithoutAmount = $conn->query("SELECT * FROM student_post_requirement_amount_negotiate WHERE student_post_requirement_id = '".$_POST['student_post_requirements_id']."' and tutor_login_id = '".$_POST['logged_in_tutor_id']."'  ");
+							//echo mysqli_num_rows($DircetApplywithoutAmount);	
+								
+						/// if post apply First Time
+						if(mysqli_num_rows($DircetApplywithoutAmount)==0)
+						{
+							
+							
+								//echo $student_id['logged_in_user_id'];
+								
+								
+							
+								//// if Negotiable
+									
+									$nnsql = mysqli_fetch_array($conn->query("select tutor_tution_offer_amount_type, tutor_tution_offer_amount from student_post_requirements where student_post_requirements_id = '".$_POST['student_post_requirements_id']."' "));
+									
+									if($nnsql['tutor_tution_offer_amount_type']=="Negotiable")
+									{
+										
+										$Amount = $nnsql['tutor_tution_offer_amount'];
+										
+										/////
+										$user_main_device_token = $conn->query("select device_token from user_info_device_token where user_id = '".$student_id['logged_in_user_id']."' ");
+										
+										 while($user_device_token = mysqli_fetch_array($user_main_device_token))
+										 {
+												 $to = $user_device_token['device_token'];
+												 
+												 
+												$title = 'You have a New Applicant';
+												 
+												 $body = $tutorCode.' has accepted the fee of SGD'.$Amount.' per hour.';  
+												
+
+												 /// send notification	
+												$response = sendPushNotification($accessToken, $to, $title, $body);	
+
+												/// Add Notification
+												$chk_noti  = $conn->query("SELECT * FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+												if(mysqli_num_rows($chk_noti)>0)
+												{
+													$del_No  = $conn->query("DELETE FROM add_notifcations WHERE user_id_to_notification = '".$student_id['logged_in_user_id']."' and title = '".$title."' and message = '".$body."' and source = 'FROM API - student_post_requirements_Applied_by_tutor' ");
+												
+													$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+												}
+												else{
+													$addN  = $conn->query("INSERT INTO add_notifcations SET user_id_to_notification = '".$student_id['logged_in_user_id']."', title = '".$title."', message = '".$body."', source = 'FROM API - student_post_requirements_Applied_by_tutor', created_date = '".$create_date."' ");
+												
+												}
+										
+												
+
+										}
+										/////
+										
+									}
+									
+									
+									
+									
+									
+									
+								
+								
+								
+
+						}
+				
+				
+				///////////////
+				
+				
 				
 				
 				

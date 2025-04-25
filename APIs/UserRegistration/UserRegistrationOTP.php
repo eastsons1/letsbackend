@@ -51,9 +51,30 @@ header('content-type:application/json');
 			
 			if(mysqli_num_rows($check_otp_result)>0)
 			{
-			
-			
+				
+				
+				
+				
+				
 				$check_otp_expire = mysqli_fetch_array($check_otp_result);
+				
+				$otp_timestamp = $check_otp_expire['otp_timestamp'];  // Example timestamp from database or input
+				$current_time = time(); // Get the current Unix timestamp
+
+				// Convert otp_timestamp to Unix timestamp
+				$otp_unix_timestamp = strtotime($otp_timestamp);
+
+				// Check if the difference is less than or equal to 90 seconds
+				if($current_time - $otp_unix_timestamp <= 90) 
+				{
+					//echo "OTP is still valid.";
+				
+				
+				//////////
+				
+			
+			
+				
 			
 				$profile_imageV = $check_otp_expire['profile_image'];
 			
@@ -71,11 +92,23 @@ header('content-type:application/json');
 					
 					//////
 					// $user_temp_record = mysqli_fetch_array($check_otp_result);
+					
+					$created_date = date('d-m-Y');
 			  
-						 $sql = "insert into user_info set first_name ='".$check_otp_expire['first_name']."', last_name = '".$check_otp_expire['last_name']."', adminusername ='".$check_otp_expire['adminusername']."', email = '".$check_otp_expire['email']."', password ='".$check_otp_expire['password']."', mobile ='".$check_otp_expire['mobile']."', profile_image = '".$profile_imageV."', user_type ='".$_POST['user_type']."', Term_cond ='1', user_roll	= '0', device_token = '".$check_otp_expire['device_token']."',  device_type = 'Android' ,accessToken='',expiry_timestamp='',otp_timestamp='' ";
+						 $sql = "insert into user_info set first_name ='".$check_otp_expire['first_name']."', last_name = '".$check_otp_expire['last_name']."', adminusername ='".$check_otp_expire['adminusername']."', email = '".$check_otp_expire['email']."', password ='".$check_otp_expire['password']."', countryflag = '".$check_otp_expire['countryflag']."',  country_phone_code = '".$check_otp_expire['country_phone_code']."', mobile ='".$check_otp_expire['mobile']."', profile_image = '".$profile_imageV."', user_type ='".$_POST['user_type']."', Term_cond ='1', user_roll	= '0', device_token = '".$check_otp_expire['device_token']."',  device_type = 'Android' ,accessToken='',expiry_timestamp='',otp_timestamp='', created_date = '".$created_date."' ";
 					
 						if($res=$conn->query($sql))
 						{
+							
+							
+							$user_id_sql = mysqli_fetch_array($conn->query("select user_id,user_type from user_info order by user_id DESC limit 1"));
+							$user_last_id = $user_id_sql['user_id'];
+							$user_type = $user_id_sql['user_type'];
+							
+							
+						$ADD_user_info_device_token =  $conn->query("INSERT INTO user_info_device_token SET device_token = '".$check_otp_expire['device_token']."', device_type = 'Android', user_id = '".$user_last_id."'  ");
+
+							
 						
 							//$conn->insert_id;
 							//$last_id = mysqli_insert_id($res);
@@ -83,10 +116,6 @@ header('content-type:application/json');
 							$del_sql = $conn->query("delete from user_info_temp WHERE email = '".$_POST['email']."' ");
 						
 						
-							$user_id_sql = mysqli_fetch_array($conn->query("select user_id,user_type from user_info order by user_id DESC limit 1"));
-							$user_last_id = $user_id_sql['user_id'];
-							$user_type = $user_id_sql['user_type'];
-							
 							
 							///////////
 							
@@ -124,6 +153,8 @@ header('content-type:application/json');
 						
 						$nn = 0;
 						$sn = 0;
+					
+
 						while($avg_rating = mysqli_fetch_array($avg_rating_sql))
 						{
 							$sn = $sn+1;
@@ -161,6 +192,19 @@ header('content-type:application/json');
 					
 							
 				}
+				
+				
+				} 
+				else
+				{
+					
+					$resultData = array('status' => false, 'message' => 'OTP has Expired.');
+				}
+				
+				
+				
+				
+				
 				
 				
 			}

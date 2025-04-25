@@ -8,10 +8,7 @@ require_once("config.php");
 //require_once("dbcontroller.php");
 header('content-type:application/json');
 
-
-
-
-
+require '../../phpmailer-master/class.phpmailer.php';	
 
 
 function mime2ext($mime){
@@ -75,8 +72,12 @@ $logged_in_user_id = $_POST['logged_in_user_id'];
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $email = $_POST['email'];
+$countryflag = strtolower($_POST['countryflag']);
+$country_phone_code = $_POST['country_phone_code'];
 $mobile = $_POST['mobile'];
 $address1 = $_POST['address1'];
+$OTP_EMAIL = $_POST['OTP_EMAIL'];
+
 if(trim($_POST['password']) !="")
 {
 	$password = md5($_POST['password']);
@@ -85,11 +86,12 @@ else{
 	$password = "";
 	
 }
+
 $profile_image = $_POST['profile_image'];
 
 
 
-if($logged_in_user_id != "")
+if($logged_in_user_id != "" && $OTP_EMAIL == "")
 {
 
 	$sql = $conn->query("SELECT * FROM user_info WHERE user_id = '".$logged_in_user_id."' ");
@@ -98,129 +100,204 @@ if($logged_in_user_id != "")
 	{
 		
 		
-		if($profile_image !="" )
-		{
-			
-					
-					// Define the Base64 value you need to save as an image
-												
-					$b64 = $profile_image;
-
-					// Obtain the original content (usually binary data)
-					$bin = base64_decode($b64);
-
-					// Gather information about the image using the GD library
-					$size = getImageSizeFromString($bin);
-
-					// Check the MIME type to be sure that the binary data is an image
-					if (empty($size['mime']) || strpos($size['mime'], 'image/') !== 0) {
-					  die('Base64 value is not a valid image');
-					}
-
-					// Mime types are represented as image/gif, image/png, image/jpeg, and so on
-					// Therefore, to extract the image extension, we subtract everything after the “image/” prefix
-					$ext = substr($size['mime'], 6);
-
-					// Make sure that you save only the desired file extensions
-					if(!in_array($ext, ['png', 'gif', 'jpeg'])) {
-					  die('Unsupported image type');
-					}
-
-					// Specify the location where you want to save the image
-					$img_file = "../../UPLOAD_file/profile_image".time().".{$ext}";
-
-					// Save binary data as raw data (that is, it will not remove metadata or invalid contents)
-					// In this case, the PHP backdoor will be stored on the server
-					file_put_contents($img_file, $bin);
-												
-					$img_name =  "profile_image".time().".{$ext}";
-
-
-				$profile_image_name = $img_name;
-			
-			//$arrayV2[] = "('".$img_name."')";
-		}
-		else{
-			$profile_image_name = "";
-		}
+		
+		$OrgUsr = mysqli_fetch_array($sql);
 		
 		
-		//echo '=='.$password.'==';
+		$full_name = ucfirst($OrgUsr['first_name'])." ".ucfirst($OrgUsr['last_name']);
 		
-		if($password !="")
-		{
-			if($profile_image_name != "")
-			{
-				
-				$update = $conn->query("UPDATE user_info SET first_name = '".$first_name."' , last_name = '".$last_name."', email = '".$email."', mobile = '".$mobile."', password = '".$password."', address1 = '".$address1."', profile_image = '".$profile_image_name."' WHERE user_id = '".$logged_in_user_id."' ");
-				
-			}
-			else{
-				$update = $conn->query("UPDATE user_info SET first_name = '".$first_name."' , last_name = '".$last_name."', email = '".$email."', mobile = '".$mobile."', password = '".$password."', address1 = '".$address1."' WHERE user_id = '".$logged_in_user_id."' ");
-			}
-			
-		}
-		else{
-			
-			if($profile_image_name != "")
-			{
-				$update = $conn->query("UPDATE user_info SET first_name = '".$first_name."' , last_name = '".$last_name."', email = '".$email."', mobile = '".$mobile."', address1 = '".$address1."', profile_image = '".$profile_image_name."' WHERE user_id = '".$logged_in_user_id."' ");
-			}
-			else{
-				$update = $conn->query("UPDATE user_info SET first_name = '".$first_name."' , last_name = '".$last_name."', email = '".$email."', mobile = '".$mobile."', address1 = '".$address1."' WHERE user_id = '".$logged_in_user_id."' ");
-			}
-			
-			
-		}
+		//if($OrgUsr['email'] == $email && $OrgUsr['mobile'] == $mobile)
+		//{
 		
+			$stmt = $conn->prepare("SELECT email, mobile, country_phone_code FROM user_info WHERE user_id <> ?");
+			$stmt->bind_param("i", $logged_in_user_id); // Assuming user_id is an integer
+			$stmt->execute();
+			$result = $stmt->get_result();
+
+			// Initialize flags for email and mobile existence
+			$emailExists = false;
+			$mobileExists = false;
+
+			while ($UData = $result->fetch_assoc()) {
+				// Check if the email exists
+				if ($UData['email'] === $email) {
+					$emailExists = true;
+				}
+
+				// Check if the mobile number with country code exists
+				if (
+					$UData['mobile'] === $mobile &&
+					$UData['country_phone_code'] === $country_phone_code
+				) {
+					$mobileExists = true;
+				}
+
+				// If both email and mobile exist, break the loop early
+				if ($emailExists && $mobileExists) {
+					break;
+				}
+			}
+
+			// Respond based on whether the email or mobile exists or not
+			if ($emailExists && $mobileExists) {
+				$resultData = array('status' => false, 'message' => 'Email id and Mobile number already exist.');
+			} elseif ($emailExists) {
+				$resultData = array('status' => false, 'message' => 'Email id already exists.');
+			} elseif ($mobileExists) {
+				$resultData = array('status' => false, 'message' => 'Mobile number already exists.');
+			} else {
+					// Both email and mobile are available
+					//$resultData = array('status' => true, 'message' => 'Email id and Mobile number are available.');
+						
+			
+			
 		
 		
 		$del = $conn->query("delete from user_info_temp where USERID = '".$logged_in_user_id."' ");
 		
 		
-	  if($update)
+	  if($del)
 	  {
 		  
-		  $otp = rand(1000,10000);
+		  //$otp = rand(1000,10000);
 		  
 		  
-			
-		  $FromName="TutorApp";
-			$FromEmail="no_reply@eastsons.com";
-			$ReplyTo = "pushpendra@eastsons.com".",".$email;
-			
-			$headers  = "MIME-Version: 1.0\n";
-			$headers .= "Content-type: text/html; charset=iso-8859-1\n";
-			$headers .= "From: ".$FromName." <".$FromEmail.">\n";
-			//$headers .= "Reply-To: ".$ReplyTo."\n";
-			$headers .= "X-Sender: <".$FromEmail.">\n";
-			$headers .= "X-Mailer: PHP\n"; 
-			$headers .= "X-Priority: 1\n"; 
-			$headers .= "Return-Path: <".$FromEmail.">\n"; 
-			$subject = "Edit User OPT"; 
-			$msg = "New Email update OTP: ".$otp; 
-			if(@mail($ReplyTo, $subject, $msg, $headers,'-f'.$FromEmail) )
-			{
-				
+		  ///Generate 4 digit otp number start function 
+			function generateKey($keyLength) {
+			// Set a blank variable to store the key in
+			$key = "";
+			for ($x = 1; $x <= $keyLength; $x++) {
+			// Set each digit
+			$key .= random_int(0, 9);
+			}
+				return $key;
 			}
 		  
 		  
+			$otp = generateKey(4);
 		  
-		  $currentTimestamp = time();
+		  
+			
+			
+			/////////////////////
 							
-		$add_otp_in_user_temp = $conn->query("insert into user_info_temp set USERID = '".$logged_in_user_id."', email = '".$email."', OTP = '".$otp."', otp_timestamp = '".$currentTimestamp."' ");
-						
-		 // $add_otp_in_user_temp = $conn->query("INSERT INTO user_info_temp SET OTP = '".$otp."' , OTP_Validate ='0' , email = '".$email."'");
-		  
-		  
-		  
-		  
-			$resultData = array('status' => true, 'message' => 'Record updated successfully.' );
+							$mail = new PHPMailer(true); //New instance, with exceptions enabled
+
+									
+									
+									try {
+									  
+									  $body = '
+									<table border="0" style="font-size: 15px; font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+										<tr>
+											<td colspan="2" >Hi ' . $full_name . ',</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0;">
+												Here is the OTP you have been waiting for:
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0; text-align: center; font-size: 24px; font-weight: bold; color: #2f5497;">
+												' . implode(' ', str_split($otp)) . '
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0; font-size: 12px; color:#777777;">
+												This OTP is only valid for 90 seconds. Use it promptly.
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0;">
+												If you face any issue, you can contact us via Help & Support.
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding: 10px 0; font-size: 14px; color: #666;">
+												Thanks & Regards,<br>
+												<strong>MyTutors </strong>
+											</td>
+										</tr>
+									</table>';
+									
+
+									// Configure PHPMailer to use SMTP
+									$mail->IsSMTP();
+									$mail->SMTPAuth = true;
+									$mail->SMTPSecure = 'ssl';
+									$mail->Port = 465;  // SMTP server port
+									$mail->Host = 'eastsons.mytutors.moe';  // SMTP server
+									$mail->Username = 'info@mytutors.moe';  // SMTP username
+									$mail->Password = 'PVzn08KRAzDhV';      // SMTP password
+
+									// From address and name
+									$mail->From = 'noreply@mytutors.moe';
+									$mail->FromName = 'MyTutors.Moe';
+
+									// Recipient address
+									 $to	=	$email;	
+									$mail->AddAddress($to);
+
+									// Email subject
+									$mail->Subject = 'OTP authentication code';
+
+									// Optional: Plain text version for non-HTML email clients
+									$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+									
+									// Word wrap setting
+									$mail->WordWrap = 80;
+
+									// HTML body content
+									$mail->MsgHTML($body);
+
+									// Set the mail format to HTML
+									$mail->IsHTML(true);
+
+									// Send email
+									$mail->Send();
+									
+									//echo 'Success';
+									
+								
+								$currentTimestamp = date('Y-m-d H:i:s'); //time();
+
+								$add_otp_in_user_temp = $conn->query("insert into user_info_temp set USERID = '".$logged_in_user_id."', email = '".$email."', OTP = '".$otp."', otp_timestamp = '".$currentTimestamp."' ");
+
+
+								$resultData = array('status' => true, 'message' => 'OTP sent in your email id.' );
+
+
+
+								
+
+								} catch (Exception $e) {
+									echo 'Mailer Error: ' . $mail->ErrorInfo; // Provide error message in case of failure
+								}
+									
+									////////////////////
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 	  }
 	  else{
 	  
-		$resultData = array('status' => false, 'message' => 'No record found.');
+		//$resultData = array('status' => false, 'message' => 'No record found.');
 	  }
+	  
+	  
+	  
+		}
+		
+		 
+	  
 	  
 	  
 	}
@@ -232,8 +309,172 @@ if($logged_in_user_id != "")
 }
 else
 {
-	$resultData = array('status' => false, 'message' => 'User id can not blank.');
-}
+	//$resultData = array('status' => false, 'message' => 'User id can not blank.');
+
+
+
+
+	////// Check verify OTP and update record///////
+	if($OTP_EMAIL != "" )
+	{
+
+		
+			
+				if(!empty($_POST['email']) && !empty($_POST['OTP_EMAIL'])) 
+				{
+					date_default_timezone_set('Your/Timezone'); // Set the timezone
+					$email = $conn->real_escape_string($_POST['email']);
+					$otp = $conn->real_escape_string($_POST['OTP_EMAIL']);
+					
+					$check_otp = "SELECT * FROM user_info_temp WHERE OTP = '".$_POST['OTP_EMAIL']."' AND OTP_Validate = '0' AND email = '$email'";
+					$check_otp_result = $conn->query($check_otp);
+
+					if (mysqli_num_rows($check_otp_result) > 0) {
+						$check_otp_expire = mysqli_fetch_array($check_otp_result);
+						
+					  
+							$otp_unix_timestamp = strtotime($check_otp_expire['otp_timestamp']);
+							$current_time = time(); //time();
+							
+							//echo  $otp_unix_timestamp.'===';
+							
+							 //echo ($current_time - $otp_unix_timestamp);
+							
+							
+							if(($current_time - $otp_unix_timestamp) > 0 && ($current_time - $otp_unix_timestamp) <= 90) 
+							{
+								
+								
+								
+								//$resultData = array('status' => true, 'message' => 'OTP Verified Successfully.');
+								
+								if($profile_image !="" )
+								{
+									
+											
+											// Define the Base64 value you need to save as an image
+																		
+											$b64 = $profile_image;
+
+											// Obtain the original content (usually binary data)
+											$bin = base64_decode($b64);
+
+											// Gather information about the image using the GD library
+											$size = getImageSizeFromString($bin);
+
+											// Check the MIME type to be sure that the binary data is an image
+											if (empty($size['mime']) || strpos($size['mime'], 'image/') !== 0) {
+											  die('Base64 value is not a valid image');
+											}
+
+											// Mime types are represented as image/gif, image/png, image/jpeg, and so on
+											// Therefore, to extract the image extension, we subtract everything after the “image/” prefix
+											$ext = substr($size['mime'], 6);
+
+											// Make sure that you save only the desired file extensions
+											if(!in_array($ext, ['png', 'gif', 'jpeg'])) {
+											  die('Unsupported image type');
+											}
+
+											// Specify the location where you want to save the image
+											$img_file = "../../UPLOAD_file/profile_image".time().".{$ext}";
+
+											// Save binary data as raw data (that is, it will not remove metadata or invalid contents)
+											// In this case, the PHP backdoor will be stored on the server
+											file_put_contents($img_file, $bin);
+																		
+											$img_name =  "profile_image".time().".{$ext}";
+
+
+										$profile_image_name = $img_name;
+									
+									//$arrayV2[] = "('".$img_name."')";
+								}
+								else{
+									$profile_image_name = "";
+								}
+								
+								
+								//echo '=='.$password.'==';
+								
+								if($password !="")
+								{
+									if($profile_image_name != "")
+									{
+										
+										$update = $conn->query("UPDATE user_info SET adminusername = '".$email."', first_name = '".$first_name."' , last_name = '".$last_name."', email = '".$email."', countryflag = '".$countryflag."', country_phone_code = '".$country_phone_code."', mobile = '".$mobile."', password = '".$password."', address1 = '".$address1."', profile_image = '".$profile_image_name."' WHERE user_id = '".$logged_in_user_id."' ");
+										
+									}
+									else{
+										$update = $conn->query("UPDATE user_info SET adminusername = '".$email."', first_name = '".$first_name."' , last_name = '".$last_name."', email = '".$email."', countryflag = '".$countryflag."', country_phone_code = '".$country_phone_code."', mobile = '".$mobile."', password = '".$password."', address1 = '".$address1."' WHERE user_id = '".$logged_in_user_id."' ");
+									}
+									
+								}
+								else{
+									
+									if($profile_image_name != "")
+									{
+										$update = $conn->query("UPDATE user_info SET adminusername = '".$email."', first_name = '".$first_name."' , last_name = '".$last_name."', email = '".$email."', countryflag = '".$countryflag."', country_phone_code = '".$country_phone_code."', mobile = '".$mobile."', address1 = '".$address1."', profile_image = '".$profile_image_name."' WHERE user_id = '".$logged_in_user_id."' ");
+										
+										$updateProfile = $conn->query("UPDATE user_tutor_info SET profile_image = '".$profile_image_name."' WHERE user_id = '".$logged_in_user_id."' ");
+										
+									}
+									else{
+										
+										$update = $conn->query("UPDATE user_info SET adminusername = '".$email."', first_name = '".$first_name."' , last_name = '".$last_name."', email = '".$email."', countryflag = '".$countryflag."', country_phone_code = '".$country_phone_code."', mobile = '".$mobile."', address1 = '".$address1."' WHERE user_id = '".$logged_in_user_id."' ");
+									
+									}
+									
+									
+								}
+								
+								
+								
+								  if($update)
+								  {
+									$resultData = array('status' => true, 'message' => 'Record updated successfully.' );
+								  }
+								  else{
+								  
+									$resultData = array('status' => false, 'message' => 'No record found.');
+								  }
+								
+								
+								
+							
+							
+							
+							} else if (($current_time - $otp_unix_timestamp) <= 0) {
+								$resultData = array('status' => false, 'message' => 'OTP has Expired.');
+							} else {
+								$resultData = array('status' => false, 'message' => 'OTP has Expired.');
+							}
+						
+					} else {
+						$resultData = array('status' => false, 'message' => 'OTP is Incorrect.');
+					}
+				} else {
+					$resultData = array('status' => false, 'message' => 'Email and OTP cannot be blank.');
+				}
+			
+			
+			
+		
+	
+	
+	}
+	else
+	{
+		$resultData = array('status' => false, 'message' => 'OTP can not blank.');
+	}
+
+
+		///////////
+		
+}		
+		
+		
+
 
  echo json_encode($resultData);
 

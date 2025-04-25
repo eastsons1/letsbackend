@@ -10,15 +10,15 @@ header('content-type:application/json');
 
 
 $servername = "localhost";
-$username = "u337467332_tutorapp_ver2";
-$password = "u2%Tu*&35app";
-$dbname = "u337467332_tutorapp_ver2";
+$username = "mytutors_tutorapp_ver3";
+$password = "^%&^*&TYY6567*(&uyur$7";
+$dbname = "mytutors_tutorapp_ver3";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
-} 
+}  
 
 
 function mime2ext($mime){
@@ -109,6 +109,9 @@ function mime2ext($mime){
 			$booked_date = $array['booked_date'];
 			
 			
+			$create_date = date("d-m-Y h:i:s");
+			
+			
 			$chk_booking = $conn->query("select * from tutor_booking_process where student_id = '".$student_id."' and tutor_id = '".$tutor_id."' ");
 			
 			if(mysqli_num_rows($chk_booking)==0)
@@ -118,7 +121,7 @@ function mime2ext($mime){
 			{
 			
 			
-			$arrayV[] = "('".$array["student_id"]."','".$array["student_level"]."','".$array["student_grade"]."','".$array["student_tution_type"]."','".$array["tutor_id"]."','".$array["tutor_duration_weeks"]."','".$array["tutor_duration_hours"]."','".$array["tutor_tution_fees"]."','".$array["tutor_tution_schedule_time"]."','".$array["tutor_tution_offer_amount_type"]."','".$array["tutor_tution_offer_amount"]."','".$array["booked_date"]."')";				
+			$arrayV[] = "('".$array["student_id"]."','".$array["student_level"]."','".$array["student_grade"]."','".$array["student_tution_type"]."','".$array["tutor_id"]."','".$array["tutor_duration_weeks"]."','".$array["tutor_duration_hours"]."','".$array["tutor_tution_fees"]."','".$array["tutor_tution_schedule_time"]."','".$array["tutor_tution_offer_amount_type"]."','".$array["tutor_tution_offer_amount"]."','".$array["booked_date"]."','".$create_date."')";				
 			
 			$student_idV = $array["student_id"];
 			$tutor_idV = $array["tutor_id"];
@@ -158,12 +161,12 @@ function mime2ext($mime){
 				
 				$tqsg = $conn->query("delete from tutor_booking_process where tutor_booking_process_id = '".$GET_Book_ID['tutor_booking_process_id']."' ");
 				
-				$query = "INSERT INTO `tutor_booking_process` (student_id,student_level,student_grade,student_tution_type,tutor_id,tutor_duration_weeks,tutor_duration_hours,tutor_tution_fees,tutor_tution_schedule_time,tutor_tution_offer_amount_type,tutor_tution_offer_amount,booked_date) VALUES " . implode(', ', $arrayV);  
+				$query = "INSERT INTO `tutor_booking_process` (student_id,student_level,student_grade,student_tution_type,tutor_id,tutor_duration_weeks,tutor_duration_hours,tutor_tution_fees,tutor_tution_schedule_time,tutor_tution_offer_amount_type,tutor_tution_offer_amount,booked_date,update_date_time) VALUES " . implode(', ', $arrayV);  
 			}
 			else			
 			{	
 			
-				$query = "INSERT INTO `tutor_booking_process` (student_id,student_level,student_grade,student_tution_type,tutor_id, tutor_duration_weeks,tutor_duration_hours,tutor_tution_fees,tutor_tution_schedule_time,tutor_tution_offer_amount_type,tutor_tution_offer_amount,booked_date) VALUES " . implode(', ', $arrayV);  
+				$query = "INSERT INTO `tutor_booking_process` (student_id,student_level,student_grade,student_tution_type,tutor_id, tutor_duration_weeks,tutor_duration_hours,tutor_tution_fees,tutor_tution_schedule_time,tutor_tution_offer_amount_type,tutor_tution_offer_amount,booked_date,update_date_time) VALUES " . implode(', ', $arrayV);  
 			}
 			
 			

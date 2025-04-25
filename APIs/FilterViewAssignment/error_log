@@ -1,0 +1,5 @@
+[18-Feb-2025 11:51:39 UTC] PHP Warning:  require_once(../config.php): Failed to open stream: No such file or directory in /home/mytutors/public_html/version3/APIs/FilterViewAssignment/FilterViewAssignment.php on line 5
+[18-Feb-2025 11:51:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '../config.php' (include_path='.:/opt/remi/php81/root/usr/share/pear:/opt/remi/php81/root/usr/share/php:/usr/share/pear:/usr/share/php') in /home/mytutors/public_html/version3/APIs/FilterViewAssignment/FilterViewAssignment.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/mytutors/public_html/version3/APIs/FilterViewAssignment/FilterViewAssignment.php on line 5

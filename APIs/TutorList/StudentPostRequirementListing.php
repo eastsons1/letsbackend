@@ -13,9 +13,23 @@ header('content-type:application/json');
 		if($_GET['student_id'] !="")
 		{
 			
+			$chk = $conn->query("SELECT * FROM student_post_requirements where New_Interested = 1  ");
+			if(mysqli_num_rows($chk)>0)
+			{
+				$query = "SELECT * FROM student_post_requirements where logged_in_user_id = '".$_GET['student_id']."' ORDER BY New_Interested DESC  ";
+			
+			}
+			else{
+				$query = "SELECT * FROM student_post_requirements where logged_in_user_id = '".$_GET['student_id']."' ORDER BY STR_TO_DATE(update_date_time, '%d-%m-%Y %H:%i:%s') DESC  ";
+			
+			}
+			
+			
+			//echo $query;
 	
-			$query = "SELECT * FROM student_post_requirements where logged_in_user_id = '".$_GET['student_id']."' order by update_date_time desc  ";
-					
+			//$query = "SELECT * FROM student_post_requirements where logged_in_user_id = '".$_GET['student_id']."' order by update_date_time desc  ";
+			//$query = "SELECT * FROM student_post_requirements where logged_in_user_id = '".$_GET['student_id']."' order by New_Interested desc  ";
+						
 				
 			$result = $conn->query($query) or die ("table not found");
 			$numrows = mysqli_num_rows($result);
@@ -180,7 +194,7 @@ header('content-type:application/json');
 								
 				//$tutor_profile = mysqli_fetch_assoc($conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id  WHERE appT.student_post_requirements_id  = '".$tutor_result['student_post_requirements_id']."' "));	
 				
-				$tutor_data = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.student_post_requirements_id  = '".$tutor_result['student_post_requirements_id']."' and appT.apply_tag = 'true' ");
+				$tutor_data = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.student_post_requirements_id  = '".$tutor_result['student_post_requirements_id']."' and appT.apply_tag = 'true' and appT.booking_status <> 'booked' ");
 				
 				 $Total_no_of_Tutor_Applied = mysqli_num_rows($tutor_data);
 				
@@ -215,7 +229,7 @@ header('content-type:application/json');
 									
 						///////////////
 						
-								$Interested_Tutor = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor WHERE student_post_requirements_id = '".$tutor_profile['student_post_requirements_id']."' and apply_tag = 'true' ");
+								$Interested_Tutor = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor WHERE student_post_requirements_id = '".$tutor_profile['student_post_requirements_id']."' and apply_tag = 'true' and booking_status <> 'booked' ");
 								
 								 $Interested_Tutor_No = mysqli_num_rows($Interested_Tutor);
 								
@@ -247,7 +261,7 @@ header('content-type:application/json');
 										//echo $tutor_login_idV['tutor_login_id'];
 										//echo $tutor_profile['student_post_requirements_id'];
 										
-										$ssql = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.tutor_login_id = '".$RestOfInterested_TutorID['tutor_login_id']."' ");
+										$ssql = $conn->query("SELECT * FROM student_post_requirements_Applied_by_tutor appT INNER JOIN user_tutor_info tutor ON appT.tutor_login_id = tutor.user_id INNER JOIN user_info info ON tutor.user_id=info.user_id  WHERE appT.tutor_login_id = '".$RestOfInterested_TutorID['tutor_login_id']."' and appT.booking_status <> 'booked' ");
 										
 									$interested_Tutor_arra = array();
 										
@@ -301,6 +315,9 @@ header('content-type:application/json');
 									$favoutite_type = mysqli_fetch_array($conn->query("select favourite from student_post_requirements_Favourite_Assigned where student_post_requirements_id = '".$Interested_Tutor_detail_Data['student_post_requirements_id']."' and tutor_login_id = '".$Interested_Tutor_detail_Data['tutor_login_id']."'  "));
 							
 										
+										if($Interested_Tutor_detail_Data['post_apply_id'] != null && $Interested_Tutor_detail_Data['post_apply_id'] != "")
+										{	
+									
 										$interested_Tutor_arra = array(
 										
 															'post_apply_id' => $Interested_Tutor_detail_Data['post_apply_id'],
@@ -357,6 +374,8 @@ header('content-type:application/json');
 															'tutoring_detail_arr' => $TD
 												
 														);
+														
+										}		
 									
 										
 											}				
@@ -539,9 +558,25 @@ header('content-type:application/json');
 					
 					
 					
+					
+					$chkINT = mysqli_fetch_array($conn->query("SELECT New_Interested FROM student_post_requirements WHERE student_post_requirements_id = '".$tutor_result['student_post_requirements_id']."' "));
+							
+							//echo $chkINT['New_Interested'];
+							
+					if($chkINT['New_Interested'] == 1)
+					{
+						$New_Interested = 'New Interested';
+					}
+					else{
+						$New_Interested = '';
+					}	
+		
+					
+					
 					$Response[] = array(
 										'student_post_requirements_id' => $tutor_result['student_post_requirements_id'],
 										'applicant' => $InterestedTutorNo,
+										'New_Interested' => $New_Interested,
 										'student_id' => $tutor_result['logged_in_user_id'],
 										'No_of_Students' => $tutor_result['No_of_Students'],
 										'student_level' => $student_Level,

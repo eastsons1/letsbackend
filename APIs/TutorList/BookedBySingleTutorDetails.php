@@ -165,6 +165,9 @@ header('content-type:application/json');
 										'email' => $Tutor_Main_Details['email'],
 										'mobile' => $Tutor_Main_Details['mobile'],
 										'user_type' => $Tutor_Main_Details['user_type'],
+										'promocode' => $tutor_result['promocode'],
+										'negotiateby' => $tutor_result['negotiateby'],
+										'acceptby' => $tutor_result['acceptby'],
 										'student_level_grade_subjects' => $post_requirements_student_subjects,
 										'tutor_qualification' => $Tutor_Qualification,
 										'tutor_schedule_and_slot_times' => $Tutor_Schedule
